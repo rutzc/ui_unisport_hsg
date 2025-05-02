@@ -136,6 +136,10 @@
         </div>
     </main>
     <script>
+    // Login-Prüfung: Wenn nicht eingeloggt, weiterleiten
+    if (!localStorage.getItem('user')) {
+        window.location.href = 'login.html';
+    }
     // Profilbild-Upload und Anzeige
     function updateProfilePicAll(imgData) {
         // Dashboard

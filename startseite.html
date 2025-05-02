@@ -23,10 +23,16 @@
         }
         document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
         document.addEventListener('DOMContentLoaded', function() {
+            const user = window.header.getUser && window.header.getUser();
             const imgData = localStorage.getItem('profilePic');
-            if (imgData) {
-                const pic = document.getElementById('profilePic');
+            const pic = document.getElementById('profilePic');
+            const name = document.querySelector('h2.text-lg.font-semibold.text-hsg-gray');
+            if (user && imgData) {
                 if (pic) pic.src = imgData;
+                if (name) name.textContent = user.email || 'Profil';
+            } else {
+                if (pic) pic.src = 'https://placehold.co/100x100';
+                if (name) name.textContent = 'Gast';
             }
         });
     </script>
