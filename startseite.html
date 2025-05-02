@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+        document.addEventListener('DOMContentLoaded', function() {
+            const imgData = localStorage.getItem('profilePic');
+            if (imgData) {
+                const pic = document.getElementById('profilePic');
+                if (pic) pic.src = imgData;
+            }
+        });
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <main class="max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8 flex flex-col sm:flex-row items-center">
+            <a href="dashboard.html" class="flex flex-col sm:flex-row items-center w-full group relative">
+                <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-24 h-24 object-cover mb-4 sm:mb-0 sm:mr-6 border-2 border-hsg-green transition">
+                <div>
+                    <h2 class="text-lg font-semibold text-hsg-gray">Max Mustermann</h2>
+                    <p class="text-sm text-gray-500">Student (Bachelor)</p>
+                </div>
+            </a>
+        </div>
+        <section class="mb-8">
+            <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-4">Willkommen beim Unisport St.Gallen!</h1>
+            <p class="text-hsg-gray mb-2">Hier findest du aktuelle Informationen, News und den Zugang zu allen Sportangeboten der Universität St.Gallen.</p>
+            <ul class="list-disc list-inside text-gray-600">
+                <li>Neue Kurse für das Sommersemester jetzt buchbar!</li>
+                <li>Sporthalle 2 wegen Renovierung bis 15.07. geschlossen.</li>
+                <li>Jetzt für das Sommerfest anmelden!</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="text-lg font-semibold text-hsg-gray mb-4">Schnellzugriff</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <a href="heute-morgen.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
+                    <span class="text-2xl mb-2">📅</span>
+                    <span class="text-sm font-medium">Heute & Morgen</span>
+                </a>
+                <a href="alle-kurse.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
+                    <span class="text-2xl mb-2">🏋️‍♂️</span>
+                    <span class="text-sm font-medium">Alle Kurse</span>
+                </a>
+                <a href="faqs.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
+                    <span class="text-2xl mb-2">❓</span>
+                    <span class="text-sm font-medium">FAQs</span>
+                </a>
+                <a href="jobs.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
+                    <span class="text-2xl mb-2">💼</span>
+                    <span class="text-sm font-medium">Jobs</span>
+                </a>
+                <a href="kontakt.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
+                    <span class="text-2xl mb-2">✉️</span>
+                    <span class="text-sm font-medium">Kontakt</span>
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html> 

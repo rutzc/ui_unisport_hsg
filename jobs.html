@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <main class="max-w-2xl mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold text-hsg-gray mb-8">Jobs beim Unisport</h1>
+        <div id="jobs-accordion" class="space-y-4">
+            <div class="border rounded-lg">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none" onclick="toggleJob(0)">
+                    Übungsleiter*in Yoga
+                    <span class="ml-2">&#9660;</span>
+                </button>
+                <div class="px-4 pb-4 hidden text-gray-600" id="job-content-0">
+                    Wir suchen eine*n motivierte*n Übungsleiter*in für unsere Yoga-Kurse. Voraussetzungen: Erfahrung im Unterrichten, Zertifikat von Vorteil.
+                </div>
+            </div>
+            <div class="border rounded-lg">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none" onclick="toggleJob(1)">
+                    Trainer*in HIIT
+                    <span class="ml-2">&#9660;</span>
+                </button>
+                <div class="px-4 pb-4 hidden text-gray-600" id="job-content-1">
+                    Für unser HIIT-Angebot suchen wir sportbegeisterte Trainer*innen. Flexible Arbeitszeiten, faire Vergütung.
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function toggleJob(idx) {
+            const content = document.getElementById('job-content-' + idx);
+            content.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unisport | Universität St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+        .nav-shadow {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <!-- Main Dashboard -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <div class="max-w-lg mx-auto space-y-6">
+            <!-- Profile Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-center">
+                <div class="relative w-24 h-24 mx-auto mb-4 group">
+                    <img id="profilePic" src="https://placehold.co/200x200" alt="Profile Picture" class="rounded-full w-full h-full object-cover cursor-pointer border-2 border-hsg-green group-hover:opacity-80 transition">
+                    <input type="file" id="profilePicInput" accept="image/*" class="hidden">
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="hidden group-hover:block bg-hsg-green text-white text-xs px-2 py-1 rounded">Bild ändern</span>
+                    </div>
+                </div>
+                <h2 class="text-lg font-semibold text-hsg-gray">Max Mustermann</h2>
+                <p class="text-sm text-gray-500">Student (Bachelor)</p>
+            </div>
+
+            <!-- Meine Anmeldungen Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Meine Anmeldungen</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">Yoga Flow</h4>
+                            <p class="text-sm text-gray-500">Montag, 14:15 - 15:45</p>
+                        </div>
+                        <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Bestätigt</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">HIIT</h4>
+                            <p class="text-sm text-gray-500">Mittwoch, 17:30 - 18:30</p>
+                        </div>
+                        <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Warteliste</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favoriten Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Favoriten</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">Pilates</h4>
+                            <p class="text-sm text-gray-500">Dienstag, 12:15 - 13:15</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-400">
+                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">Bouldern</h4>
+                            <p class="text-sm text-gray-500">Donnerstag, 18:00 - 20:00</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-400">
+                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Letzte Plätze Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Letzte Plätze</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">Tennis</h4>
+                            <p class="text-sm text-gray-500">Noch 2 Plätze frei</p>
+                        </div>
+                        <button class="text-sm text-hsg-green hover:underline">Anmelden</button>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                            <h4 class="font-medium">Crossfit</h4>
+                            <p class="text-sm text-gray-500">Noch 1 Platz frei</p>
+                        </div>
+                        <button class="text-sm text-hsg-green hover:underline">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+                    <div class="text-2xl font-semibold text-hsg-gray mb-1">24</div>
+                    <div class="text-sm text-gray-500">Stunden</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+                    <div class="text-2xl font-semibold text-hsg-gray mb-1">12</div>
+                    <div class="text-sm text-gray-500">Kurse</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+                    <div class="text-2xl font-semibold text-hsg-gray mb-1">5</div>
+                    <div class="text-sm text-gray-500">Sportarten</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+    // Profilbild-Upload und Anzeige
+    function updateProfilePicAll(imgData) {
+        // Dashboard
+        const pic = document.getElementById('profilePic');
+        if (pic) pic.src = imgData;
+        // Header (wenn vorhanden)
+        const headerPic = document.getElementById('header-profile-pic');
+        if (headerPic) headerPic.src = imgData;
+        // Startseite
+        const startPic = document.getElementById('profilePicStart');
+        if (startPic) startPic.src = imgData;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Bild aus localStorage laden
+        const imgData = localStorage.getItem('profilePic');
+        if (imgData) updateProfilePicAll(imgData);
+        // Klick auf Bild öffnet Datei-Dialog
+        const pic = document.getElementById('profilePic');
+        const input = document.getElementById('profilePicInput');
+        if (pic && input) {
+            pic.addEventListener('click', function(e) {
+                e.preventDefault();
+                input.click();
+            });
+            input.addEventListener('change', function() {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        localStorage.setItem('profilePic', e.target.result);
+                        updateProfilePicAll(e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

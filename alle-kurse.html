@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alle Kurse | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <!-- Bookings Section -->
+    <section id="bookingsSection" class="max-w-2xl mx-auto mt-8 mb-8 hidden">
+        <h2 class="text-xl font-semibold text-hsg-gray mb-4">Meine Anmeldungen</h2>
+        <div id="bookingsList" class="space-y-4"></div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-lg font-semibold text-hsg-gray mb-2" id="modalTitle"></h3>
+                <div id="modalContent" class="space-y-4">
+                    <!-- Initial Booking View -->
+                    <div id="bookingView">
+                        <p class="text-sm text-gray-600 mb-4">Möchtest du diesen Kurs verbindlich buchen?</p>
+                        <div class="text-sm text-gray-600 space-y-2 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span id="modalTime"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span id="modalLocation"></span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button id="confirmBooking" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
+                                Bestätigen
+                            </button>
+                            <button onclick="closeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">
+                                Abbrechen
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Loading View -->
+                    <div id="loadingView" class="hidden text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-hsg-green border-t-transparent"></div>
+                        <p class="mt-4 text-sm text-gray-600">Buchung wird verarbeitet...</p>
+                    </div>
+                    <!-- Success View -->
+                    <div id="successView" class="hidden text-center py-8">
+                        <div class="mb-4">
+                            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-semibold text-hsg-gray mb-2">Erfolgreich gebucht!</h4>
+                        <p class="text-sm text-gray-600 mb-4">Der Kurs wurde zu deinen Anmeldungen hinzugefügt.</p>
+                        <button onclick="closeModal()" class="bg-hsg-green text-white px-6 py-2 rounded font-medium hover:bg-green-700 transition">
+                            Schließen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Page Title -->
+        <h1 class="text-2xl font-semibold text-hsg-gray mb-8">Alle Kurse</h1>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <div class="relative">
+                <input type="search" 
+                       class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent" 
+                       placeholder="Suche nach Kursen...">
+                <svg class="absolute left-3 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                <option value="">Sportart</option>
+                <option value="fitness">Fitness</option>
+                <option value="yoga">Yoga</option>
+                <option value="ball">Ballsport</option>
+                <option value="dance">Tanz</option>
+            </select>
+            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                <option value="">Ort</option>
+                <option value="halle1">Sporthalle 1</option>
+                <option value="halle2">Sporthalle 2</option>
+                <option value="outdoor">OutdoorGym</option>
+                <option value="studio">Studio</option>
+            </select>
+            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                <option value="">Kosten</option>
+                <option value="free">Kostenlos</option>
+                <option value="paid">Kostenpflichtig</option>
+            </select>
+            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                <option value="">Tag</option>
+                <option value="mo">Montag</option>
+                <option value="di">Dienstag</option>
+                <option value="mi">Mittwoch</option>
+                <option value="do">Donnerstag</option>
+                <option value="fr">Freitag</option>
+            </select>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Course Card 1 -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <img src="img/placeholder-yoga.jpg" alt="Yoga" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-hsg-gray">Yoga Flow</h3>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">12 Plätze frei</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Montag, 14:15 - 15:45
+                    </div>
+                    <button onclick="openBookingModal('Yoga Flow', 'Montag, 14:15 - 15:45', 'Halle 1')" 
+                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
+                        Buchen
+                    </button>
+                </div>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <img src="img/placeholder-hiit.jpg" alt="HIIT" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-hsg-gray">HIIT Workout</h3>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">3 Plätze frei</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Intensives Intervalltraining für maximale Resultate in kurzer Zeit.</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Dienstag, 17:30 - 18:30
+                    </div>
+                    <button onclick="openBookingModal('HIIT Workout', 'Dienstag, 17:30 - 18:30', 'Halle 2')" 
+                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
+                        Buchen
+                    </button>
+                </div>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <img src="img/placeholder-bouldern.jpg" alt="Bouldern" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold text-hsg-gray">Bouldern</h3>
+                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Warteliste</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Klettern ohne Seil in Absprunghöhe. Perfekt für Anfänger und Fortgeschrittene.</p>
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Donnerstag, 18:00 - 20:00
+                    </div>
+                    <button onclick="openBookingModal('Bouldern', 'Donnerstag, 18:00 - 20:00', 'OutdoorGym')" 
+                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
+                        Auf Warteliste
+                    </button>
+                </div>
+            </div>
+
+            <!-- More course cards can be added here -->
+        </div>
+    </main>
+
+    <script>
+        // State management
+        const state = {
+            bookings: [],
+            currentCourse: null
+        };
+
+        // Load bookings from localStorage
+        function loadBookings() {
+            const saved = localStorage.getItem('bookings');
+            if (saved) {
+                try {
+                    state.bookings = JSON.parse(saved);
+                } catch (e) {
+                    state.bookings = [];
+                }
+            }
+        }
+
+        // Save bookings to localStorage
+        function saveBookings() {
+            localStorage.setItem('bookings', JSON.stringify(state.bookings));
+        }
+
+        // Modal management
+        function openBookingModal(title, time, location) {
+            const modal = document.getElementById('bookingModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalTime').textContent = time;
+            document.getElementById('modalLocation').textContent = location;
+            
+            state.currentCourse = { title, time, location };
+            
+            showView('bookingView');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('hidden');
+            setTimeout(() => {
+                showView('bookingView');
+            }, 300);
+        }
+
+        function showView(viewId) {
+            ['bookingView', 'loadingView', 'successView'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        // Booking process
+        document.getElementById('confirmBooking').addEventListener('click', async function() {
+            showView('loadingView');
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Add to bookings
+            state.bookings.push(state.currentCourse);
+            saveBookings();
+            // Show success
+            showView('successView');
+            // Update UI
+            updateBookingsUI();
+        });
+
+        // Update bookings section in the DOM
+        function updateBookingsUI() {
+            const section = document.getElementById('bookingsSection');
+            const list = document.getElementById('bookingsList');
+            list.innerHTML = '';
+            if (state.bookings.length === 0) {
+                section.classList.add('hidden');
+                return;
+            }
+            section.classList.remove('hidden');
+            state.bookings.forEach(course => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="font-semibold text-hsg-gray">${course.title}</div>
+                        <div class="text-sm text-gray-500">${course.time}</div>
+                        <div class="text-sm text-gray-400">${course.location}</div>
+                    </div>
+                    <span class="mt-2 sm:mt-0 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Gebucht</span>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        // On page load
+        loadBookings();
+        updateBookingsUI();
+
+        // Add any necessary JavaScript for filter functionality
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // Filter logic would go here
+                console.log('Filter changed:', this.value);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('input[type="search"]').addEventListener('input', function() {
+            // Search logic would go here
+            console.log('Search query:', this.value);
+        });
+    </script>
+</body>
+</html> 

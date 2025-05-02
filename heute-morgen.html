@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heute & Morgen | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <main class="max-w-lg sm:max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Heute & Morgen</h1>
+        <div class="space-y-4">
+            <!-- Heute Accordion -->
+            <div class="border rounded-lg">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-base" onclick="toggleDay('heute')">
+                    <span>Heute</span>
+                    <span id="icon-heute" class="ml-2">&#9660;</span>
+                </button>
+                <div class="px-4 pb-4 hidden" id="content-heute">
+                    <div class="space-y-4">
+                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-hsg-gray">Yoga Flow</div>
+                                <div class="text-sm text-gray-500">14:15 - 15:45 · Halle 1</div>
+                                <div class="text-xs text-green-700 mt-1">Plätze frei</div>
+                            </div>
+                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        </div>
+                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-hsg-gray">Pilates</div>
+                                <div class="text-sm text-gray-500">16:00 - 17:00 · Studio 2</div>
+                                <div class="text-xs text-yellow-700 mt-1">Nur noch 2 Plätze</div>
+                            </div>
+                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Morgen Accordion -->
+            <div class="border rounded-lg">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-base" onclick="toggleDay('morgen')">
+                    <span>Morgen</span>
+                    <span id="icon-morgen" class="ml-2">&#9660;</span>
+                </button>
+                <div class="px-4 pb-4 hidden" id="content-morgen">
+                    <div class="space-y-4">
+                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-hsg-gray">HIIT</div>
+                                <div class="text-sm text-gray-500">09:00 - 10:00 · OutdoorGym</div>
+                                <div class="text-xs text-green-700 mt-1">Plätze frei</div>
+                            </div>
+                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        </div>
+                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-hsg-gray">Bouldern</div>
+                                <div class="text-sm text-gray-500">18:00 - 20:00 · Boulderhalle</div>
+                                <div class="text-xs text-red-700 mt-1">Warteliste</div>
+                            </div>
+                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function toggleDay(day) {
+            const content = document.getElementById('content-' + day);
+            const icon = document.getElementById('icon-' + day);
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
+</body>
+</html> 

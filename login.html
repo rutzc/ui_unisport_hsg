@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.header.renderHeader();
+            window.header.setLoggedOut();
+        });
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <main class="max-w-md mx-auto px-4 py-12">
+        <h1 class="text-2xl font-bold text-hsg-gray mb-8 text-center">Login</h1>
+        <form id="loginForm" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-hsg-gray mb-1">E-Mail</label>
+                <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-hsg-green">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-hsg-gray mb-1">Passwort</label>
+                <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-hsg-green">
+            </div>
+            <button type="submit" class="w-full bg-hsg-green text-white py-2 rounded font-medium hover:bg-green-700 transition">Login</button>
+            <button type="button" onclick="window.location.href='registrieren.html'" class="w-full border border-hsg-green text-hsg-green py-2 rounded font-medium hover:bg-hsg-green hover:text-white transition">Registrieren</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            // Dummy login
+            const user = { email: document.getElementById('email').value };
+            window.header.setLoggedIn(user);
+            window.location.href = 'dashboard.html';
+        };
+    </script>
+</body>
+</html> 
