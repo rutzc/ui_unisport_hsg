@@ -85,11 +85,46 @@ window.header = (function() {
             document.body.style.overflow = '';
         };
         // Profile logic
-        document.getElementById('profile-btn').onclick = function() {
-            if (isLoggedIn()) {
-                window.location.href = 'dashboard.html';
+        document.getElementById('profile-btn').onclick = function(e) {
+            e.stopPropagation();
+            const currentPage = window.location.pathname.split('/').pop();
+            
+            if (currentPage === 'dashboard.html') {
+                const existing = document.getElementById('profile-dropdown');
+                if (existing) {
+                    existing.remove();
+                    return;
+                }
+                // Dropdown erstellen
+                const btn = document.getElementById('profile-btn');
+                const rect = btn.getBoundingClientRect();
+                const dropdown = document.createElement('div');
+                dropdown.id = 'profile-dropdown';
+                dropdown.className = 'absolute right-2 top-14 mt-2 w-44 bg-white border border-gray-200 rounded shadow-lg z-50';
+                dropdown.innerHTML = `
+                    <a href="dashboard.html" class="block px-4 py-2 text-hsg-gray hover:bg-hsg-light">Profil</a>
+                    <a href="settings.html" class="block px-4 py-2 text-hsg-gray hover:bg-hsg-light">Einstellungen</a>
+                    <button id="logout-btn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-hsg-light">Logout</button>
+                `;
+                btn.parentElement.appendChild(dropdown);
+                // Logout-Handler
+                document.getElementById('logout-btn').onclick = function() {
+                    window.header.setLoggedOut();
+                    window.location.href = 'login.html';
+                };
+                // Schließen bei Klick außerhalb
+                document.addEventListener('click', function handler(ev) {
+                    if (!dropdown.contains(ev.target) && ev.target !== btn) {
+                        dropdown.remove();
+                        document.removeEventListener('click', handler);
+                    }
+                });
             } else {
-                window.location.href = 'login.html';
+                if (window.header.isLoggedIn()) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
             }
         };
         // Profilbild im Header setzen

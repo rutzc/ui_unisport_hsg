@@ -6,12 +6,6 @@
     <title>Login | Unisport St.Gallen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="header.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            window.header.renderHeader();
-            window.header.setLoggedOut();
-        });
-    </script>
     <style>
         @font-face {
             font-family: 'Theinhardt';
@@ -20,27 +14,53 @@
         }
     </style>
 </head>
-<body class="bg-white font-theinhardt">
-    <main class="max-w-md mx-auto px-4 py-12">
-        <h1 class="text-2xl font-bold text-hsg-gray mb-8 text-center">Login</h1>
-        <form id="loginForm" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 space-y-6">
-            <div>
-                <label for="email" class="block text-sm font-medium text-hsg-gray mb-1">E-Mail</label>
-                <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-hsg-green">
+<body class="bg-white font-theinhardt min-h-screen flex flex-col justify-center">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        <!-- Login mit HSG E-Mail -->
+        <div class="w-full max-w-xs bg-white rounded-lg shadow p-6 mb-8 flex flex-col items-center">
+            <h2 class="mb-6 text-center font-semibold text-lg">Mit Unisg E-Mail anmelden</h2>
+            <form id="loginForm" class="w-full flex flex-col space-y-6">
+                <div class="space-y-4">
+                    <input type="text" id="firstname" required placeholder="Vorname" 
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
+                    <input type="text" id="lastname" required placeholder="Nachname" 
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
+                    <input type="password" id="password" required placeholder="Passwort" 
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
+                </div>
+                <button type="submit" class="w-full bg-[#009B4C] text-white py-3 rounded-lg font-bold text-lg transition disabled:bg-[#009B4C] disabled:opacity-60">LOGIN</button>
+            </form>
+            <div class="text-xs text-gray-400 mt-6">für HSG Studierende</div>
+        </div>
+        <!-- Andere Login Möglichkeiten -->
+        <div class="w-full max-w-xs flex flex-col items-center mb-6">
+            <div class="mb-4 font-semibold text-lg">Andere Login Möglichkeiten</div>
+            <div class="flex w-full space-x-4 mb-4">
+                <button class="flex-1 bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">SWITCH-EDU ID</button>
+                <button class="flex-1 bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">Extern</button>
             </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-hsg-gray mb-1">Passwort</label>
-                <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-hsg-green">
+            <div class="flex w-full justify-between text-xs text-gray-400">
+                <span>für Studierende anderer Schweizer Universitäten</span>
+                <span>für Externe</span>
             </div>
-            <button type="submit" class="w-full bg-hsg-green text-white py-2 rounded font-medium hover:bg-green-700 transition">Login</button>
-            <button type="button" onclick="window.location.href='registrieren.html'" class="w-full border border-hsg-green text-hsg-green py-2 rounded font-medium hover:bg-hsg-green hover:text-white transition">Registrieren</button>
-        </form>
+        </div>
+        <!-- Registrierung -->
+        <div class="w-full max-w-xs text-center mt-4">
+            <span class="text-sm">Noch kein Account? <a href="registrieren.html" class="text-hsg-green font-semibold underline">Hier registrieren</a></span>
+        </div>
     </main>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.header.renderHeader();
+            window.header.setLoggedOut();
+        });
         document.getElementById('loginForm').onsubmit = function(e) {
             e.preventDefault();
             // Dummy login
-            const user = { email: document.getElementById('email').value };
+            const user = { 
+                firstname: document.getElementById('firstname').value, 
+                lastname: document.getElementById('lastname').value 
+            };
             window.header.setLoggedIn(user);
             window.location.href = 'dashboard.html';
         };
