@@ -15,10 +15,10 @@
     </style>
 </head>
 <body class="bg-white font-theinhardt min-h-screen flex flex-col justify-center">
-    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-0">
         <!-- Login mit HSG E-Mail -->
-        <div class="w-full max-w-xs bg-white rounded-lg shadow p-6 mb-8 flex flex-col items-center">
-            <h2 class="mb-6 text-center font-semibold text-lg">Mit Unisg E-Mail anmelden</h2>
+        <div class="w-full max-w-sm bg-white rounded-lg shadow p-4 mb-4 flex flex-col items-center -mt-6">
+            <h2 class="mb-6 text-center font-bold text-xl sm:text-2xl whitespace-nowrap">Mit Unisg E-Mail anmelden</h2>
             <form id="loginForm" class="w-full flex flex-col space-y-6">
                 <div class="space-y-4">
                     <input type="email" id="email" required placeholder="example@unisg.ch" 
@@ -26,7 +26,7 @@
                     <input type="password" id="password" required placeholder="Passwort" 
                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
                 </div>
-                <button type="submit" class="w-full bg-[#009B4C] text-white py-3 rounded-lg font-bold text-lg transition disabled:bg-[#009B4C] disabled:opacity-60">LOGIN</button>
+                <button type="submit" class="w-full bg-[#087532] text-white py-3 rounded-lg font-semibold text-base transition disabled:bg-[#087532] disabled:opacity-60">LOGIN</button>
             </form>
             <div class="text-xs text-gray-400 mt-6">für HSG Studierende</div>
         </div>
@@ -34,16 +34,26 @@
         <div class="w-full max-w-xs flex flex-col items-center mb-6">
             <div class="mb-4 font-semibold text-lg">Andere Login Möglichkeiten</div>
             <div class="flex w-full space-x-4 mb-4">
-                <button class="flex-1 bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">SWITCH-EDU ID</button>
-                <button class="flex-1 bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">Extern</button>
-            </div>
-            <div class="flex w-full justify-between text-xs text-gray-400">
-                <span>für Studierende anderer Schweizer Universitäten</span>
-                <span>für Externe</span>
+                <div class="flex-1 group">
+                    <button class="w-full bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">
+                        SWITCH-EDU ID
+                    </button>
+                    <span class="block text-xs text-gray-400 text-center mt-1 invisible group-hover:visible">
+                        für Studierende anderer Schweizer Universitäten
+                    </span>
+                </div>
+                <div class="flex-1 group">
+                    <button class="w-full bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">
+                        Extern
+                    </button>
+                    <span class="block text-xs text-gray-400 text-center mt-1 invisible group-hover:visible">
+                        für Externe
+                    </span>
+                </div>
             </div>
         </div>
         <!-- Registrierung -->
-        <div class="w-full max-w-xs text-center mt-4">
+        <div class="w-full max-w-xs text-center mt-0">
             <span class="text-sm">Noch kein Account? <a href="registrieren.html" class="text-hsg-green font-semibold underline">Hier registrieren</a></span>
         </div>
     </main>

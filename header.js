@@ -56,8 +56,8 @@ window.header = (function() {
             </div>
         </nav>
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-white z-50 hidden">
-            <div class="flex flex-col h-full">
+        <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-30 z-50 hidden flex justify-start">
+            <div class="w-4/5 max-w-xs bg-white h-full shadow-lg flex flex-col">
                 <div class="flex items-center justify-between p-4 border-b border-gray-200">
                     <img src="img/hsg-logo.png" alt="HSG Logo" class="h-8">
                     <button id="menu-close" class="p-2 hover:bg-gray-100 rounded-full">
@@ -66,9 +66,9 @@ window.header = (function() {
                         </svg>
                     </button>
                 </div>
-                <div class="flex-1 overflow-y-auto flex flex-col justify-center items-center">
-                    <nav class="space-y-6 text-center">
-                        ${NAV_LINKS.map(link => `<a href="${link.href}" class="block text-lg text-hsg-gray hover:text-hsg-green">${link.label}</a>`).join('')}
+                <div class="flex-1 overflow-y-auto flex flex-col items-start">
+                    <nav class="space-y-6 w-full px-6 pt-6">
+                        ${NAV_LINKS.map(link => `<a href="${link.href}" class="block text-lg text-hsg-gray hover:text-hsg-green text-left">${link.label}</a>`).join('')}
                     </nav>
                 </div>
             </div>

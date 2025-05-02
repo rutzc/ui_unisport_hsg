@@ -29,10 +29,19 @@
             if (user) {
                 const imgData = localStorage.getItem('profilePic');
                 if (imgData && pic) pic.src = imgData;
-                if (name) name.textContent = user.email || 'Profil';
             } else {
                 if (pic) pic.src = 'https://placehold.co/100x100';
-                if (name) name.textContent = 'Gast';
+                if (name) name.textContent = 'Schnellzugriff';
+            }
+            // Dashboard-Absprung-Link dynamisch setzen
+            const dashLink = document.querySelector('.dashboard-card');
+            if (dashLink) {
+                dashLink.setAttribute('href', user ? 'dashboard.html' : 'login.html');
+                // Text im Overlay dynamisch setzen
+                const overlayText = dashLink.querySelector('.dashboard-link .dynamic-text');
+                if (overlayText) {
+                    overlayText.textContent = user ? 'Zum Dashboard' : 'Zum Login';
+                }
             }
         });
     </script>
@@ -42,17 +51,58 @@
             src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
             font-weight: normal;
         }
+        .dashboard-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 !important;
+            background: #0C542B;
+        }
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #088232;
+            opacity: 0;
+            clip-path: polygon(70% 100%, 100% 70%, 100% 100%);
+            transform: translateY(40px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1;
+        }
+        .dashboard-card:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dashboard-card .dashboard-link {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 2;
+        }
+        .dashboard-card:hover .dashboard-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dashboard-card .dashboard-content {
+            z-index: 3;
+            position: relative;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
-    <main class="max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8 flex flex-col sm:flex-row items-center">
-            <a href="dashboard.html" class="flex flex-col sm:flex-row items-center w-full group relative">
-                <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-24 h-24 object-cover mb-4 sm:mb-0 sm:mr-6 border-2 border-hsg-green transition">
-                <div>
-                    <h2 class="text-lg font-semibold text-hsg-gray">Max Mustermann</h2>
-                    <p class="text-sm text-gray-500">Student (Bachelor)</p>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div class="bg-white shadow-sm border border-gray-200 p-0 mb-8 flex flex-col sm:flex-row items-center">
+            <a href="dashboard.html" class="dashboard-card flex flex-col sm:flex-row items-center w-full group relative p-6 transition cursor-pointer">
+                <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-24 h-24 object-cover mb-4 sm:mb-0 sm:mr-6 border-2 border-hsg-green transition group-hover:border-green-700">
+                <div class="flex-1 dashboard-content">
+                    <h2 class="text-lg font-semibold text-white group-hover:text-white transition">Max Mustermann</h2>
+                    <p class="text-sm text-gray-100">Student (Bachelor)</p>
                 </div>
+                <span class="dashboard-link absolute right-8 bottom-6 flex items-center text-white text-base font-semibold z-10 select-none">
+                    <span class="mr-2">&rarr;</span><span class="dynamic-text">Zum Dashboard</span>
+                </span>
             </a>
         </div>
         <section class="mb-8">
@@ -66,26 +116,22 @@
         </section>
         <section>
             <h2 class="text-lg font-semibold text-hsg-gray mb-4">Schnellzugriff</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <a href="heute-morgen.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
-                    <span class="text-2xl mb-2">📅</span>
-                    <span class="text-sm font-medium">Heute & Morgen</span>
+            <div class="flex flex-wrap gap-x-4 gap-y-6 justify-start">
+                <a href="heute-morgen.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Heute & Morgen</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Was heute und morgen läuft.</span>
                 </a>
-                <a href="alle-kurse.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
-                    <span class="text-2xl mb-2">🏋️‍♂️</span>
-                    <span class="text-sm font-medium">Alle Kurse</span>
+                <a href="alle-kurse.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Alle Kurse</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Alle Angebote im Überblick.</span>
                 </a>
-                <a href="faqs.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
-                    <span class="text-2xl mb-2">❓</span>
-                    <span class="text-sm font-medium">FAQs</span>
+                <a href="faqs.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">FAQs</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Antworten auf häufige Fragen.</span>
                 </a>
-                <a href="jobs.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
-                    <span class="text-2xl mb-2">💼</span>
-                    <span class="text-sm font-medium">Jobs</span>
-                </a>
-                <a href="kontakt.html" class="bg-hsg-green text-white rounded-lg p-4 flex flex-col items-center hover:bg-green-700 transition">
-                    <span class="text-2xl mb-2">✉️</span>
-                    <span class="text-sm font-medium">Kontakt</span>
+                <a href="jobs.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Jobs</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Werde Teil unseres Teams.</span>
                 </a>
             </div>
         </section>
