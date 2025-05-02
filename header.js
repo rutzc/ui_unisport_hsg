@@ -84,6 +84,13 @@ window.header = (function() {
             document.getElementById('mobile-menu').classList.add('hidden');
             document.body.style.overflow = '';
         };
+        // Schließen bei Klick auf den dunklen Hintergrund
+        document.getElementById('mobile-menu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
         // Profile logic
         document.getElementById('profile-btn').onclick = function(e) {
             e.stopPropagation();
