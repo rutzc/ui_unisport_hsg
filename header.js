@@ -108,6 +108,8 @@ window.header = (function() {
     }
     function setLoggedOut() {
         clearUser();
+        localStorage.removeItem('profilePic');
+        localStorage.removeItem('bookings');
     }
     return {
         renderHeader,
