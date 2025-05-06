@@ -86,6 +86,18 @@
             overflow: hidden;
             border-radius: 16px !important;
             background: #014421;
+            transition: all 0.3s ease;
+            aspect-ratio: 1/1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(1,68,33,0.15);
         }
         .dashboard-card .dashboard-link {
             opacity: 0;
@@ -110,48 +122,58 @@
             filter: brightness(1.07);
             transform: translateY(-2px) scale(1.03);
         }
+        @media (max-width: 640px) {
+            .dashboard-card {
+                padding: 1rem !important;
+            }
+            .dashboard-card span {
+                font-size: 0.875rem !important;
+            }
+            .dashboard-card span.text-lg {
+                font-size: 1rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
     <main class="max-w-lg mx-auto px-4 py-6">
         <!-- Begrüßung und Profil -->
-        <div class="flex items-center mb-6">
-            <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-16 h-16 object-cover border-2 border-hsg-green mr-4">
-            <div>
-                <div class="text-2xl font-semibold text-hsg-gray" id="welcomeName">Hallo Claudia</div>
-                <div class="text-base text-gray-500" id="welcomeDate"></div>
+        <div class="flex items-center mb-4 sm:mb-6">
+            <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-hsg-green mr-3 sm:mr-4">
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <div class="text-xl sm:text-2xl font-semibold text-hsg-gray" id="welcomeName">Hallo Claudia</div>
+                    <a href="dashboard.html" class="text-sm sm:text-base text-hsg-green hover:text-green-800 font-medium inline-block bg-white hover:bg-gray-50 px-2.5 py-0.5 rounded-full transition-colors duration-200 border border-hsg-green">Zum Dashboard →</a>
+                </div>
+                <div class="text-sm sm:text-base text-gray-500" id="welcomeDate"></div>
             </div>
         </div>
         <!-- News-Bereich -->
-        <div class="rounded-lg bg-hsg-green text-white px-6 py-4 mb-8">
-            <div class="text-xl font-bold mb-2">Neuigkeiten</div>
-            <div class="flex flex-col sm:flex-row text-sm font-medium divide-y divide-white/20 sm:divide-y-0 sm:divide-x sm:gap-0">
+        <div class="rounded-lg bg-hsg-green text-white px-4 sm:px-6 py-3 sm:py-4 mb-6 sm:mb-8">
+            <div class="text-lg sm:text-xl font-bold mb-2">Neuigkeiten</div>
+            <div class="flex flex-col sm:flex-row text-xs sm:text-sm font-medium divide-y divide-white/20 sm:divide-y-0 sm:divide-x sm:gap-0">
                 <div class="py-2 sm:py-0 sm:px-6 flex-1">Neue Kurse für das Sommersemester <span class="font-bold text-white">jetzt buchbar!</span></div>
                 <div class="py-2 sm:py-0 sm:px-6 flex-1">Sporthalle 2 wegen Renovierung bis <span class="font-bold text-white">15.07 geschlossen</span></div>
                 <div class="py-2 sm:py-0 sm:px-6 flex-1">Jetzt für das Sommerfest <span class="font-bold text-white">anmelden!</span></div>
             </div>
         </div>
         <!-- Anstehende Kurse -->
-        <div id="anstehendeKurse" class="mb-8"></div>
+        <div id="anstehendeKurse" class="mb-6 sm:mb-8"></div>
         <!-- Schnellzugriff -->
         <section>
-            <h2 class="text-lg font-semibold text-hsg-gray mb-4">Schnellzugriff</h2>
-            <div class="flex flex-wrap gap-x-4 gap-y-6 justify-start">
-                <a href="heute-morgen.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
-                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Heute & Morgen</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Was heute und morgen läuft.</span>
+            <h2 class="text-base sm:text-lg font-semibold text-hsg-gray mb-3 sm:mb-4">Schnellzugriff</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
+                <a href="heute-morgen.html" class="dashboard-card">
+                    <span class="text-sm sm:text-base font-semibold text-white leading-tight mb-1">Heute & Morgen</span>
+                    <span class="text-xs text-gray-100">Was heute und morgen läuft.</span>
                 </a>
-                <a href="alle-kurse.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
-                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Alle Kurse</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Alle Angebote im Überblick.</span>
+                <a href="alle-kurse.html" class="dashboard-card">
+                    <span class="text-sm sm:text-base font-semibold text-white leading-tight mb-1">Alle Kurse</span>
+                    <span class="text-xs text-gray-100">Alle Angebote im<br>Überblick.</span>
                 </a>
-                <a href="faqs.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
-                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">FAQs</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Antworten zu häufigen Fragen.</span>
-                </a>
-                <a href="dashboard.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
-                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Dashboard</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Deine Übersicht.</span>
+                <a href="faqs.html" class="dashboard-card">
+                    <span class="text-sm sm:text-base font-semibold text-white leading-tight mb-1">FAQs</span>
+                    <span class="text-xs text-gray-100">Antworten zu häufigen Fragen.</span>
                 </a>
             </div>
         </section>

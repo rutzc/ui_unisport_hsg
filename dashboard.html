@@ -60,6 +60,7 @@
             padding: 0.25rem 1.2rem;
             font-size: 1rem;
             transition: background 0.2s;
+            white-space: nowrap;
         }
         .hsg-btn:hover {
             background: #b6f2d6;
@@ -69,33 +70,66 @@
             width: 1.5rem;
             height: 1.5rem;
         }
+        @media (max-width: 640px) {
+            .hsg-box {
+                border-radius: 12px;
+                padding: 1rem !important;
+            }
+            .hsg-btn {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            .course-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start !important;
+            }
+            .course-info {
+                width: 100%;
+            }
+            .course-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
     <!-- Main Dashboard -->
     <main class="max-w-7xl mx-auto px-4 py-6">
-        <div class="max-w-lg mx-auto space-y-6">
+        <div class="max-w-lg mx-auto space-y-4 sm:space-y-6">
             <!-- Profile Section -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-center">
-                <div class="relative w-24 h-24 mx-auto mb-4 group">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 group">
                     <img id="profilePic" src="https://placehold.co/200x200" alt="Profile Picture" class="rounded-full w-full h-full object-cover cursor-pointer border-2 border-hsg-green group-hover:opacity-80 transition">
                     <input type="file" id="profilePicInput" accept="image/*" class="hidden">
                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <span class="hidden group-hover:block bg-hsg-green text-white text-xs px-2 py-1 rounded">Bild ändern</span>
                     </div>
                 </div>
-                <h2 class="text-lg font-semibold text-hsg-gray">Claudia Rutz</h2>
-                <p class="text-sm text-gray-500 mb-2">MBI</p>
-                <div class="flex flex-col items-center gap-1 text-hsg-gray text-sm">
-                    <div><span class="font-semibold">Grösse:</span> 1,72m</div>
-                    <div><span class="font-semibold">Gewicht:</span> 62kg</div>
+                <h2 class="text-base sm:text-lg font-semibold text-hsg-gray">Claudia Rutz</h2>
+                <p class="text-sm text-gray-500 mb-3">MBI</p>
+                <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                    <div class="text-center">
+                        <div class="text-xl sm:text-2xl font-semibold text-hsg-gray">24</div>
+                        <div class="text-xs sm:text-sm text-gray-500">Stunden</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl sm:text-2xl font-semibold text-hsg-gray">12</div>
+                        <div class="text-xs sm:text-sm text-gray-500">Kurse</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl sm:text-2xl font-semibold text-hsg-gray">5</div>
+                        <div class="text-xs sm:text-sm text-gray-500">Sportarten</div>
+                    </div>
                 </div>
             </div>
 
             <!-- Meine Anmeldungen Section -->
-            <div class="hsg-box p-6">
-                <h3 class="text-lg font-semibold mb-4">Meine Anmeldungen</h3>
-                <div id="anmeldungenList" class="space-y-4">
+            <div class="hsg-box p-4 sm:p-6">
+                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Meine Anmeldungen</h3>
+                <div id="anmeldungenList" class="space-y-3 sm:space-y-4">
                     <!-- Dynamisch generiert -->
                 </div>
             </div>
@@ -115,9 +149,9 @@
             </div>
 
             <!-- Favoriten Section -->
-            <div class="hsg-box p-6">
+            <div class="hsg-box p-4 sm:p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold">Favoriten</h3>
+                    <h3 class="text-base sm:text-lg font-semibold">Favoriten</h3>
                     <button onclick="openFavoritenModal()" class="bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -220,40 +254,60 @@
                 </div>
             </div>
 
+            <!-- Vorgeschlagene Kurse Section -->
+            <div class="hsg-box p-4 sm:p-6">
+                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Vorgeschlagene Kurse</h3>
+                <div id="suggestedCourses" class="space-y-3 sm:space-y-4">
+                    <!-- Dynamisch generiert -->
+                </div>
+            </div>
+
             <!-- Letzte Plätze Section -->
-            <div class="hsg-box p-6">
-                <h3 class="text-lg font-semibold mb-4">Letzte Plätze</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between py-3 border-b border-white/20">
-                        <div>
+            <div class="hsg-box p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-3 sm:mb-4">
+                    <h3 class="text-base sm:text-lg font-semibold">Letzte Plätze</h3>
+                    <a href="heute-morgen.html" class="text-white/80 hover:text-white text-sm flex items-center gap-1">
+                        Alle anzeigen
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="space-y-3 sm:space-y-4">
+                    <div class="course-row flex items-center justify-between py-3 border-b border-white/20">
+                        <div class="course-info">
                             <h4 class="font-medium">Tennis</h4>
-                            <p class="text-sm text-white/80">Noch 2 Plätze frei</p>
+                            <p class="text-sm text-white/80">Heute, 14:00 - 15:30</p>
+                            <p class="text-xs text-white/60">Noch 2 Plätze frei</p>
                         </div>
-                        <button class="hsg-btn">Anmelden</button>
+                        <div class="course-actions">
+                            <button class="hsg-btn" onclick="openAnmeldeModal('Tennis')">Anmelden</button>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between py-3 border-b border-white/20">
-                        <div>
+                    <div class="course-row flex items-center justify-between py-3 border-b border-white/20">
+                        <div class="course-info">
                             <h4 class="font-medium">Crossfit</h4>
-                            <p class="text-sm text-white/80">Noch 1 Platz frei</p>
+                            <p class="text-sm text-white/80">Morgen, 16:00 - 17:00</p>
+                            <p class="text-xs text-white/60">Noch 1 Platz frei</p>
                         </div>
-                        <button class="hsg-btn">Anmelden</button>
+                        <div class="course-actions">
+                            <button class="hsg-btn" onclick="openAnmeldeModal('Crossfit')">Anmelden</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Statistics Section -->
-            <div class="grid grid-cols-3 gap-4">
-                <div class="hsg-box p-4 text-center">
-                    <div class="text-2xl font-semibold mb-1">24</div>
-                    <div class="text-sm text-white/80">Stunden</div>
-                </div>
-                <div class="hsg-box p-4 text-center">
-                    <div class="text-2xl font-semibold mb-1">12</div>
-                    <div class="text-sm text-white/80">Kurse</div>
-                </div>
-                <div class="hsg-box p-4 text-center">
-                    <div class="text-2xl font-semibold mb-1">5</div>
-                    <div class="text-sm text-white/80">Sportarten</div>
+            <!-- Anmelde-Popup -->
+            <div id="anmeldeModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
+                <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-hsg-gray mb-2">Kurs anmelden</h3>
+                        <p class="text-sm text-gray-600 mb-4">Möchtest du dich für <span id='anmeldeKurs'></span> anmelden?</p>
+                        <div class="flex space-x-3">
+                            <button id="confirmAnmelden" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Ja, anmelden</button>
+                            <button onclick="closeAnmeldeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">Abbrechen</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,13 +340,15 @@
         list.innerHTML = '';
         anmeldungen.forEach((a, idx) => {
             const row = document.createElement('div');
-            row.className = 'flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
             row.innerHTML = `
-                <div>
+                <div class="course-info">
                     <h4 class='font-medium'>${a.title}</h4>
                     <p class='text-sm text-white/80'>${a.time}</p>
                 </div>
-                ${a.status === 'confirmed' ? `<button class='hsg-btn' onclick='openAbmeldeModal(${idx})'>Abmelden</button>` : `<span class='hsg-badge hsg-badge-waitlist'>Warteliste</span>`}
+                <div class="course-actions">
+                    ${a.status === 'confirmed' ? `<button class='hsg-btn' onclick='openAbmeldeModal(${idx})'>Abmelden</button>` : `<span class='hsg-badge hsg-badge-waitlist'>Warteliste</span>`}
+                </div>
             `;
             list.appendChild(row);
         });
@@ -392,8 +448,119 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         // ... existing code ...
+        
+        // Anmelde-Button Handler
+        document.getElementById('confirmAnmelden').onclick = function() {
+            if (anmeldeKurs) {
+                // Finde den Kurs in den Vorschlägen
+                const suggestions = getSuggestedCourses();
+                const selectedCourse = suggestions.find(s => s.title === anmeldeKurs);
+                
+                if (selectedCourse) {
+                    // Füge den Kurs zu den Anmeldungen hinzu
+                    addToAnmeldungen(selectedCourse.title, selectedCourse.time);
+                    // Füge den Kurs zu den Favoriten hinzu
+                    addToFavoriten(selectedCourse.title);
+                }
+                closeAnmeldeModal();
+            }
+        };
+
+        // Initial render
         renderFavoriten();
+        renderSuggestedCourses();
     });
+
+    // Update renderFavoriten to also update suggestions
+    const originalRenderFavoriten = renderFavoriten;
+    renderFavoriten = function() {
+        originalRenderFavoriten();
+        renderSuggestedCourses();
+    };
+
+    // Vorgeschlagene Kurse basierend auf Favoriten
+    function getSuggestedCourses() {
+        // Beispiel-Kursvorschläge basierend auf den Favoriten
+        const suggestions = {
+            'Pilates': [
+                { title: 'Yoga Flow', time: 'Montag, 14:15 - 15:45', reason: 'Ähnlich zu Pilates' },
+                { title: 'Stretching', time: 'Donnerstag, 16:00 - 17:00', reason: 'Gute Ergänzung zu Pilates' }
+            ],
+            'Bouldern': [
+                { title: 'Kletterhalle', time: 'Freitag, 17:00 - 19:00', reason: 'Ähnlich zu Bouldern' },
+                { title: 'Krafttraining', time: 'Dienstag, 18:00 - 19:00', reason: 'Verbessert Kletterkraft' }
+            ],
+            'Yoga': [
+                { title: 'Meditation', time: 'Mittwoch, 19:00 - 20:00', reason: 'Gute Ergänzung zu Yoga' },
+                { title: 'Pilates', time: 'Freitag, 10:00 - 11:00', reason: 'Ähnlich zu Yoga' }
+            ],
+            'Schwimmen': [
+                { title: 'Aqua Fitness', time: 'Donnerstag, 17:00 - 18:00', reason: 'Ähnlich zu Schwimmen' },
+                { title: 'Wassergymnastik', time: 'Montag, 16:00 - 17:00', reason: 'Gute Ergänzung zum Schwimmen' }
+            ]
+        };
+
+        // Sammle alle Vorschläge basierend auf den Favoriten
+        let allSuggestions = [];
+        favoriten.forEach(fav => {
+            if (suggestions[fav.title]) {
+                allSuggestions = allSuggestions.concat(suggestions[fav.title]);
+            }
+        });
+
+        // Entferne Duplikate und Kurse, die bereits in Favoriten oder Anmeldungen sind
+        const uniqueSuggestions = allSuggestions.filter(suggestion => 
+            !favoriten.some(fav => fav.title === suggestion.title) &&
+            !anmeldungen.some(anm => anm.title === suggestion.title)
+        );
+
+        return uniqueSuggestions;
+    }
+
+    function addToAnmeldungen(title, time) {
+        anmeldungen.push({
+            title: title,
+            time: time,
+            status: 'confirmed'
+        });
+        renderAnmeldungen();
+    }
+
+    // Anmelde-Funktionalität
+    let anmeldeKurs = null;
+
+    function openAnmeldeModal(kursTitle) {
+        anmeldeKurs = kursTitle;
+        document.getElementById('anmeldeKurs').textContent = kursTitle;
+        document.getElementById('anmeldeModal').classList.remove('hidden');
+    }
+
+    function closeAnmeldeModal() {
+        document.getElementById('anmeldeModal').classList.add('hidden');
+        anmeldeKurs = null;
+    }
+
+    function renderSuggestedCourses() {
+        const suggestions = getSuggestedCourses();
+        const container = document.getElementById('suggestedCourses');
+        container.innerHTML = '';
+
+        suggestions.forEach(suggestion => {
+            const row = document.createElement('div');
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.innerHTML = `
+                <div class="course-info">
+                    <h4 class='font-medium'>${suggestion.title}</h4>
+                    <p class='text-sm text-white/80'>${suggestion.time}</p>
+                    <p class='text-xs text-white/60'>${suggestion.reason}</p>
+                </div>
+                <div class="course-actions">
+                    <button class='hsg-btn' onclick="openAnmeldeModal('${suggestion.title}')">Anmelden</button>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    }
     </script>
 </body>
 </html> 
