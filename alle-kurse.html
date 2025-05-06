@@ -221,8 +221,8 @@
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Kosten</div><div id="filter-kostens"></div></div>
-        </div>
-    </div>
+                            </div>
+                        </div>
     <main class="max-w-lg mx-auto px-4 py-6">
         <div class="pt-2 pb-1">
             <h1 class="text-2xl font-semibold text-hsg-gray mb-1">Alle Kurse</h1>
@@ -245,7 +245,7 @@
             <input id="searchInput" type="search" placeholder="Suche nach Kursen...">
             <button class="hsg-filter-btn" onclick="toggleFilterModal()">
                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-.293.707l-6.414 6.414A1 1 0 0 0 14 13.414V19a1 1 0 0 1-1.447.894l-4-2A1 1 0 0 1 8 17V13.414a1 1 0 0 0-.293-.707L1.293 6.707A1 1 0 0 1 1 6V4z"/></svg>
-            </button>
+                    </button>
         </div>
         <div id="courseList"></div>
     </main>
@@ -268,7 +268,7 @@
         { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: 'img/placeholder-bouldern.jpg', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle' },
         { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'FR 15:00 - 17:00', details: 'Tennisplatz' },
         { title: 'Crossfit', letter: 'C', desc: 'Kraft und Ausdauer im Mix.', img: '', badge: '1 Platz frei', meta: 'SA 10:00 - 11:00', details: 'Fitnessraum' },
-        // Weitere Kurse für alle Tage:
+        // Zusätzliche Kurse mit und ohne Bilder
         { title: 'Zumba', letter: 'Z', desc: 'Tanz und Fitness zu lateinamerikanischer Musik.', img: '', badge: '10 Plätze frei', meta: 'MO 19:00 - 20:00', details: 'Tanzsaal' },
         { title: 'Schwimmen', letter: 'S', desc: 'Technik und Ausdauer im Wasser.', img: '', badge: '6 Plätze frei', meta: 'DI 07:00 - 08:00', details: 'Schwimmbad' },
         { title: 'Fussball', letter: 'F', desc: 'Kicken im Team, Spaß garantiert.', img: '', badge: '14 Plätze frei', meta: 'MI 18:00 - 19:30', details: 'Sportplatz' },
@@ -281,6 +281,12 @@
         { title: 'Tischtennis', letter: 'T', desc: 'Schnelle Ballwechsel und Spaß.', img: '', badge: '8 Plätze frei', meta: 'DO 16:00 - 17:30', details: 'Halle 3' },
         { title: 'Klettern', letter: 'K', desc: 'Hoch hinaus an der Wand.', img: '', badge: '6 Plätze frei', meta: 'FR 18:00 - 20:00', details: 'Kletterhalle' },
         { title: 'Mobility', letter: 'M', desc: 'Beweglichkeitstraining für alle.', img: '', badge: '10 Plätze frei', meta: 'SA 09:00 - 10:00', details: 'Raum 2' },
+        { title: 'Power Yoga', letter: 'P', desc: 'Kräftigendes Yoga für Fortgeschrittene.', img: 'img/placeholder-yoga.jpg', badge: '7 Plätze frei', meta: 'MO 20:00 - 21:00', details: 'Halle 1' },
+        { title: 'Cardio HIIT', letter: 'C', desc: 'Cardio-Intervalltraining für Ausdauer.', img: 'img/placeholder-hiit.jpg', badge: '5 Plätze frei', meta: 'DI 18:00 - 19:00', details: 'Fitnessraum' },
+        { title: 'Boulder Basics', letter: 'B', desc: 'Bouldern für Einsteiger.', img: 'img/placeholder-bouldern.jpg', badge: '6 Plätze frei', meta: 'MI 16:00 - 17:30', details: 'Boulderhalle' },
+        { title: 'Morning Yoga', letter: 'M', desc: 'Starte entspannt in den Tag.', img: 'img/placeholder-yoga.jpg', badge: '9 Plätze frei', meta: 'DO 07:00 - 08:00', details: 'Raum 1' },
+        { title: 'HIIT Express', letter: 'H', desc: 'Kurzes, intensives HIIT-Workout.', img: 'img/placeholder-hiit.jpg', badge: '8 Plätze frei', meta: 'FR 12:00 - 12:45', details: 'Fitnessraum' },
+        { title: 'Boulder Advanced', letter: 'B', desc: 'Bouldern für Fortgeschrittene.', img: 'img/placeholder-bouldern.jpg', badge: '4 Plätze frei', meta: 'SA 17:00 - 19:00', details: 'Boulderhalle' },
     ];
     // --- Filterdaten (Demo) ---
     const filterData = {
