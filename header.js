@@ -140,7 +140,7 @@ window.header = (function() {
                 if (imgData) {
                     wrapper.innerHTML = `<img id='header-profile-pic' src='${imgData}' alt='Profil' class='w-8 h-8 rounded-full object-cover'>`;
                 } else {
-                    wrapper.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' class='w-8 h-8 text-hsg-gray'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/></svg>`;
+                    wrapper.innerHTML = `<img id='header-profile-pic' src='img/profile-photo.jpeg' alt='Profil' class='w-8 h-8 rounded-full object-cover'>`;
                 }
             } else {
                 wrapper.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' class='w-8 h-8 text-hsg-gray'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/></svg>`;

@@ -39,7 +39,13 @@
             // Profilbild laden
             const imgData = localStorage.getItem('profilePic');
             const pic = document.getElementById('profilePic');
-            if (imgData && pic) pic.src = imgData;
+            if (pic) {
+                if (imgData) {
+                    pic.src = imgData;
+                } else {
+                    pic.src = 'img/profile-photo.jpeg';
+                }
+            }
         });
     </script>
 </body>

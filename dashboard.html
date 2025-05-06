@@ -227,9 +227,13 @@
         abmeldeIndex = null;
     }
     document.addEventListener('DOMContentLoaded', function() {
-        // Bild aus localStorage laden
+        // Bild aus localStorage laden oder Standardbild setzen
         const imgData = localStorage.getItem('profilePic');
-        if (imgData) updateProfilePicAll(imgData);
+        if (imgData) {
+            updateProfilePicAll(imgData);
+        } else {
+            updateProfilePicAll('img/profile-photo.jpeg');
+        }
         // Klick auf Bild öffnet Datei-Dialog
         const pic = document.getElementById('profilePic');
         const input = document.getElementById('profilePicInput');

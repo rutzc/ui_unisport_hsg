@@ -224,17 +224,18 @@
         </div>
     </div>
     <main class="max-w-lg mx-auto px-4 py-6">
-        <h1 class="text-2xl font-semibold text-hsg-gray mb-6">Alle Kurse</h1>
-        <!-- Datum und Heute-Button -->
-        <div class="flex items-center justify-between mb-2">
-            <div class="flex items-end gap-2">
-                <div class="text-4xl font-bold leading-none" id="todayDay">05</div>
-                <div class="flex flex-col leading-tight mb-1">
-                    <span class="text-base font-semibold" id="todayMonth">Montag</span>
-                    <span class="text-sm text-gray-500" id="todayDate">Mai 2025</span>
+        <div class="pt-2 pb-1">
+            <h1 class="text-2xl font-semibold text-hsg-gray mb-1">Alle Kurse</h1>
+            <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-end gap-3">
+                    <div class="text-4xl font-bold leading-none" id="todayDay">05</div>
+                    <div class="flex flex-col leading-tight mb-1">
+                        <span class="text-base font-semibold" id="todayMonth">Montag</span>
+                        <span class="text-sm text-gray-500" id="todayDate">Mai 2025</span>
+                    </div>
                 </div>
+                <button id="heuteBtn" class="bg-hsg-green text-white font-bold rounded-lg px-6 py-2 text-lg shadow-sm">Heute</button>
             </div>
-            <button id="heuteBtn" class="bg-hsg-green text-white font-bold rounded-lg px-6 py-2 text-lg">Heute</button>
         </div>
         <!-- Tages-Navigation -->
         <div id="dayNav" class="flex items-center justify-between mb-4">
@@ -262,11 +263,24 @@
         { title: 'Beachvolleyball SUC', letter: 'B', desc: 'Sand, Sonne, Sport!', img: '', badge: '3 Plätze frei', meta: 'DO 17:00 - 19:00', details: 'Beachfeld' },
         { title: 'Bodyattack', letter: 'B', desc: 'Intensives Ganzkörpertraining.', img: '', badge: '7 Plätze frei', meta: 'FR 18:00 - 19:00', details: 'Fitnessraum' },
         { title: 'Yoga Flow', letter: 'Y', desc: 'Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.', img: 'img/placeholder-yoga.jpg', badge: '12 Plätze frei', meta: 'MO 14:15 - 15:45', details: 'Halle 1' },
-        { title: 'HIIT', letter: 'H', desc: 'High Intensity Intervall Training.', img: '', badge: '9 Plätze frei', meta: 'DI 17:30 - 18:30', details: 'Fitnessraum' },
+        { title: 'HIIT', letter: 'H', desc: 'High Intensity Intervall Training.', img: 'img/placeholder-hiit.jpg', badge: '9 Plätze frei', meta: 'DI 17:30 - 18:30', details: 'Fitnessraum' },
         { title: 'Pilates', letter: 'P', desc: 'Kräftigung und Dehnung für den ganzen Körper.', img: '', badge: '11 Plätze frei', meta: 'MI 12:15 - 13:15', details: 'Raum 2' },
-        { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: '', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle' },
+        { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: 'img/placeholder-bouldern.jpg', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle' },
         { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'FR 15:00 - 17:00', details: 'Tennisplatz' },
         { title: 'Crossfit', letter: 'C', desc: 'Kraft und Ausdauer im Mix.', img: '', badge: '1 Platz frei', meta: 'SA 10:00 - 11:00', details: 'Fitnessraum' },
+        // Weitere Kurse für alle Tage:
+        { title: 'Zumba', letter: 'Z', desc: 'Tanz und Fitness zu lateinamerikanischer Musik.', img: '', badge: '10 Plätze frei', meta: 'MO 19:00 - 20:00', details: 'Tanzsaal' },
+        { title: 'Schwimmen', letter: 'S', desc: 'Technik und Ausdauer im Wasser.', img: '', badge: '6 Plätze frei', meta: 'DI 07:00 - 08:00', details: 'Schwimmbad' },
+        { title: 'Fussball', letter: 'F', desc: 'Kicken im Team, Spaß garantiert.', img: '', badge: '14 Plätze frei', meta: 'MI 18:00 - 19:30', details: 'Sportplatz' },
+        { title: 'Rudern', letter: 'R', desc: 'Kraft und Technik auf dem Wasser.', img: '', badge: '5 Plätze frei', meta: 'DO 06:30 - 08:00', details: 'Bootshaus' },
+        { title: 'Boxen', letter: 'B', desc: 'Fitness und Technik im Ring.', img: '', badge: '7 Plätze frei', meta: 'FR 17:00 - 18:30', details: 'Boxraum' },
+        { title: 'Volleyball', letter: 'V', desc: 'Teamgeist und Action am Netz.', img: '', badge: '9 Plätze frei', meta: 'SA 15:00 - 17:00', details: 'Halle 2' },
+        { title: 'Stretching', letter: 'S', desc: 'Beweglichkeit und Entspannung.', img: '', badge: '12 Plätze frei', meta: 'MO 08:00 - 09:00', details: 'Raum 1' },
+        { title: 'Functional Training', letter: 'F', desc: 'Ganzkörpertraining für alle.', img: '', badge: '10 Plätze frei', meta: 'DI 19:00 - 20:00', details: 'Fitnessraum' },
+        { title: 'Laufen', letter: 'L', desc: 'Gemeinsam an der frischen Luft.', img: '', badge: '15 Plätze frei', meta: 'MI 07:30 - 08:30', details: 'Outdoor' },
+        { title: 'Tischtennis', letter: 'T', desc: 'Schnelle Ballwechsel und Spaß.', img: '', badge: '8 Plätze frei', meta: 'DO 16:00 - 17:30', details: 'Halle 3' },
+        { title: 'Klettern', letter: 'K', desc: 'Hoch hinaus an der Wand.', img: '', badge: '6 Plätze frei', meta: 'FR 18:00 - 20:00', details: 'Kletterhalle' },
+        { title: 'Mobility', letter: 'M', desc: 'Beweglichkeitstraining für alle.', img: '', badge: '10 Plätze frei', meta: 'SA 09:00 - 10:00', details: 'Raum 2' },
     ];
     // --- Filterdaten (Demo) ---
     const filterData = {
