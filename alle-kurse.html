@@ -221,8 +221,9 @@
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Kosten</div><div id="filter-kostens"></div></div>
-                            </div>
-                        </div>
+            <button onclick="applyFilters()" class="w-full bg-hsg-green text-white font-semibold rounded-lg px-4 py-2 mt-4 hover:bg-green-700 transition">Bestätigen</button>
+        </div>
+    </div>
     <main class="max-w-lg mx-auto px-4 py-6">
         <div class="pt-2 pb-1">
             <h1 class="text-2xl font-semibold text-hsg-gray mb-1">Alle Kurse</h1>
@@ -252,41 +253,55 @@
     <script>
     // --- Kursdaten (Demo) ---
     const courses = [
-        { title: 'Aikido', letter: 'A', desc: 'Japanische Kampfkunst für Körper und Geist.', img: '', badge: '8 Plätze frei', meta: 'MO 18:00 - 19:30', details: 'Halle 2' },
-        { title: 'Akademiker', letter: 'A', desc: 'Akademisches Fitnesstraining.', img: '', badge: '10 Plätze frei', meta: 'DI 17:00 - 18:00', details: 'Fitnessraum' },
-        { title: 'Bachata', letter: 'B', desc: 'Tanzkurs für Einsteiger und Fortgeschrittene.', img: '', badge: '6 Plätze frei', meta: 'MI 19:00 - 20:30', details: 'Tanzsaal' },
-        { title: 'Badminton', letter: 'B', desc: 'Schnelles Rückschlagspiel für alle Levels.', img: '', badge: '4 Plätze frei', meta: 'DO 16:00 - 18:00', details: 'Halle 3' },
-        { title: 'Badminton SUC', letter: 'B', desc: 'Badminton für den Hochschulsportclub.', img: '', badge: '2 Plätze frei', meta: 'FR 14:00 - 16:00', details: 'Halle 3' },
-        { title: 'Ballet', letter: 'B', desc: 'Klassisches Ballett für Anfänger.', img: '', badge: 'Warteliste', meta: 'MO 17:00 - 18:30', details: 'Tanzsaal' },
-        { title: 'Barre Workout', letter: 'B', desc: 'Workout an der Ballettstange.', img: '', badge: '5 Plätze frei', meta: 'DI 18:30 - 19:30', details: 'Fitnessraum' },
-        { title: 'Basketball', letter: 'B', desc: 'Teamspiel für alle mit Spaß am Ball.', img: '', badge: '12 Plätze frei', meta: 'MI 20:00 - 21:30', details: 'Halle 1' },
-        { title: 'Beachvolleyball SUC', letter: 'B', desc: 'Sand, Sonne, Sport!', img: '', badge: '3 Plätze frei', meta: 'DO 17:00 - 19:00', details: 'Beachfeld' },
-        { title: 'Bodyattack', letter: 'B', desc: 'Intensives Ganzkörpertraining.', img: '', badge: '7 Plätze frei', meta: 'FR 18:00 - 19:00', details: 'Fitnessraum' },
-        { title: 'Yoga Flow', letter: 'Y', desc: 'Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.', img: 'img/placeholder-yoga.jpg', badge: '12 Plätze frei', meta: 'MO 14:15 - 15:45', details: 'Halle 1' },
-        { title: 'HIIT', letter: 'H', desc: 'High Intensity Intervall Training.', img: 'img/placeholder-hiit.jpg', badge: '9 Plätze frei', meta: 'DI 17:30 - 18:30', details: 'Fitnessraum' },
-        { title: 'Pilates', letter: 'P', desc: 'Kräftigung und Dehnung für den ganzen Körper.', img: '', badge: '11 Plätze frei', meta: 'MI 12:15 - 13:15', details: 'Raum 2' },
-        { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: 'img/placeholder-bouldern.jpg', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle' },
-        { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'FR 15:00 - 17:00', details: 'Tennisplatz' },
-        { title: 'Crossfit', letter: 'C', desc: 'Kraft und Ausdauer im Mix.', img: '', badge: '1 Platz frei', meta: 'SA 10:00 - 11:00', details: 'Fitnessraum' },
-        // Zusätzliche Kurse mit und ohne Bilder
-        { title: 'Zumba', letter: 'Z', desc: 'Tanz und Fitness zu lateinamerikanischer Musik.', img: '', badge: '10 Plätze frei', meta: 'MO 19:00 - 20:00', details: 'Tanzsaal' },
-        { title: 'Schwimmen', letter: 'S', desc: 'Technik und Ausdauer im Wasser.', img: '', badge: '6 Plätze frei', meta: 'DI 07:00 - 08:00', details: 'Schwimmbad' },
-        { title: 'Fussball', letter: 'F', desc: 'Kicken im Team, Spaß garantiert.', img: '', badge: '14 Plätze frei', meta: 'MI 18:00 - 19:30', details: 'Sportplatz' },
-        { title: 'Rudern', letter: 'R', desc: 'Kraft und Technik auf dem Wasser.', img: '', badge: '5 Plätze frei', meta: 'DO 06:30 - 08:00', details: 'Bootshaus' },
-        { title: 'Boxen', letter: 'B', desc: 'Fitness und Technik im Ring.', img: '', badge: '7 Plätze frei', meta: 'FR 17:00 - 18:30', details: 'Boxraum' },
-        { title: 'Volleyball', letter: 'V', desc: 'Teamgeist und Action am Netz.', img: '', badge: '9 Plätze frei', meta: 'SA 15:00 - 17:00', details: 'Halle 2' },
-        { title: 'Stretching', letter: 'S', desc: 'Beweglichkeit und Entspannung.', img: '', badge: '12 Plätze frei', meta: 'MO 08:00 - 09:00', details: 'Raum 1' },
-        { title: 'Functional Training', letter: 'F', desc: 'Ganzkörpertraining für alle.', img: '', badge: '10 Plätze frei', meta: 'DI 19:00 - 20:00', details: 'Fitnessraum' },
-        { title: 'Laufen', letter: 'L', desc: 'Gemeinsam an der frischen Luft.', img: '', badge: '15 Plätze frei', meta: 'MI 07:30 - 08:30', details: 'Outdoor' },
-        { title: 'Tischtennis', letter: 'T', desc: 'Schnelle Ballwechsel und Spaß.', img: '', badge: '8 Plätze frei', meta: 'DO 16:00 - 17:30', details: 'Halle 3' },
-        { title: 'Klettern', letter: 'K', desc: 'Hoch hinaus an der Wand.', img: '', badge: '6 Plätze frei', meta: 'FR 18:00 - 20:00', details: 'Kletterhalle' },
-        { title: 'Mobility', letter: 'M', desc: 'Beweglichkeitstraining für alle.', img: '', badge: '10 Plätze frei', meta: 'SA 09:00 - 10:00', details: 'Raum 2' },
-        { title: 'Power Yoga', letter: 'P', desc: 'Kräftigendes Yoga für Fortgeschrittene.', img: 'img/placeholder-yoga.jpg', badge: '7 Plätze frei', meta: 'MO 20:00 - 21:00', details: 'Halle 1' },
-        { title: 'Cardio HIIT', letter: 'C', desc: 'Cardio-Intervalltraining für Ausdauer.', img: 'img/placeholder-hiit.jpg', badge: '5 Plätze frei', meta: 'DI 18:00 - 19:00', details: 'Fitnessraum' },
-        { title: 'Boulder Basics', letter: 'B', desc: 'Bouldern für Einsteiger.', img: 'img/placeholder-bouldern.jpg', badge: '6 Plätze frei', meta: 'MI 16:00 - 17:30', details: 'Boulderhalle' },
-        { title: 'Morning Yoga', letter: 'M', desc: 'Starte entspannt in den Tag.', img: 'img/placeholder-yoga.jpg', badge: '9 Plätze frei', meta: 'DO 07:00 - 08:00', details: 'Raum 1' },
-        { title: 'HIIT Express', letter: 'H', desc: 'Kurzes, intensives HIIT-Workout.', img: 'img/placeholder-hiit.jpg', badge: '8 Plätze frei', meta: 'FR 12:00 - 12:45', details: 'Fitnessraum' },
-        { title: 'Boulder Advanced', letter: 'B', desc: 'Bouldern für Fortgeschrittene.', img: 'img/placeholder-bouldern.jpg', badge: '4 Plätze frei', meta: 'SA 17:00 - 19:00', details: 'Boulderhalle' },
+        // Montag
+        { title: 'Aikido', letter: 'A', desc: 'Japanische Kampfkunst für Körper und Geist.', img: '', badge: '8 Plätze frei', meta: 'MO 18:00 - 19:30', details: 'Halle 2', sportart: 'Einzelsport', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Ballet', letter: 'B', desc: 'Klassisches Ballett für Anfänger.', img: '', badge: 'Warteliste', meta: 'MO 17:00 - 18:30', details: 'Tanzsaal', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Yoga Flow', letter: 'Y', desc: 'Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.', img: 'img/placeholder-yoga.jpg', badge: '12 Plätze frei', meta: 'MO 14:15 - 15:45', details: 'Halle 1', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Zumba', letter: 'Z', desc: 'Tanz und Fitness zu lateinamerikanischer Musik.', img: '', badge: '10 Plätze frei', meta: 'MO 19:00 - 20:00', details: 'Tanzsaal', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Stretching', letter: 'S', desc: 'Beweglichkeit und Entspannung.', img: '', badge: '12 Plätze frei', meta: 'MO 08:00 - 09:00', details: 'Raum 1', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Power Yoga', letter: 'P', desc: 'Kräftigendes Yoga für Fortgeschrittene.', img: 'img/placeholder-yoga.jpg', badge: '7 Plätze frei', meta: 'MO 20:00 - 21:00', details: 'Halle 1', sportart: 'Gruppensport', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Basketball', letter: 'B', desc: 'Teamspiel für alle mit Spaß am Ball.', img: '', badge: '12 Plätze frei', meta: 'MO 20:00 - 21:30', details: 'Halle 1', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Laufen', letter: 'L', desc: 'Gemeinsam an der frischen Luft.', img: '', badge: '15 Plätze frei', meta: 'MO 07:30 - 08:30', details: 'Outdoor', sportart: 'Ausdauer', niveau: 'Beginner', kosten: 'Gratis', ort: 'Outdoor' },
+
+        // Dienstag
+        { title: 'Akademiker', letter: 'A', desc: 'Akademisches Fitnesstraining.', img: '', badge: '10 Plätze frei', meta: 'DI 17:00 - 18:00', details: 'Fitnessraum', sportart: 'Kraft', niveau: 'Beginner', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Barre Workout', letter: 'B', desc: 'Workout an der Ballettstange.', img: '', badge: '5 Plätze frei', meta: 'DI 18:30 - 19:30', details: 'Fitnessraum', sportart: 'Kraft', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'HIIT', letter: 'H', desc: 'High Intensity Intervall Training.', img: 'img/placeholder-hiit.jpg', badge: '9 Plätze frei', meta: 'DI 17:30 - 18:30', details: 'Fitnessraum', sportart: 'Ausdauer', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Schwimmen', letter: 'S', desc: 'Technik und Ausdauer im Wasser.', img: '', badge: '6 Plätze frei', meta: 'DI 07:00 - 08:00', details: 'Schwimmbad', sportart: 'Ausdauer', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Stadt' },
+        { title: 'Functional Training', letter: 'F', desc: 'Ganzkörpertraining für alle.', img: '', badge: '10 Plätze frei', meta: 'DI 19:00 - 20:00', details: 'Fitnessraum', sportart: 'Kraft', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Cardio HIIT', letter: 'C', desc: 'Cardio-Intervalltraining für Ausdauer.', img: 'img/placeholder-hiit.jpg', badge: '5 Plätze frei', meta: 'DI 18:00 - 19:00', details: 'Fitnessraum', sportart: 'Ausdauer', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'DI 15:00 - 17:00', details: 'Tennisplatz', sportart: 'Ballsport', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Outdoor' },
+        { title: 'Klettern', letter: 'K', desc: 'Hoch hinaus an der Wand.', img: '', badge: '6 Plätze frei', meta: 'DI 18:00 - 20:00', details: 'Kletterhalle', sportart: 'Einzelsport', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Stadt' },
+
+        // Mittwoch
+        { title: 'Bachata', letter: 'B', desc: 'Tanzkurs für Einsteiger und Fortgeschrittene.', img: '', badge: '6 Plätze frei', meta: 'MI 19:00 - 20:30', details: 'Tanzsaal', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Basketball', letter: 'B', desc: 'Teamspiel für alle mit Spaß am Ball.', img: '', badge: '12 Plätze frei', meta: 'MI 20:00 - 21:30', details: 'Halle 1', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Pilates', letter: 'P', desc: 'Kräftigung und Dehnung für den ganzen Körper.', img: '', badge: '11 Plätze frei', meta: 'MI 12:15 - 13:15', details: 'Raum 2', sportart: 'Kraft', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Fussball', letter: 'F', desc: 'Kicken im Team, Spaß garantiert.', img: '', badge: '14 Plätze frei', meta: 'MI 18:00 - 19:30', details: 'Sportplatz', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'Gratis', ort: 'Outdoor' },
+        { title: 'Boulder Basics', letter: 'B', desc: 'Bouldern für Einsteiger.', img: 'img/placeholder-bouldern.jpg', badge: '6 Plätze frei', meta: 'MI 16:00 - 17:30', details: 'Boulderhalle', sportart: 'Einzelsport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Stadt' },
+        { title: 'Boxen', letter: 'B', desc: 'Fitness und Technik im Ring.', img: '', badge: '7 Plätze frei', meta: 'MI 17:00 - 18:30', details: 'Boxraum', sportart: 'Kraft', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Stadt' },
+
+        // Donnerstag
+        { title: 'Badminton', letter: 'B', desc: 'Schnelles Rückschlagspiel für alle Levels.', img: '', badge: '4 Plätze frei', meta: 'DO 16:00 - 18:00', details: 'Halle 3', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Beachvolleyball SUC', letter: 'B', desc: 'Sand, Sonne, Sport!', img: '', badge: '3 Plätze frei', meta: 'DO 17:00 - 19:00', details: 'Beachfeld', sportart: 'Ballsport', niveau: 'Profi', kosten: 'Gratis', ort: 'Outdoor' },
+        { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: 'img/placeholder-bouldern.jpg', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle', sportart: 'Einzelsport', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Stadt' },
+        { title: 'Rudern', letter: 'R', desc: 'Kraft und Technik auf dem Wasser.', img: '', badge: '5 Plätze frei', meta: 'DO 06:30 - 08:00', details: 'Bootshaus', sportart: 'Ausdauer', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Outdoor' },
+        { title: 'Tischtennis', letter: 'T', desc: 'Schnelle Ballwechsel und Spaß.', img: '', badge: '8 Plätze frei', meta: 'DO 16:00 - 17:30', details: 'Halle 3', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Morning Yoga', letter: 'M', desc: 'Starte entspannt in den Tag.', img: 'img/placeholder-yoga.jpg', badge: '9 Plätze frei', meta: 'DO 07:00 - 08:00', details: 'Raum 1', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'Gratis', ort: 'Uni' },
+
+        // Freitag
+        { title: 'Badminton SUC', letter: 'B', desc: 'Badminton für den Hochschulsportclub.', img: '', badge: '2 Plätze frei', meta: 'FR 14:00 - 16:00', details: 'Halle 3', sportart: 'Ballsport', niveau: 'Profi', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Bodyattack', letter: 'B', desc: 'Intensives Ganzkörpertraining.', img: '', badge: '7 Plätze frei', meta: 'FR 18:00 - 19:00', details: 'Fitnessraum', sportart: 'Kraft', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'FR 15:00 - 17:00', details: 'Tennisplatz', sportart: 'Ballsport', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Outdoor' },
+        { title: 'Crossfit', letter: 'C', desc: 'Kraft und Ausdauer im Mix.', img: '', badge: '1 Platz frei', meta: 'FR 10:00 - 11:00', details: 'Fitnessraum', sportart: 'Kraft', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'HIIT Express', letter: 'H', desc: 'Kurzes, intensives HIIT-Workout.', img: 'img/placeholder-hiit.jpg', badge: '8 Plätze frei', meta: 'FR 12:00 - 12:45', details: 'Fitnessraum', sportart: 'Ausdauer', niveau: 'Erfahren', kosten: 'mit Gebühren', ort: 'Uni' },
+
+        // Samstag
+        { title: 'Volleyball', letter: 'V', desc: 'Teamgeist und Action am Netz.', img: '', badge: '9 Plätze frei', meta: 'SA 15:00 - 17:00', details: 'Halle 2', sportart: 'Ballsport', niveau: 'Erfahren', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Mobility', letter: 'M', desc: 'Beweglichkeitstraining für alle.', img: '', badge: '10 Plätze frei', meta: 'SA 09:00 - 10:00', details: 'Raum 2', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'Gratis', ort: 'Uni' },
+        { title: 'Boulder Advanced', letter: 'B', desc: 'Bouldern für Fortgeschrittene.', img: 'img/placeholder-bouldern.jpg', badge: '4 Plätze frei', meta: 'SA 17:00 - 19:00', details: 'Boulderhalle', sportart: 'Einzelsport', niveau: 'Profi', kosten: 'mit Gebühren', ort: 'Stadt' },
+        { title: 'Yoga Flow', letter: 'Y', desc: 'Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.', img: 'img/placeholder-yoga.jpg', badge: '12 Plätze frei', meta: 'SA 14:15 - 15:45', details: 'Halle 1', sportart: 'Gruppensport', niveau: 'Beginner', kosten: 'mit Gebühren', ort: 'Uni' },
+        { title: 'Laufen', letter: 'L', desc: 'Gemeinsam an der frischen Luft.', img: '', badge: '15 Plätze frei', meta: 'SA 07:30 - 08:30', details: 'Outdoor', sportart: 'Ausdauer', niveau: 'Beginner', kosten: 'Gratis', ort: 'Outdoor' }
     ];
     // --- Filterdaten (Demo) ---
     const filterData = {
@@ -297,6 +312,7 @@
         kostens: ['Gratis', 'mit Gebühren']
     };
     let activeFilters = { tags: [], orts: [], sportarts: [], niveaus: [], kostens: [] };
+    let tempFilters = { tags: [], orts: [], sportarts: [], niveaus: [], kostens: [] };
     let searchQuery = '';
     let openCourse = null;
     // --- Tages-Navigation Logik ---
@@ -346,18 +362,35 @@
         el.innerHTML = arr.map(val => `<button class="hsg-filter-btn-round" data-group="${id}" data-value="${val}" onclick="toggleFilter('${id}','${val}',this)">${val}</button>`).join('');
     }
     function toggleFilter(group, value, btn) {
-        const idx = activeFilters[group].indexOf(value);
+        const idx = tempFilters[group].indexOf(value);
         if (idx === -1) {
-            activeFilters[group].push(value);
+            tempFilters[group].push(value);
             btn.classList.add('selected');
         } else {
-            activeFilters[group].splice(idx, 1);
+            tempFilters[group].splice(idx, 1);
             btn.classList.remove('selected');
         }
+    }
+    function applyFilters() {
+        // Copy temporary filters to active filters
+        activeFilters = JSON.parse(JSON.stringify(tempFilters));
         renderCourseList();
+        toggleFilterModal();
     }
     function toggleFilterModal() {
-        document.getElementById('filterModal').classList.toggle('active');
+        const modal = document.getElementById('filterModal');
+        if (!modal.classList.contains('active')) {
+            // When opening modal, copy active filters to temporary filters
+            tempFilters = JSON.parse(JSON.stringify(activeFilters));
+            // Update button states
+            Object.keys(tempFilters).forEach(group => {
+                tempFilters[group].forEach(value => {
+                    const btn = document.querySelector(`[data-group="${group}"][data-value="${value}"]`);
+                    if (btn) btn.classList.add('selected');
+                });
+            });
+        }
+        modal.classList.toggle('active');
     }
     // --- Suche ---
     document.getElementById('searchInput').addEventListener('input', function() {
@@ -392,10 +425,28 @@
         const list = document.getElementById('courseList');
         list.innerHTML = '';
         let filtered = courses.filter(c => c.title.toLowerCase().includes(searchQuery));
+        
         // Tagesfilter
         const dayShort = daysOfWeek[selectedDay].short;
         filtered = filtered.filter(c => c.meta && c.meta.toUpperCase().includes(dayShort));
-        if (activeFilters.tags.length) filtered = filtered.filter(c => activeFilters.tags.some(tag => c.meta && c.meta.includes(tag)));
+
+        // Apply all active filters
+        if (activeFilters.tags.length) {
+            filtered = filtered.filter(c => activeFilters.tags.some(tag => c.meta && c.meta.includes(tag)));
+        }
+        if (activeFilters.orts.length) {
+            filtered = filtered.filter(c => activeFilters.orts.includes(c.ort));
+        }
+        if (activeFilters.sportarts.length) {
+            filtered = filtered.filter(c => activeFilters.sportarts.includes(c.sportart));
+        }
+        if (activeFilters.niveaus.length) {
+            filtered = filtered.filter(c => activeFilters.niveaus.includes(c.niveau));
+        }
+        if (activeFilters.kostens.length) {
+            filtered = filtered.filter(c => activeFilters.kostens.includes(c.kosten));
+        }
+
         // Gruppierung nach Buchstabe
         let grouped = {};
         filtered.forEach(c => {
@@ -410,7 +461,7 @@
             grouped[letter].forEach(course => {
                 const item = document.createElement('div');
                 item.className = 'hsg-list-item' + (openCourse === course.title ? ' active' : '');
-                item.innerHTML = `<span>${course.title}</span><span class='hsg-list-arrow'>${openCourse === course.title ? '&#9660;' : '&#9654;'}</span>`;
+                item.innerHTML = `<span>${course.title}</span><span class='hsg-list-arrow ${openCourse === course.title ? 'rotate-180' : ''}'>&#9660;</span>`;
                 item.onclick = () => {
                     openCourse = openCourse === course.title ? null : course.title;
                     renderCourseList();
