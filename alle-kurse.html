@@ -29,299 +29,460 @@
             src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
             font-weight: normal;
         }
+        .hsg-list-section {
+            margin-top: 2rem;
+        }
+        .hsg-list-label {
+            color: #bdbdbd;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.5rem 0.25rem;
+        }
+        .hsg-list-item {
+            background: #014421;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 0.7rem;
+            cursor: pointer;
+            transition: background 0.15s;
+            border: none;
+        }
+        .hsg-list-item:hover, .hsg-list-item.active {
+            background: #087532;
+        }
+        .hsg-list-arrow {
+            font-size: 1.3em;
+            margin-left: 0.5em;
+        }
+        .hsg-course-detail {
+            background: #fff;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+        .hsg-course-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+        .hsg-course-content {
+            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+        }
+        .hsg-course-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .hsg-badge {
+            background: #e6f9ed;
+            color: #15803d;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.2rem 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .hsg-course-meta {
+            color: #222;
+            font-size: 0.98rem;
+            margin: 0.5rem 0 0.7rem 0;
+            display: flex;
+            align-items: center;
+        }
+        .hsg-course-meta svg {
+            margin-right: 0.4rem;
+        }
+        .hsg-course-desc {
+            color: #444;
+            font-size: 0.98rem;
+            margin-bottom: 1.1rem;
+        }
+        .hsg-btn {
+            background: #009B4C;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            transition: background 0.2s;
+            border: none;
+            width: 100%;
+        }
+        .hsg-btn:hover {
+            background: #088232;
+        }
+        .hsg-searchbar {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .hsg-searchbar input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        .hsg-searchbar .hsg-filter-btn {
+            background: none;
+            border: none;
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: #014421;
+            cursor: pointer;
+        }
+        .hsg-filter-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.25);
+            z-index: 50;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 4rem;
+        }
+        .hsg-filter-modal.active {
+            display: flex;
+        }
+        .hsg-filter-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            max-width: 95vw;
+            width: 350px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+            position: relative;
+        }
+        .hsg-filter-content h3 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .hsg-filter-group {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem 0.7rem;
+        }
+        .hsg-filter-group > .text-xs {
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .hsg-filter-group > div[id^="filter-"] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.7rem;
+        }
+        .hsg-filter-btn-round {
+            border-radius: 999px;
+            border: 1.5px solid #014421;
+            background: #fff;
+            color: #014421;
+            font-weight: 600;
+            padding: 0.35rem 1.1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .hsg-filter-btn-round.selected {
+            background: #014421;
+            color: #fff;
+        }
+        .hsg-filter-close {
+            position: absolute;
+            right: 1.2rem;
+            top: 1.2rem;
+            font-size: 1.3rem;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
-    <!-- Bookings Section -->
-    <section id="bookingsSection" class="max-w-2xl mx-auto mt-8 mb-8 hidden">
-        <h2 class="text-xl font-semibold text-hsg-gray mb-4">Meine Anmeldungen</h2>
-        <div id="bookingsList" class="space-y-4"></div>
-    </section>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg max-w-md w-full mx-4 overflow-hidden">
-            <div class="p-6">
-                <h3 class="text-lg font-semibold text-hsg-gray mb-2" id="modalTitle"></h3>
-                <div id="modalContent" class="space-y-4">
-                    <!-- Initial Booking View -->
-                    <div id="bookingView">
-                        <p class="text-sm text-gray-600 mb-4">Möchtest du diesen Kurs verbindlich buchen?</p>
-                        <div class="text-sm text-gray-600 space-y-2 mb-4">
-                            <div class="flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span id="modalTime"></span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span id="modalLocation"></span>
-                            </div>
-                        </div>
-                        <div class="flex space-x-3">
-                            <button id="confirmBooking" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
-                                Bestätigen
-                            </button>
-                            <button onclick="closeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">
-                                Abbrechen
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Loading View -->
-                    <div id="loadingView" class="hidden text-center py-8">
-                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-hsg-green border-t-transparent"></div>
-                        <p class="mt-4 text-sm text-gray-600">Buchung wird verarbeitet...</p>
-                    </div>
-                    <!-- Success View -->
-                    <div id="successView" class="hidden text-center py-8">
-                        <div class="mb-4">
-                            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <h4 class="text-lg font-semibold text-hsg-gray mb-2">Erfolgreich gebucht!</h4>
-                        <p class="text-sm text-gray-600 mb-4">Der Kurs wurde zu deinen Anmeldungen hinzugefügt.</p>
-                        <button onclick="closeModal()" class="bg-hsg-green text-white px-6 py-2 rounded font-medium hover:bg-green-700 transition">
-                            Schließen
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <!-- Filter Modal -->
+    <div id="filterModal" class="hsg-filter-modal">
+        <div class="hsg-filter-content">
+            <button class="hsg-filter-close" onclick="toggleFilterModal()">&times;</button>
+            <h3>Filter</h3>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Tag</div><div id="filter-tags"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Kosten</div><div id="filter-kostens"></div></div>
         </div>
     </div>
-
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-6">
-        <!-- Page Title -->
-        <h1 class="text-2xl font-semibold text-hsg-gray mb-8">Alle Kurse</h1>
-
-        <!-- Search Bar -->
-        <div class="mb-6">
-            <div class="relative">
-                <input type="search" 
-                       class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent" 
-                       placeholder="Suche nach Kursen...">
-                <svg class="absolute left-3 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-            </div>
-        </div>
-
-        <!-- Filters -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
-                <option value="">Sportart</option>
-                <option value="fitness">Fitness</option>
-                <option value="yoga">Yoga</option>
-                <option value="ball">Ballsport</option>
-                <option value="dance">Tanz</option>
-            </select>
-            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
-                <option value="">Ort</option>
-                <option value="halle1">Sporthalle 1</option>
-                <option value="halle2">Sporthalle 2</option>
-                <option value="outdoor">OutdoorGym</option>
-                <option value="studio">Studio</option>
-            </select>
-            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
-                <option value="">Kosten</option>
-                <option value="free">Kostenlos</option>
-                <option value="paid">Kostenpflichtig</option>
-            </select>
-            <select class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-hsg-green">
-                <option value="">Tag</option>
-                <option value="mo">Montag</option>
-                <option value="di">Dienstag</option>
-                <option value="mi">Mittwoch</option>
-                <option value="do">Donnerstag</option>
-                <option value="fr">Freitag</option>
-            </select>
-        </div>
-
-        <!-- Course Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Course Card 1 -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <img src="img/placeholder-yoga.jpg" alt="Yoga" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-semibold text-hsg-gray">Yoga Flow</h3>
-                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">12 Plätze frei</span>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.</p>
-                    <div class="flex items-center text-sm text-gray-500 mb-4">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Montag, 14:15 - 15:45
-                    </div>
-                    <button onclick="openBookingModal('Yoga Flow', 'Montag, 14:15 - 15:45', 'Halle 1')" 
-                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
-                        Buchen
-                    </button>
+    <main class="max-w-lg mx-auto px-4 py-6">
+        <h1 class="text-2xl font-semibold text-hsg-gray mb-6">Alle Kurse</h1>
+        <!-- Datum und Heute-Button -->
+        <div class="flex items-center justify-between mb-2">
+            <div class="flex items-end gap-2">
+                <div class="text-4xl font-bold leading-none" id="todayDay">05</div>
+                <div class="flex flex-col leading-tight mb-1">
+                    <span class="text-base font-semibold" id="todayMonth">Montag</span>
+                    <span class="text-sm text-gray-500" id="todayDate">Mai 2025</span>
                 </div>
             </div>
-
-            <!-- Course Card 2 -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <img src="img/placeholder-hiit.jpg" alt="HIIT" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-semibold text-hsg-gray">HIIT Workout</h3>
-                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">3 Plätze frei</span>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">Intensives Intervalltraining für maximale Resultate in kurzer Zeit.</p>
-                    <div class="flex items-center text-sm text-gray-500 mb-4">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Dienstag, 17:30 - 18:30
-                    </div>
-                    <button onclick="openBookingModal('HIIT Workout', 'Dienstag, 17:30 - 18:30', 'Halle 2')" 
-                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
-                        Buchen
-                    </button>
-                </div>
-            </div>
-
-            <!-- Course Card 3 -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <img src="img/placeholder-bouldern.jpg" alt="Bouldern" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-semibold text-hsg-gray">Bouldern</h3>
-                        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Warteliste</span>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">Klettern ohne Seil in Absprunghöhe. Perfekt für Anfänger und Fortgeschrittene.</p>
-                    <div class="flex items-center text-sm text-gray-500 mb-4">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Donnerstag, 18:00 - 20:00
-                    </div>
-                    <button onclick="openBookingModal('Bouldern', 'Donnerstag, 18:00 - 20:00', 'OutdoorGym')" 
-                            class="w-full bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">
-                        Auf Warteliste
-                    </button>
-                </div>
-            </div>
-
-            <!-- More course cards can be added here -->
+            <button id="heuteBtn" class="bg-hsg-green text-white font-bold rounded-lg px-6 py-2 text-lg">Heute</button>
         </div>
+        <!-- Tages-Navigation -->
+        <div id="dayNav" class="flex items-center justify-between mb-4">
+            <!-- Dynamisch generiert -->
+        </div>
+        <div class="hsg-searchbar mb-6">
+            <input id="searchInput" type="search" placeholder="Suche nach Kursen...">
+            <button class="hsg-filter-btn" onclick="toggleFilterModal()">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-.293.707l-6.414 6.414A1 1 0 0 0 14 13.414V19a1 1 0 0 1-1.447.894l-4-2A1 1 0 0 1 8 17V13.414a1 1 0 0 0-.293-.707L1.293 6.707A1 1 0 0 1 1 6V4z"/></svg>
+            </button>
+        </div>
+        <div id="courseList"></div>
     </main>
-
     <script>
-        // State management
-        const state = {
-            bookings: [],
-            currentCourse: null
+    // --- Kursdaten (Demo) ---
+    const courses = [
+        { title: 'Aikido', letter: 'A', desc: 'Japanische Kampfkunst für Körper und Geist.', img: '', badge: '8 Plätze frei', meta: 'MO 18:00 - 19:30', details: 'Halle 2' },
+        { title: 'Akademiker', letter: 'A', desc: 'Akademisches Fitnesstraining.', img: '', badge: '10 Plätze frei', meta: 'DI 17:00 - 18:00', details: 'Fitnessraum' },
+        { title: 'Bachata', letter: 'B', desc: 'Tanzkurs für Einsteiger und Fortgeschrittene.', img: '', badge: '6 Plätze frei', meta: 'MI 19:00 - 20:30', details: 'Tanzsaal' },
+        { title: 'Badminton', letter: 'B', desc: 'Schnelles Rückschlagspiel für alle Levels.', img: '', badge: '4 Plätze frei', meta: 'DO 16:00 - 18:00', details: 'Halle 3' },
+        { title: 'Badminton SUC', letter: 'B', desc: 'Badminton für den Hochschulsportclub.', img: '', badge: '2 Plätze frei', meta: 'FR 14:00 - 16:00', details: 'Halle 3' },
+        { title: 'Ballet', letter: 'B', desc: 'Klassisches Ballett für Anfänger.', img: '', badge: 'Warteliste', meta: 'MO 17:00 - 18:30', details: 'Tanzsaal' },
+        { title: 'Barre Workout', letter: 'B', desc: 'Workout an der Ballettstange.', img: '', badge: '5 Plätze frei', meta: 'DI 18:30 - 19:30', details: 'Fitnessraum' },
+        { title: 'Basketball', letter: 'B', desc: 'Teamspiel für alle mit Spaß am Ball.', img: '', badge: '12 Plätze frei', meta: 'MI 20:00 - 21:30', details: 'Halle 1' },
+        { title: 'Beachvolleyball SUC', letter: 'B', desc: 'Sand, Sonne, Sport!', img: '', badge: '3 Plätze frei', meta: 'DO 17:00 - 19:00', details: 'Beachfeld' },
+        { title: 'Bodyattack', letter: 'B', desc: 'Intensives Ganzkörpertraining.', img: '', badge: '7 Plätze frei', meta: 'FR 18:00 - 19:00', details: 'Fitnessraum' },
+        { title: 'Yoga Flow', letter: 'Y', desc: 'Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.', img: 'img/placeholder-yoga.jpg', badge: '12 Plätze frei', meta: 'MO 14:15 - 15:45', details: 'Halle 1' },
+        { title: 'HIIT', letter: 'H', desc: 'High Intensity Intervall Training.', img: '', badge: '9 Plätze frei', meta: 'DI 17:30 - 18:30', details: 'Fitnessraum' },
+        { title: 'Pilates', letter: 'P', desc: 'Kräftigung und Dehnung für den ganzen Körper.', img: '', badge: '11 Plätze frei', meta: 'MI 12:15 - 13:15', details: 'Raum 2' },
+        { title: 'Bouldern', letter: 'B', desc: 'Klettern ohne Seil in Absprunghöhe.', img: '', badge: '8 Plätze frei', meta: 'DO 18:00 - 20:00', details: 'Boulderhalle' },
+        { title: 'Tennis', letter: 'T', desc: 'Einzel und Doppel auf dem Platz.', img: '', badge: '2 Plätze frei', meta: 'FR 15:00 - 17:00', details: 'Tennisplatz' },
+        { title: 'Crossfit', letter: 'C', desc: 'Kraft und Ausdauer im Mix.', img: '', badge: '1 Platz frei', meta: 'SA 10:00 - 11:00', details: 'Fitnessraum' },
+    ];
+    // --- Filterdaten (Demo) ---
+    const filterData = {
+        tags: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        orts: ['Uni', 'Stadt', 'Outdoor'],
+        sportarts: ['Gruppensport', 'Ballsport', 'Einzelsport', 'Ausdauer', 'Kraft'],
+        niveaus: ['Beginner', 'Erfahren', 'Profi'],
+        kostens: ['Gratis', 'mit Gebühren']
+    };
+    let activeFilters = { tags: [], orts: [], sportarts: [], niveaus: [], kostens: [] };
+    let searchQuery = '';
+    let openCourse = null;
+    // --- Tages-Navigation Logik ---
+    const daysOfWeek = [
+        { short: 'MO', long: 'Montag' },
+        { short: 'DI', long: 'Dienstag' },
+        { short: 'MI', long: 'Mittwoch' },
+        { short: 'DO', long: 'Donnerstag' },
+        { short: 'FR', long: 'Freitag' },
+        { short: 'SA', long: 'Samstag' },
+    ];
+    let selectedDay = 0; // Standard: Montag
+    let todayIdx = 0;
+    function renderDayNav() {
+        const nav = document.getElementById('dayNav');
+        const today = new Date();
+        // Finde Index des heutigen Tages (0=MO, 1=DI, ...)
+        let jsDay = today.getDay();
+        todayIdx = jsDay === 0 ? 6 : jsDay - 1; // JS: 0=SO, 1=MO...
+        nav.innerHTML = daysOfWeek.map((d, i) => {
+            const isActive = i === selectedDay;
+            const dateNum = new Date(today.getFullYear(), today.getMonth(), today.getDate() - todayIdx + i).getDate();
+            return `<button onclick=\"selectDay(${i})\" class=\"flex flex-col items-center px-2 py-1 ${isActive ? 'bg-hsg-green text-white rounded-lg' : 'text-hsg-gray'}\" style=\"min-width:40px;\">\n            <span class=\"text-xs font-semibold\">${d.short}</span>\n            <span class=\"text-lg font-bold\">${String(dateNum).padStart(2, '0')}</span>\n        </button>`;
+        }).join('');
+        // Datum und Monat oben setzen
+        document.getElementById('todayDay').textContent = String(today.getDate()).padStart(2, '0');
+        document.getElementById('todayMonth').textContent = daysOfWeek[todayIdx].long;
+        const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+        document.getElementById('todayDate').textContent = `${months[today.getMonth()]} ${today.getFullYear()}`;
+    }
+    function selectDay(idx) {
+        selectedDay = idx;
+        renderDayNav();
+        renderCourseList();
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        renderDayNav();
+        document.getElementById('heuteBtn').onclick = function() {
+            selectedDay = todayIdx;
+            renderDayNav();
+            renderCourseList();
         };
-
-        // Load bookings from localStorage
-        function loadBookings() {
-            const saved = localStorage.getItem('bookings');
-            if (saved) {
-                try {
-                    state.bookings = JSON.parse(saved);
-                } catch (e) {
-                    state.bookings = [];
+    });
+    // --- Filter-Rendering ---
+    function renderFilterGroup(id, label, arr) {
+        const el = document.getElementById('filter-' + id);
+        el.innerHTML = arr.map(val => `<button class="hsg-filter-btn-round" data-group="${id}" data-value="${val}" onclick="toggleFilter('${id}','${val}',this)">${val}</button>`).join('');
+    }
+    function toggleFilter(group, value, btn) {
+        const idx = activeFilters[group].indexOf(value);
+        if (idx === -1) {
+            activeFilters[group].push(value);
+            btn.classList.add('selected');
+        } else {
+            activeFilters[group].splice(idx, 1);
+            btn.classList.remove('selected');
+        }
+        renderCourseList();
+    }
+    function toggleFilterModal() {
+        document.getElementById('filterModal').classList.toggle('active');
+    }
+    // --- Suche ---
+    document.getElementById('searchInput').addEventListener('input', function() {
+        searchQuery = this.value.toLowerCase();
+        renderCourseList();
+    });
+    // --- Favoriten-Funktion ---
+    function toggleFavorite(title) {
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        const index = favorites.indexOf(title);
+        if (index === -1) {
+            favorites.push(title);
+        } else {
+            favorites.splice(index, 1);
+        }
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavoriteButton(title);
+    }
+    function updateFavoriteButton(title) {
+        const btn = document.getElementById(`favorite-${title}`);
+        if (btn) {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (favorites.includes(title)) {
+                btn.classList.add('text-yellow-500');
+            } else {
+                btn.classList.remove('text-yellow-500');
+            }
+        }
+    }
+    // --- Kursliste Rendering ---
+    function renderCourseList() {
+        const list = document.getElementById('courseList');
+        list.innerHTML = '';
+        let filtered = courses.filter(c => c.title.toLowerCase().includes(searchQuery));
+        // Tagesfilter
+        const dayShort = daysOfWeek[selectedDay].short;
+        filtered = filtered.filter(c => c.meta && c.meta.toUpperCase().includes(dayShort));
+        if (activeFilters.tags.length) filtered = filtered.filter(c => activeFilters.tags.some(tag => c.meta && c.meta.includes(tag)));
+        // Gruppierung nach Buchstabe
+        let grouped = {};
+        filtered.forEach(c => {
+            if (!grouped[c.letter]) grouped[c.letter] = [];
+            grouped[c.letter].push(c);
+        });
+        Object.keys(grouped).sort().forEach(letter => {
+            const label = document.createElement('div');
+            label.className = 'hsg-list-label';
+            label.textContent = letter;
+            list.appendChild(label);
+            grouped[letter].forEach(course => {
+                const item = document.createElement('div');
+                item.className = 'hsg-list-item' + (openCourse === course.title ? ' active' : '');
+                item.innerHTML = `<span>${course.title}</span><span class='hsg-list-arrow'>${openCourse === course.title ? '&#9660;' : '&#9654;'}</span>`;
+                item.onclick = () => {
+                    openCourse = openCourse === course.title ? null : course.title;
+                    renderCourseList();
+                };
+                list.appendChild(item);
+                if (openCourse === course.title) {
+                    const detail = document.createElement('div');
+                    detail.className = 'hsg-course-detail';
+                    detail.innerHTML = `
+                        ${course.img ? `<img src='${course.img}' alt='${course.title}' class='hsg-course-img'>` : ''}
+                        <div class='hsg-course-content'>
+                            <div class='hsg-course-title'>${course.title}${course.badge ? `<span class='hsg-badge'>${course.badge}</span>` : ''}</div>
+                            ${course.desc ? `<div class='hsg-course-desc'>${course.desc}</div>` : ''}
+                            ${course.meta ? `<div class='hsg-course-meta'><svg width='18' height='18' fill='none' stroke='#014421' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/></svg> ${course.meta}</div>` : ''}
+                            <div class="flex items-center space-x-2">
+                                <button class='hsg-btn flex-1' onclick="openBookingModal('${course.title}','${course.meta}','${course.details}',false);event.stopPropagation();">Buchen</button>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star w-10 h-10 border-2 border-hsg-green rounded-lg p-1 text-gray-400" onclick="toggleFavorite('${course.title}');event.stopPropagation();" id="favorite-${course.title}">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                    `;
+                    list.appendChild(detail);
+                    updateFavoriteButton(course.title);
                 }
-            }
-        }
-
-        // Save bookings to localStorage
-        function saveBookings() {
-            localStorage.setItem('bookings', JSON.stringify(state.bookings));
-        }
-
-        // Modal management
-        function openBookingModal(title, time, location) {
-            const modal = document.getElementById('bookingModal');
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalTime').textContent = time;
-            document.getElementById('modalLocation').textContent = location;
-            
-            state.currentCourse = { title, time, location };
-            
-            showView('bookingView');
-            modal.classList.remove('hidden');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('bookingModal');
-            modal.classList.add('hidden');
-            setTimeout(() => {
-                showView('bookingView');
-            }, 300);
-        }
-
-        function showView(viewId) {
-            ['bookingView', 'loadingView', 'successView'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
             });
-            document.getElementById(viewId).classList.remove('hidden');
-        }
-
-        // Booking process
-        document.getElementById('confirmBooking').addEventListener('click', async function() {
-            showView('loadingView');
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            // Add to bookings
-            state.bookings.push(state.currentCourse);
-            saveBookings();
-            // Show success
-            showView('successView');
-            // Update UI
-            updateBookingsUI();
         });
-
-        // Update bookings section in the DOM
-        function updateBookingsUI() {
-            const section = document.getElementById('bookingsSection');
-            const list = document.getElementById('bookingsList');
-            list.innerHTML = '';
-            if (state.bookings.length === 0) {
-                section.classList.add('hidden');
-                return;
-            }
-            section.classList.remove('hidden');
-            state.bookings.forEach(course => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between';
-                card.innerHTML = `
-                    <div>
-                        <div class="font-semibold text-hsg-gray">${course.title}</div>
-                        <div class="text-sm text-gray-500">${course.time}</div>
-                        <div class="text-sm text-gray-400">${course.location}</div>
+    }
+    // --- Filter-Init ---
+    renderFilterGroup('tags', 'Tag', filterData.tags);
+    renderFilterGroup('orts', 'Ort', filterData.orts);
+    renderFilterGroup('sportarts', 'Sportart', filterData.sportarts);
+    renderFilterGroup('niveaus', 'Niveau', filterData.niveaus);
+    renderFilterGroup('kostens', 'Kosten', filterData.kostens);
+    renderCourseList();
+    // --- Modal für Buchung (wie heute-morgen) ---
+    function openBookingModal(title, time, status, isWaitlist) {
+        if (!document.getElementById('bookingModal')) {
+            const modal = document.createElement('div');
+            modal.id = 'bookingModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-hsg-gray mb-2" id="modalTitle">${title}</h3>
+                        <div id="modalContent" class="space-y-4">
+                            <div id="bookingView">
+                                <p class="text-sm text-gray-600 mb-4" id="modalText">Möchtest du diesen Kurs verbindlich buchen?</p>
+                                <div class="text-sm text-gray-600 space-y-2 mb-4">
+                                    <div id="modalMeta"><span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Ort:</span> ${status}</div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button id="confirmBooking" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Bestätigen</button>
+                                    <button onclick="closeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">Abbrechen</button>
+                                </div>
+                            </div>
+                            <div id="successView" class="hidden text-center py-8">
+                                <div class="mb-4">
+                                    <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-semibold text-hsg-gray mb-2">Erfolgreich!</h4>
+                                <p class="text-sm text-gray-600 mb-4" id="successMsg">Der Kurs wurde erfolgreich gebucht.</p>
+                                <button onclick="closeModal()" class="bg-hsg-green text-white px-6 py-2 rounded font-medium hover:bg-green-700 transition">Schließen</button>
+                            </div>
+                        </div>
                     </div>
-                    <span class="mt-2 sm:mt-0 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Gebucht</span>
-                `;
-                list.appendChild(card);
-            });
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+            document.getElementById('confirmBooking').onclick = function() {
+                document.getElementById('bookingView').classList.add('hidden');
+                document.getElementById('successView').classList.remove('hidden');
+            };
+        } else {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMeta').innerHTML = `<span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Ort:</span> ${status}`;
+            document.getElementById('successView').classList.add('hidden');
+            document.getElementById('bookingView').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('confirmBooking').onclick = function() {
+                document.getElementById('bookingView').classList.add('hidden');
+                document.getElementById('successView').classList.remove('hidden');
+            };
         }
-
-        // On page load
-        loadBookings();
-        updateBookingsUI();
-
-        // Add any necessary JavaScript for filter functionality
-        document.querySelectorAll('select').forEach(select => {
-            select.addEventListener('change', function() {
-                // Filter logic would go here
-                console.log('Filter changed:', this.value);
-            });
-        });
-
-        // Search functionality
-        document.querySelector('input[type="search"]').addEventListener('input', function() {
-            // Search logic would go here
-            console.log('Search query:', this.value);
-        });
+        document.getElementById('bookingModal').classList.remove('hidden');
+    }
+    function closeModal() {
+        document.getElementById('bookingModal').classList.add('hidden');
+    }
     </script>
 </body>
 </html> 

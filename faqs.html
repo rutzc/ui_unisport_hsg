@@ -29,36 +29,79 @@
             src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
             font-weight: normal;
         }
+        .hsg-faq-box {
+            background: #014421;
+            color: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .hsg-faq-box h2 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .hsg-faq-box h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .hsg-faq-divider {
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            margin: 1rem 0;
+        }
+        .hsg-faq-arrow {
+            font-size: 1.2em;
+            margin-right: 0.5em;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
     <main class="max-w-2xl mx-auto px-4 py-8">
-        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Häufig gestellte Fragen (FAQs)</h1>
+        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Fragen und Antworten</h1>
+        <!-- Zulassung Toggle Abschnitt -->
+        <div class="hsg-faq-box p-0 mb-4">
+            <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left font-medium focus:outline-none text-sm sm:text-base bg-transparent text-white" onclick="toggleFaq('zulassung')">
+                Unisport Zulassung: Wer darf das Sportangebot nutzen?
+                <span class="ml-2">&#9660;</span>
+            </button>
+            <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-white/80 text-sm sm:text-base" id="faq-content-zulassung">
+                <div class="mb-3"><b>Studierende der Universität St. Gallen</b><br>Immatrikulierte Studierende sind mit der gültigen Studierenden-Karte berechtigt den Sportbetrieb kostenlos zu nutzen.</div>
+                <div class="hsg-faq-divider"></div>
+                <div class="mb-3"><b>Studierende der OST – Ostschweizer Fachhochschule St. Gallen</b><br>Immatrikulierte Studierende sind mit der gültigen Studierenden-Karte der OST berechtigt den Sportbetrieb kostenlos zu nutzen.</div>
+                <div class="hsg-faq-divider"></div>
+                <div class="mb-3"><b>Studierende der PHSG – Pädagogischen Hochschule St.Gallen</b><br>Immatrikulierte Studierende sind mit der gültigen Studierenden-Karte der PHSG berechtigt den Sportbetrieb kostenlos zu nutzen.</div>
+                <div class="hsg-faq-divider"></div>
+                <div class="mb-3"><b>Studierende einer anderen Schweizer Universität (inkl. ETHZ und EPFL)</b></div>
+                <div class="mb-1">Studierende einer anderen Fachhochschule Schweiz, Pädagogischen Hochschule Schweiz und Fernfachhochschule Schweiz</div>
+            </div>
+        </div>
+        <!-- FAQ Akkordeon -->
         <div id="faq-accordion" class="space-y-3 sm:space-y-4">
-            <div class="border rounded-lg">
-                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-sm sm:text-base" onclick="toggleFaq(0)">
+            <div class="hsg-faq-box p-0">
+                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left font-medium focus:outline-none text-sm sm:text-base bg-transparent text-white" onclick="toggleFaq(0)">
                     Wie kann ich mich für einen Kurs anmelden?
                     <span class="ml-2">&#9660;</span>
                 </button>
-                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-gray-600 text-sm sm:text-base" id="faq-content-0">
+                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-white/80 text-sm sm:text-base" id="faq-content-0">
                     Die Anmeldung erfolgt direkt über die Schaltfläche "Buchen" beim jeweiligen Kurs. Nach Bestätigung erscheint der Kurs unter "Meine Anmeldungen".
                 </div>
             </div>
-            <div class="border rounded-lg">
-                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-sm sm:text-base" onclick="toggleFaq(1)">
+            <div class="hsg-faq-box p-0">
+                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left font-medium focus:outline-none text-sm sm:text-base bg-transparent text-white" onclick="toggleFaq(1)">
                     Was kostet die Teilnahme an den Kursen?
                     <span class="ml-2">&#9660;</span>
                 </button>
-                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-gray-600 text-sm sm:text-base" id="faq-content-1">
+                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-white/80 text-sm sm:text-base" id="faq-content-1">
                     Viele Kurse sind kostenlos. Kostenpflichtige Kurse sind entsprechend gekennzeichnet.
                 </div>
             </div>
-            <div class="border rounded-lg">
-                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-sm sm:text-base" onclick="toggleFaq(2)">
+            <div class="hsg-faq-box p-0">
+                <button class="w-full flex justify-between items-center px-3 sm:px-4 py-3 text-left font-medium focus:outline-none text-sm sm:text-base bg-transparent text-white" onclick="toggleFaq(2)">
                     Wie kann ich meine Buchung stornieren?
                     <span class="ml-2">&#9660;</span>
                 </button>
-                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-gray-600 text-sm sm:text-base" id="faq-content-2">
+                <div class="px-3 sm:px-4 pb-3 sm:pb-4 hidden text-white/80 text-sm sm:text-base" id="faq-content-2">
                     Stornierungen sind bis 24 Stunden vor Kursbeginn möglich. Bitte nutze dazu die Funktion in "Meine Anmeldungen".
                 </div>
             </div>

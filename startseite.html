@@ -43,6 +43,32 @@
                     overlayText.textContent = user ? 'Zum Dashboard' : 'Zum Login';
                 }
             }
+            // Begrüßung Name und Datum
+            document.getElementById('welcomeName').textContent = 'Hallo ' + (window.header.getUser && window.header.getUser()?.name || 'Claudia');
+            // Datum
+            const d = new Date();
+            const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+            const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+            document.getElementById('welcomeDate').textContent = `${days[d.getDay()]}, ${d.getDate()}. ${months[d.getMonth()]}`;
+            // Anstehende Kurse aus localStorage (Demo)
+            let anmeldungen = [
+                { title: 'Yoga Flow', time: 'Montag, 14:15 - 15:45' },
+                { title: 'HIIT', time: 'Mittwoch, 17:30 - 18:30' }
+            ];
+            try {
+                const stored = localStorage.getItem('anmeldungen');
+                if (stored) anmeldungen = JSON.parse(stored);
+            } catch {}
+            const list = document.getElementById('anstehendeKurse');
+            if (anmeldungen && anmeldungen.length) {
+                list.innerHTML = `<div class='mb-2 text-lg font-semibold text-hsg-gray'>Anstehende Kurse</div>` +
+                    anmeldungen.map(a => `<div class='flex items-center justify-between bg-white rounded-lg shadow-sm border border-gray-200 px-4 py-2 mb-2'>
+                        <div><div class='font-medium'>${a.title}</div><div class='text-sm text-gray-500'>${a.time}</div></div>
+                        <a href='dashboard.html' class='ml-4 px-4 py-1 rounded-full bg-hsg-green text-white text-sm font-semibold shadow hover:bg-green-800 transition'>Details</a>
+                    </div>`).join('');
+            } else {
+                list.innerHTML = '';
+            }
         });
     </script>
     <style>
@@ -54,8 +80,8 @@
         .dashboard-card {
             position: relative;
             overflow: hidden;
-            border-radius: 0 !important;
-            background: #0C542B;
+            border-radius: 16px !important;
+            background: #014421;
         }
         .dashboard-card::after {
             content: '';
@@ -89,49 +115,49 @@
             z-index: 3;
             position: relative;
         }
+        .bg-hsg-green { background: #014421 !important; }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <div class="bg-white shadow-sm border border-gray-200 p-0 mb-8 flex flex-col sm:flex-row items-center">
-            <a href="dashboard.html" class="dashboard-card flex flex-col sm:flex-row items-center w-full group relative p-6 transition cursor-pointer">
-                <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-24 h-24 object-cover mb-4 sm:mb-0 sm:mr-6 border-2 border-hsg-green transition group-hover:border-green-700">
-                <div class="flex-1 dashboard-content">
-                    <h2 class="text-lg font-semibold text-white group-hover:text-white transition">Max Mustermann</h2>
-                    <p class="text-sm text-gray-100">Student (Bachelor)</p>
-                </div>
-                <span class="dashboard-link absolute right-8 bottom-6 flex items-center text-white text-base font-semibold z-10 select-none">
-                    <span class="mr-2">&rarr;</span><span class="dynamic-text">Zum Dashboard</span>
-                </span>
-            </a>
+        <!-- Begrüßung und Profil -->
+        <div class="flex items-center mb-6">
+            <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-16 h-16 object-cover border-2 border-hsg-green mr-4">
+            <div>
+                <div class="text-2xl font-semibold text-hsg-gray" id="welcomeName">Hallo Claudia</div>
+                <div class="text-base text-gray-500" id="welcomeDate"></div>
+            </div>
         </div>
-        <section class="mb-8">
-            <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-4">Willkommen beim Unisport St.Gallen!</h1>
-            <p class="text-hsg-gray mb-2">Hier findest du aktuelle Informationen, News und den Zugang zu allen Sportangeboten der Universität St.Gallen.</p>
-            <ul class="list-disc list-inside text-gray-600">
-                <li>Neue Kurse für das Sommersemester jetzt buchbar!</li>
-                <li>Sporthalle 2 wegen Renovierung bis 15.07. geschlossen.</li>
-                <li>Jetzt für das Sommerfest anmelden!</li>
-            </ul>
-        </section>
+        <!-- News-Bereich -->
+        <div class="rounded-lg bg-hsg-green text-white px-6 py-4 mb-8">
+            <div class="text-xl font-bold mb-2">Neuigkeiten</div>
+            <div class="flex flex-col sm:flex-row text-sm font-medium divide-y divide-white/20 sm:divide-y-0 sm:divide-x sm:gap-0">
+                <div class="py-2 sm:py-0 sm:px-6 flex-1">Neue Kurse für das Sommersemester <span class="font-bold text-white">jetzt buchbar!</span></div>
+                <div class="py-2 sm:py-0 sm:px-6 flex-1">Sporthalle 2 wegen Renovierung bis <span class="font-bold text-white">15.07 geschlossen</span></div>
+                <div class="py-2 sm:py-0 sm:px-6 flex-1">Jetzt für das Sommerfest <span class="font-bold text-white">anmelden!</span></div>
+            </div>
+        </div>
+        <!-- Anstehende Kurse -->
+        <div id="anstehendeKurse" class="mb-8"></div>
+        <!-- Schnellzugriff -->
         <section>
             <h2 class="text-lg font-semibold text-hsg-gray mb-4">Schnellzugriff</h2>
             <div class="flex flex-wrap gap-x-4 gap-y-6 justify-start">
-                <a href="heute-morgen.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                <a href="heute-morgen.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
                     <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Heute & Morgen</span>
                     <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Was heute und morgen läuft.</span>
                 </a>
-                <a href="alle-kurse.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                <a href="alle-kurse.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
                     <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Alle Kurse</span>
                     <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Alle Angebote im Überblick.</span>
                 </a>
-                <a href="faqs.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
+                <a href="faqs.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
                     <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">FAQs</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Antworten auf häufige Fragen.</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Antworten zu häufigen Fragen.</span>
                 </a>
-                <a href="jobs.html" class="dashboard-card flex flex-col justify-center items-center relative p-8 transition cursor-pointer w-56 aspect-square">
-                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Jobs</span>
-                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Werde Teil unseres Teams.</span>
+                <a href="dashboard.html" class="dashboard-card flex flex-col justify-center items-center relative p-6 transition cursor-pointer w-48 aspect-square">
+                    <span class="text-lg font-semibold text-white text-center leading-tight mb-2 whitespace-normal break-words">Dashboard</span>
+                    <span class="text-sm text-gray-100 text-center whitespace-normal break-words">Deine Übersicht.</span>
                 </a>
             </div>
         </section>

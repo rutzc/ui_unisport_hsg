@@ -29,63 +29,162 @@
             src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
             font-weight: normal;
         }
+        .hsg-section {
+            background: #014421;
+            color: #fff;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            padding: 0;
+        }
+        .hsg-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .hsg-section-content {
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+        }
+        .hsg-course-box {
+            background: #fff;
+            color: #014421;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .hsg-course-info {
+            flex: 1;
+        }
+        .hsg-course-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.15rem;
+        }
+        .hsg-course-meta {
+            font-size: 0.97rem;
+            color: #014421cc;
+        }
+        .hsg-course-status {
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        .hsg-status-frei {
+            color: #15803d;
+        }
+        .hsg-status-warteliste {
+            color: #b91c1c;
+        }
+        .hsg-btn {
+            background: #009B4C;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            transition: background 0.2s;
+            border: none;
+        }
+        .hsg-btn.warteliste {
+            background: #fffbe6;
+            color: #b45309;
+            border: 1px solid #b45309;
+        }
+        .hsg-btn:hover {
+            background: #088232;
+        }
+        .hsg-btn.warteliste:hover {
+            background: #fef3c7;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
-    <main class="max-w-lg sm:max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
-        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Heute & Morgen</h1>
-        <div class="space-y-4">
-            <!-- Heute Accordion -->
-            <div class="border rounded-lg">
-                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-base" onclick="toggleDay('heute')">
-                    <span>Heute</span>
-                    <span id="icon-heute" class="ml-2">&#9660;</span>
-                </button>
-                <div class="px-4 pb-4 hidden" id="content-heute">
-                    <div class="space-y-4">
-                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
-                            <div>
-                                <div class="font-semibold text-hsg-gray">Yoga Flow</div>
-                                <div class="text-sm text-gray-500">14:15 - 15:45 · Halle 1</div>
-                                <div class="text-xs text-green-700 mt-1">Plätze frei</div>
-                            </div>
-                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+    <!-- Buchungs-/Wartelisten-Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-lg font-semibold text-hsg-gray mb-2" id="modalTitle"></h3>
+                <div id="modalContent" class="space-y-4">
+                    <div id="bookingView">
+                        <p class="text-sm text-gray-600 mb-4" id="modalText"></p>
+                        <div class="text-sm text-gray-600 space-y-2 mb-4">
+                            <div id="modalMeta"></div>
                         </div>
-                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
-                            <div>
-                                <div class="font-semibold text-hsg-gray">Pilates</div>
-                                <div class="text-sm text-gray-500">16:00 - 17:00 · Studio 2</div>
-                                <div class="text-xs text-yellow-700 mt-1">Nur noch 2 Plätze</div>
-                            </div>
-                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        <div class="flex space-x-3">
+                            <button id="confirmBooking" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Bestätigen</button>
+                            <button onclick="closeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">Abbrechen</button>
                         </div>
+                    </div>
+                    <div id="successView" class="hidden text-center py-8">
+                        <div class="mb-4">
+                            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-semibold text-hsg-gray mb-2">Erfolgreich!</h4>
+                        <p class="text-sm text-gray-600 mb-4" id="successMsg"></p>
+                        <button onclick="closeModal()" class="bg-hsg-green text-white px-6 py-2 rounded font-medium hover:bg-green-700 transition">Schließen</button>
                     </div>
                 </div>
             </div>
-            <!-- Morgen Accordion -->
-            <div class="border rounded-lg">
-                <button class="w-full flex justify-between items-center px-4 py-3 text-left text-hsg-gray font-medium focus:outline-none text-base" onclick="toggleDay('morgen')">
+        </div>
+    </div>
+    <main class="max-w-lg sm:max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Heute & Morgen</h1>
+        <div class="space-y-6">
+            <!-- Heute Section -->
+            <div class="hsg-section">
+                <div class="hsg-section-header" onclick="toggleDay('heute')">
+                    <span>Heute</span>
+                    <span id="icon-heute" class="ml-2">&#9660;</span>
+                </div>
+                <div class="hsg-section-content hidden" id="content-heute">
+                    <div class="hsg-course-box">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">Yoga Flow</div>
+                            <div class="hsg-course-meta">14:15–15:45 Halle 2</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Yoga Flow', '14:15–15:45 Halle 2', 'Plätze frei', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">Pilates</div>
+                            <div class="hsg-course-meta">16:00–17:00 Studio 1</div>
+                            <div class="hsg-course-status hsg-status-warteliste">Nur noch 2 Plätze</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Pilates', '16:00–17:00 Studio 1', 'Nur noch 2 Plätze', false)">Buchen</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Morgen Section -->
+            <div class="hsg-section">
+                <div class="hsg-section-header" onclick="toggleDay('morgen')">
                     <span>Morgen</span>
                     <span id="icon-morgen" class="ml-2">&#9660;</span>
-                </button>
-                <div class="px-4 pb-4 hidden" id="content-morgen">
-                    <div class="space-y-4">
-                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
-                            <div>
-                                <div class="font-semibold text-hsg-gray">HIIT</div>
-                                <div class="text-sm text-gray-500">09:00 - 10:00 · OutdoorGym</div>
-                                <div class="text-xs text-green-700 mt-1">Plätze frei</div>
-                            </div>
-                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                </div>
+                <div class="hsg-section-content hidden" id="content-morgen">
+                    <div class="hsg-course-box">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">HIIT</div>
+                            <div class="hsg-course-meta">9:00–10:00 Outdoor Gym</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei</div>
                         </div>
-                        <div class="bg-hsg-light rounded-md p-4 flex flex-col sm:flex-row sm:items-center justify-between">
-                            <div>
-                                <div class="font-semibold text-hsg-gray">Bouldern</div>
-                                <div class="text-sm text-gray-500">18:00 - 20:00 · Boulderhalle</div>
-                                <div class="text-xs text-red-700 mt-1">Warteliste</div>
-                            </div>
-                            <button class="mt-3 sm:mt-0 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Buchen</button>
+                        <button class="hsg-btn" onclick="openBookingModal('HIIT', '9:00–10:00 Outdoor Gym', 'Plätze frei', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">Bouldern</div>
+                            <div class="hsg-course-meta">18:00–20:00 Boulderhalle</div>
+                            <div class="hsg-course-status hsg-status-warteliste">Warteliste</div>
                         </div>
+                        <button class="hsg-btn warteliste" onclick="openBookingModal('Bouldern', '18:00–20:00 Boulderhalle', 'Warteliste', true)">Warteliste</button>
                     </div>
                 </div>
             </div>
@@ -98,6 +197,28 @@
             content.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
+
+        // Modal-Logik
+        function openBookingModal(title, time, status, isWaitlist) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMeta').innerHTML = `<span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Status:</span> ${status}`;
+            document.getElementById('modalText').textContent = isWaitlist ? 'Möchtest du dich auf die Warteliste setzen lassen?' : 'Möchtest du diesen Kurs verbindlich buchen?';
+            document.getElementById('successView').classList.add('hidden');
+            document.getElementById('bookingView').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('confirmBooking').onclick = function() {
+                document.getElementById('bookingView').classList.add('hidden');
+                document.getElementById('successView').classList.remove('hidden');
+                document.getElementById('successMsg').textContent = isWaitlist ? 'Du wurdest erfolgreich auf die Warteliste gesetzt.' : 'Der Kurs wurde erfolgreich gebucht.';
+            };
+        }
+        function closeModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+        // Modal schließt bei Klick auf den Hintergrund
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
     </script>
 </body>
 </html> 

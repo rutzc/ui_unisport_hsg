@@ -32,6 +32,43 @@
         .nav-shadow {
             box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         }
+        .hsg-box {
+            background: #014421;
+            color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .hsg-badge {
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.95rem;
+        }
+        .hsg-badge-confirmed {
+            background: #e6f9ed;
+            color: #15803d;
+        }
+        .hsg-badge-waitlist {
+            background: #fffbe6;
+            color: #b45309;
+        }
+        .hsg-btn {
+            background: #e6f9ed;
+            color: #15803d;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.25rem 1.2rem;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .hsg-btn:hover {
+            background: #b6f2d6;
+        }
+        .hsg-star {
+            color: #facc15;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
@@ -47,50 +84,55 @@
                         <span class="hidden group-hover:block bg-hsg-green text-white text-xs px-2 py-1 rounded">Bild ändern</span>
                     </div>
                 </div>
-                <h2 class="text-lg font-semibold text-hsg-gray">Max Mustermann</h2>
-                <p class="text-sm text-gray-500">Student</p>
+                <h2 class="text-lg font-semibold text-hsg-gray">Claudia Rutz</h2>
+                <p class="text-sm text-gray-500 mb-2">MBI</p>
+                <div class="flex flex-col items-center gap-1 text-hsg-gray text-sm">
+                    <div><span class="font-semibold">Grösse:</span> 1,72m</div>
+                    <div><span class="font-semibold">Gewicht:</span> 62kg</div>
+                </div>
             </div>
 
             <!-- Meine Anmeldungen Section -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Meine Anmeldungen</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                            <h4 class="font-medium">Yoga Flow</h4>
-                            <p class="text-sm text-gray-500">Montag, 14:15 - 15:45</p>
+            <div class="hsg-box p-6">
+                <h3 class="text-lg font-semibold mb-4">Meine Anmeldungen</h3>
+                <div id="anmeldungenList" class="space-y-4">
+                    <!-- Dynamisch generiert -->
+                </div>
+            </div>
+
+            <!-- Abmelde-Popup -->
+            <div id="abmeldeModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
+                <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-hsg-gray mb-2">Abmeldung bestätigen</h3>
+                        <p class="text-sm text-gray-600 mb-4">Möchtest du dich wirklich von <span id='abmeldeKurs'></span> abmelden?</p>
+                        <div class="flex space-x-3">
+                            <button id="confirmAbmelden" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Ja, abmelden</button>
+                            <button onclick="closeAbmeldeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">Abbrechen</button>
                         </div>
-                        <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Bestätigt</span>
-                    </div>
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                            <h4 class="font-medium">HIIT</h4>
-                            <p class="text-sm text-gray-500">Mittwoch, 17:30 - 18:30</p>
-                        </div>
-                        <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Warteliste</span>
                     </div>
                 </div>
             </div>
 
             <!-- Favoriten Section -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Favoriten</h3>
+            <div class="hsg-box p-6">
+                <h3 class="text-lg font-semibold mb-4">Favoriten</h3>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div class="flex items-center justify-between py-3 border-b border-white/20">
                         <div>
                             <h4 class="font-medium">Pilates</h4>
-                            <p class="text-sm text-gray-500">Dienstag, 12:15 - 13:15</p>
+                            <p class="text-sm text-white/80">Dienstag, 12:15 - 13:15</p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star">
                             <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div class="flex items-center justify-between py-3 border-b border-white/20">
                         <div>
                             <h4 class="font-medium">Bouldern</h4>
-                            <p class="text-sm text-gray-500">Donnerstag, 18:00 - 20:00</p>
+                            <p class="text-sm text-white/80">Donnerstag, 18:00 - 20:00</p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star">
                             <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                         </svg>
                     </div>
@@ -98,39 +140,39 @@
             </div>
 
             <!-- Letzte Plätze Section -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 class="text-lg font-semibold text-hsg-gray mb-4">Letzte Plätze</h3>
+            <div class="hsg-box p-6">
+                <h3 class="text-lg font-semibold mb-4">Letzte Plätze</h3>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div class="flex items-center justify-between py-3 border-b border-white/20">
                         <div>
                             <h4 class="font-medium">Tennis</h4>
-                            <p class="text-sm text-gray-500">Noch 2 Plätze frei</p>
+                            <p class="text-sm text-white/80">Noch 2 Plätze frei</p>
                         </div>
-                        <button class="text-sm text-hsg-green hover:underline">Anmelden</button>
+                        <button class="hsg-btn">Anmelden</button>
                     </div>
-                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div class="flex items-center justify-between py-3 border-b border-white/20">
                         <div>
                             <h4 class="font-medium">Crossfit</h4>
-                            <p class="text-sm text-gray-500">Noch 1 Platz frei</p>
+                            <p class="text-sm text-white/80">Noch 1 Platz frei</p>
                         </div>
-                        <button class="text-sm text-hsg-green hover:underline">Anmelden</button>
+                        <button class="hsg-btn">Anmelden</button>
                     </div>
                 </div>
             </div>
 
             <!-- Statistics Section -->
             <div class="grid grid-cols-3 gap-4">
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
-                    <div class="text-2xl font-semibold text-hsg-gray mb-1">24</div>
-                    <div class="text-sm text-gray-500">Stunden</div>
+                <div class="hsg-box p-4 text-center">
+                    <div class="text-2xl font-semibold mb-1">24</div>
+                    <div class="text-sm text-white/80">Stunden</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
-                    <div class="text-2xl font-semibold text-hsg-gray mb-1">12</div>
-                    <div class="text-sm text-gray-500">Kurse</div>
+                <div class="hsg-box p-4 text-center">
+                    <div class="text-2xl font-semibold mb-1">12</div>
+                    <div class="text-sm text-white/80">Kurse</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
-                    <div class="text-2xl font-semibold text-hsg-gray mb-1">5</div>
-                    <div class="text-sm text-gray-500">Sportarten</div>
+                <div class="hsg-box p-4 text-center">
+                    <div class="text-2xl font-semibold mb-1">5</div>
+                    <div class="text-sm text-white/80">Sportarten</div>
                 </div>
             </div>
         </div>
@@ -151,6 +193,38 @@
         // Startseite
         const startPic = document.getElementById('profilePicStart');
         if (startPic) startPic.src = imgData;
+    }
+    // Dummy-Daten für Anmeldungen (Demo, normalerweise aus localStorage oder API)
+    let anmeldungen = [
+        { title: 'Yoga Flow', time: 'Montag, 14:15 - 15:45', status: 'confirmed' },
+        { title: 'HIIT', time: 'Mittwoch, 17:30 - 18:30', status: 'waitlist' }
+    ];
+    // Render-Funktion für Anmeldungen
+    function renderAnmeldungen() {
+        const list = document.getElementById('anmeldungenList');
+        list.innerHTML = '';
+        anmeldungen.forEach((a, idx) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center justify-between py-3 border-b border-white/20';
+            row.innerHTML = `
+                <div>
+                    <h4 class='font-medium'>${a.title}</h4>
+                    <p class='text-sm text-white/80'>${a.time}</p>
+                </div>
+                ${a.status === 'confirmed' ? `<button class='hsg-btn' onclick='openAbmeldeModal(${idx})'>Abmelden</button>` : `<span class='hsg-badge hsg-badge-waitlist'>Warteliste</span>`}
+            `;
+            list.appendChild(row);
+        });
+    }
+    let abmeldeIndex = null;
+    function openAbmeldeModal(idx) {
+        abmeldeIndex = idx;
+        document.getElementById('abmeldeKurs').textContent = anmeldungen[idx].title;
+        document.getElementById('abmeldeModal').classList.remove('hidden');
+    }
+    function closeAbmeldeModal() {
+        document.getElementById('abmeldeModal').classList.add('hidden');
+        abmeldeIndex = null;
     }
     document.addEventListener('DOMContentLoaded', function() {
         // Bild aus localStorage laden
@@ -175,6 +249,14 @@
                 }
             });
         }
+        document.getElementById('confirmAbmelden').onclick = function() {
+            if (abmeldeIndex !== null) {
+                anmeldungen.splice(abmeldeIndex, 1);
+                renderAnmeldungen();
+                closeAbmeldeModal();
+            }
+        };
+        renderAnmeldungen();
     });
     </script>
 </body>

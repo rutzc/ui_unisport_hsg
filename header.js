@@ -3,9 +3,7 @@ window.header = (function() {
         { href: 'startseite.html', label: 'Startseite' },
         { href: 'heute-morgen.html', label: 'Heute & Morgen' },
         { href: 'alle-kurse.html', label: 'Alle Kurse' },
-        { href: 'faqs.html', label: 'FAQs' },
-        { href: 'jobs.html', label: 'Jobs' },
-        { href: 'kontakt.html', label: 'Kontakt' },
+        { href: 'faqs.html', label: 'FAQs' }
     ];
     const PROFILE_ICON = `<span id='header-profile-pic-wrapper'></span>`;
 
