@@ -116,25 +116,106 @@
 
             <!-- Favoriten Section -->
             <div class="hsg-box p-6">
-                <h3 class="text-lg font-semibold mb-4">Favoriten</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between py-3 border-b border-white/20">
-                        <div>
-                            <h4 class="font-medium">Pilates</h4>
-                            <p class="text-sm text-white/80">Dienstag, 12:15 - 13:15</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star">
-                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Favoriten</h3>
+                    <button onclick="openFavoritenModal()" class="bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                    </div>
-                    <div class="flex items-center justify-between py-3 border-b border-white/20">
-                        <div>
-                            <h4 class="font-medium">Bouldern</h4>
-                            <p class="text-sm text-white/80">Donnerstag, 18:00 - 20:00</p>
+                    </button>
+                </div>
+                <div id="favoritenList" class="space-y-4">
+                    <!-- Dynamisch generiert -->
+                </div>
+            </div>
+
+            <!-- Favoriten-Popup -->
+            <div id="favoritenModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
+                <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-hsg-gray">Favoriten hinzufügen</h3>
+                            <button onclick="closeFavoritenModal()" class="text-gray-500 hover:text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star">
-                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                        </svg>
+                        <div class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Beispiel-Kurse (normalerweise dynamisch) -->
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Yoga')">
+                                <div>
+                                    <h4 class="font-medium">Yoga</h4>
+                                    <p class="text-sm text-gray-500">Montag, 10:00 - 11:00</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Schwimmen')">
+                                <div>
+                                    <h4 class="font-medium">Schwimmen</h4>
+                                    <p class="text-sm text-gray-500">Dienstag, 15:00 - 16:00</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('HIIT')">
+                                <div>
+                                    <h4 class="font-medium">HIIT</h4>
+                                    <p class="text-sm text-gray-500">Mittwoch, 17:30 - 18:30</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Tennis')">
+                                <div>
+                                    <h4 class="font-medium">Tennis</h4>
+                                    <p class="text-sm text-gray-500">Donnerstag, 14:00 - 15:30</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Crossfit')">
+                                <div>
+                                    <h4 class="font-medium">Crossfit</h4>
+                                    <p class="text-sm text-gray-500">Freitag, 16:00 - 17:00</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Basketball')">
+                                <div>
+                                    <h4 class="font-medium">Basketball</h4>
+                                    <p class="text-sm text-gray-500">Montag, 18:00 - 19:30</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Fussball')">
+                                <div>
+                                    <h4 class="font-medium">Fussball</h4>
+                                    <p class="text-sm text-gray-500">Dienstag, 19:00 - 20:30</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer" onclick="addToFavoriten('Volleyball')">
+                                <div>
+                                    <h4 class="font-medium">Volleyball</h4>
+                                    <p class="text-sm text-gray-500">Mittwoch, 20:00 - 21:30</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -261,6 +342,57 @@
             }
         };
         renderAnmeldungen();
+    });
+
+    // Favoriten-Funktionalität
+    let favoriten = [
+        { title: 'Pilates', time: 'Dienstag, 12:15 - 13:15' },
+        { title: 'Bouldern', time: 'Donnerstag, 18:00 - 20:00' }
+    ];
+
+    function renderFavoriten() {
+        const list = document.getElementById('favoritenList');
+        list.innerHTML = '';
+        favoriten.forEach((f, idx) => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center justify-between py-3 border-b border-white/20';
+            row.innerHTML = `
+                <div>
+                    <h4 class='font-medium'>${f.title}</h4>
+                    <p class='text-sm text-white/80'>${f.time}</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star cursor-pointer" onclick="removeFromFavoriten(${idx})">
+                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                </svg>
+            `;
+            list.appendChild(row);
+        });
+    }
+
+    function removeFromFavoriten(idx) {
+        favoriten.splice(idx, 1);
+        renderFavoriten();
+    }
+
+    function openFavoritenModal() {
+        document.getElementById('favoritenModal').classList.remove('hidden');
+    }
+
+    function closeFavoritenModal() {
+        document.getElementById('favoritenModal').classList.add('hidden');
+    }
+
+    function addToFavoriten(title) {
+        // Hier würde normalerweise die Zeit aus der Kursliste kommen
+        const time = 'Montag, 10:00 - 11:00';
+        favoriten.push({ title, time });
+        renderFavoriten();
+        closeFavoritenModal();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing code ...
+        renderFavoriten();
     });
     </script>
 </body>
