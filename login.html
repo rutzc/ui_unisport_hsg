@@ -14,61 +14,78 @@
         }
     </style>
 </head>
-<body class="bg-white font-theinhardt min-h-screen flex flex-col justify-center">
-    <main class="flex-1 flex flex-col items-center justify-center px-4 py-0">
-        <!-- Login mit HSG E-Mail -->
-        <div class="w-full max-w-sm bg-white rounded-lg shadow p-4 mb-4 flex flex-col items-center -mt-6">
-            <h2 class="mb-6 text-center font-bold text-xl sm:text-2xl whitespace-nowrap">Mit Unisg E-Mail anmelden</h2>
-            <form id="loginForm" class="w-full flex flex-col space-y-6">
-                <div class="space-y-4">
-                    <input type="email" id="email" required placeholder="example@unisg.ch" 
-                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
-                    <input type="password" id="password" required placeholder="Passwort" 
-                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-hsg-green focus:border-transparent transition">
+<body class="bg-white font-theinhardt min-h-screen flex flex-col">
+    <header id="hsg-header"></header>
+    <div class="w-full max-w-md sm:max-w-md md:max-w-lg mt-8 rounded-[2.5rem] overflow-hidden shadow-lg flex flex-col items-center bg-white mx-2">
+        <img src="img/unisport.webp" alt="Unisport" class="w-full h-48 sm:h-64 object-cover rounded-t-[2.5rem]">
+        <div class="w-full bg-[#083d26] px-4 sm:px-8 py-6 sm:py-8 flex flex-col items-center rounded-b-[2.5rem]">
+            <h2 class="mb-6 text-center font-extrabold text-2xl sm:text-3xl uppercase text-white">ANMELDEN</h2>
+            <form id="loginForm" class="w-full flex flex-col space-y-4">
+                <input type="email" id="email" required placeholder="E-Mail" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition text-base">
+                <div class="relative">
+                    <input type="password" id="password" required placeholder="Passwort" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition pr-12 text-base">
+                    <button id="togglePassword" type="button" tabindex="-1" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 focus:outline-none">
+                        <!-- Durchgestrichenes Auge -->
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </button>
                 </div>
-                <button type="submit" class="w-full bg-[#087532] text-white py-3 rounded-lg font-semibold text-base transition disabled:bg-[#087532] disabled:opacity-60">LOGIN</button>
+                <div class="flex items-center space-x-2 text-white text-sm font-medium">
+                    <input type="checkbox" id="stayLoggedIn" class="w-4 h-4 rounded border-white bg-transparent focus:ring-white">
+                    <label for="stayLoggedIn">Angemeldet bleiben</label>
+                </div>
+                <button type="submit" class="w-full bg-[#009B4C] text-white py-3 rounded-lg font-extrabold text-lg sm:text-xl uppercase text-center transition hover:bg-[#06501b]">Anmelden</button>
             </form>
-            <div class="text-xs text-gray-400 mt-6">für HSG Studierende</div>
+            <button onclick="window.location.href='registrieren.html'" class="mt-4 text-[#009B4C] font-semibold text-base sm:text-lg underline">Registrieren</button>
+            <hr class="w-full my-6 border-white/30">
+            <button class="w-full border border-white text-white py-3 rounded-lg font-bold mb-3 flex items-center justify-center gap-2 hover:bg-[#06501b] transition">
+                <span>SWITCHaai Anmelden</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </button>
+            <button class="w-full border border-white text-white py-3 rounded-lg font-bold hover:bg-[#06501b] transition">Extern</button>
         </div>
-        <!-- Andere Login Möglichkeiten -->
-        <div class="w-full max-w-xs flex flex-col items-center mb-6">
-            <div class="mb-4 font-semibold text-lg">Andere Login Möglichkeiten</div>
-            <div class="flex w-full space-x-4 mb-4">
-                <div class="flex-1 group">
-                    <button class="w-full bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">
-                        SWITCH-EDU ID
-                    </button>
-                    <span class="block text-xs text-gray-400 text-center mt-1 invisible group-hover:visible">
-                        für Studierende anderer Schweizer Universitäten
-                    </span>
-                </div>
-                <div class="flex-1 group">
-                    <button class="w-full bg-gray-50 border border-gray-200 rounded-lg py-3 font-bold hover:bg-gray-100 transition">
-                        Extern
-                    </button>
-                    <span class="block text-xs text-gray-400 text-center mt-1 invisible group-hover:visible">
-                        für Externe
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!-- Registrierung -->
-        <div class="w-full max-w-xs text-center mt-0">
-            <span class="text-sm">Noch kein Account? <a href="registrieren.html" class="text-hsg-green font-semibold underline">Hier registrieren</a></span>
-        </div>
-    </main>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             window.header.renderHeader();
-            window.header.setLoggedOut();
+        });
+        // Passwort Sichtbarkeit toggeln
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+        // Setze initial das "unsichtbar"-Icon
+        eyeIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+        `;
+        togglePasswordBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                // Auge offen (sichtbar)
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                `;
+            } else {
+                passwordInput.type = 'password';
+                // Auge durchgestrichen (unsichtbar)
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                    <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+                `;
+            }
         });
         document.getElementById('loginForm').onsubmit = function(e) {
             e.preventDefault();
             // Dummy login
-            const user = { email: document.getElementById('email').value };
-            window.header.setLoggedIn(user);
             window.location.href = 'dashboard.html';
         };
     </script>
 </body>
-</html> 
+</html>
