@@ -108,10 +108,17 @@ window.header = (function() {
                 dropdown.className = 'absolute right-2 top-14 mt-2 w-44 bg-white border border-gray-200 rounded shadow-lg z-50';
                 dropdown.innerHTML = `
                     <a href="profil.html" class="block px-4 py-2 text-hsg-gray hover:bg-hsg-light">Profil</a>
-                    <a href="einstellungen.html" class="block px-4 py-2 text-hsg-gray hover:bg-hsg-light">Einstellungen</a>
+                    <a id="settings-link" href="einstellungen.html" class="block px-4 py-2 text-hsg-gray hover:bg-hsg-light">Einstellungen</a>
                     <button id="logout-btn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-hsg-light">Logout</button>
                 `;
                 btn.parentElement.appendChild(dropdown);
+
+                // Event-Listener für "Einstellungen"
+                document.getElementById('settings-link').onclick = function(e) {
+                    e.preventDefault(); // Verhindert das Standardverhalten
+                    window.location.href = 'einstellungen.html'; // Öffnet die Datei
+                };
+
                 // Logout-Handler
                 document.getElementById('logout-btn').onclick = function() {
                     window.header.setLoggedOut();
@@ -162,4 +169,4 @@ window.header = (function() {
         isLoggedIn,
         getUser
     };
-})(); 
+})();
