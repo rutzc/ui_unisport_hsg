@@ -34,6 +34,21 @@
     .toggle:checked::before {
       transform: translateX(24px);
     }
+    
+    /* Custom styles for button */
+    .btn-confirm {
+        background-color: #134e28; /* HSG green */
+        color: white;
+        font-weight: bold;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-confirm:hover {
+        background-color: #0d3b1d; /* Slightly darker green on hover */
+    }
   </style>
 </head>
 <body class="bg-white font-sans text-gray-900">
@@ -69,10 +84,8 @@
     </div>
 
     <!-- Save button direkt unter die Optionen -->
-    <div class="mt-12 flex justify-end">
-      <button onclick="saveSettings()" class="bg-green-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md">
-        Speichern
-      </button>
+    <div class="mt-12">
+      <button onclick="saveSettings()" class="btn-confirm">Speichern</button>
     </div>
   </main>
 

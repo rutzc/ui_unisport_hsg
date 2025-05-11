@@ -101,12 +101,8 @@
         <div class="max-w-lg mx-auto space-y-4 sm:space-y-6">
             <!-- Profile Section -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
-                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 group">
-                    <img id="profilePic" src="https://placehold.co/200x200" alt="Profile Picture" class="rounded-full w-full h-full object-cover cursor-pointer border-2 border-hsg-green group-hover:opacity-80 transition">
-                    <input type="file" id="profilePicInput" accept="image/*" class="hidden">
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span class="hidden group-hover:block bg-hsg-green text-white text-xs px-2 py-1 rounded">Bild ändern</span>
-                    </div>
+                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4">
+                    <img id="profilePic" src="https://placehold.co/200x200" alt="Profile Picture" class="rounded-full w-full h-full object-cover border-2 border-hsg-green">
                 </div>
                 <h2 class="text-base sm:text-lg font-semibold text-hsg-gray">Claudia Rutz</h2>
                 <p class="text-sm text-gray-500 mb-3">MBI</p>
@@ -336,17 +332,17 @@
     if (!localStorage.getItem('user')) {
         window.location.href = 'login.html';
     }
-    // Profilbild-Upload und Anzeige
-    function updateProfilePicAll(imgData) {
+    // Profilbild anzeigen
+    function updateProfilePic() {
         // Dashboard
         const pic = document.getElementById('profilePic');
-        if (pic) pic.src = imgData;
-        // Header (wenn vorhanden)
-        const headerPic = document.getElementById('header-profile-pic');
-        if (headerPic) headerPic.src = imgData;
-        // Startseite
-        const startPic = document.getElementById('profilePicStart');
-        if (startPic) startPic.src = imgData;
+        const imgData = localStorage.getItem('profilePic');
+        
+        if (imgData) {
+            if (pic) pic.src = imgData;
+        } else {
+            if (pic) pic.src = 'img/profile-photo.jpeg';
+        }
     }
     // Dummy-Daten für Anmeldungen (Demo, normalerweise aus localStorage oder API)
     let anmeldungen = [
@@ -405,32 +401,9 @@
         abmeldeIndex = null;
     }
     document.addEventListener('DOMContentLoaded', function() {
-        // Bild aus localStorage laden oder Standardbild setzen
-        const imgData = localStorage.getItem('profilePic');
-        if (imgData) {
-            updateProfilePicAll(imgData);
-        } else {
-            updateProfilePicAll('img/profile-photo.jpeg');
-        }
-        // Klick auf Bild öffnet Datei-Dialog
-        const pic = document.getElementById('profilePic');
-        const input = document.getElementById('profilePicInput');
-        if (pic && input) {
-            pic.addEventListener('click', function(e) {
-                e.preventDefault();
-                input.click();
-            });
-            input.addEventListener('change', function() {
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        localStorage.setItem('profilePic', e.target.result);
-                        updateProfilePicAll(e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            });
-        }
+        // Profilbild anzeigen
+        updateProfilePic();
+        
         document.getElementById('confirmAbmelden').onclick = function() {
             if (abmeldeIndex !== null) {
                 anmeldungen.splice(abmeldeIndex, 1);

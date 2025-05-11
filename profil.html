@@ -36,8 +36,12 @@
         
         <!-- Profile Section Header (similar to einstellungen.html) -->
         <div class="flex items-center space-x-4 mb-6">
-            <div class="w-14 h-14 rounded-full bg-gray-200 overflow-hidden">
-                <img id="headerProfilePic" src="img/profile-photo.jpeg" alt="Profile Picture" class="w-full h-full object-cover">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 overflow-hidden relative group">
+                <img id="headerProfilePic" src="img/profile-photo.jpeg" alt="Profile Picture" class="w-full h-full object-cover cursor-pointer group-hover:opacity-80 transition">
+                <input type="file" id="profilePicInput" accept="image/*" class="hidden">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span class="hidden group-hover:block bg-green-700 text-white text-xs px-2 py-1 rounded">Bild ändern</span>
+                </div>
             </div>
             <div>
                 <h1 id="headerProfileName" class="text-lg font-semibold">Claudia Rutz</h1>
@@ -132,6 +136,26 @@
             } else {
                 const defaultImg = 'img/profile-photo.jpeg';
                 if (headerPic) headerPic.src = defaultImg;
+            }
+            
+            // Profile picture upload functionality
+            const pic = document.getElementById('headerProfilePic');
+            const input = document.getElementById('profilePicInput');
+            if (pic && input) {
+                pic.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    input.click();
+                });
+                input.addEventListener('change', function() {
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            localStorage.setItem('profilePic', e.target.result);
+                            headerPic.src = e.target.result;
+                        };
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                });
             }
             
             // Formular-Handler
