@@ -102,6 +102,170 @@
         .hsg-btn.warteliste:hover {
             background: #fef3c7;
         }
+        .hsg-info-icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            color: #014421;
+            margin-left: 0.25rem;
+            vertical-align: middle;
+        }
+        .hsg-info-icon svg {
+            width: 1em;
+            height: 1em;
+        }
+        .hsg-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            min-width: 240px;
+            max-width: 340px;
+            background: #fff;
+            color: #014421;
+            border: 2px solid #009B4C;
+            box-shadow: 0 2px 8px rgba(0,155,76,0.08);
+            text-align: left;
+            border-radius: 10px;
+            padding: 0.7em 1em;
+            position: absolute;
+            z-index: 20;
+            top: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.2s;
+            font-size: 0.97em;
+            pointer-events: none;
+            white-space: normal;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        .hsg-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 8px 10px 8px;
+            border-style: solid;
+            border-color: transparent transparent #009B4C transparent;
+            display: block;
+        }
+        .hsg-tooltip::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 7px 9px 7px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+            display: block;
+        }
+        .hsg-info-icon:hover .hsg-tooltip,
+        .hsg-info-icon:focus .hsg-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* --- Filter Modal & Buttons wie in alle-kurse.html --- */
+        .hsg-filter-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.25);
+            z-index: 50;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 4rem;
+        }
+        .hsg-filter-modal.active {
+            display: flex;
+        }
+        .hsg-filter-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            max-width: 95vw;
+            width: 350px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+            position: relative;
+        }
+        .hsg-filter-content h3 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .hsg-filter-group {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem 0.7rem;
+        }
+        .hsg-filter-group > .text-xs {
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .hsg-filter-group > div[id^="filter-"] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.7rem;
+        }
+        .hsg-filter-btn-round {
+            border-radius: 999px;
+            border: 1.5px solid #014421;
+            background: #fff;
+            color: #014421;
+            font-weight: 600;
+            padding: 0.35rem 1.1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .hsg-filter-btn-round.selected {
+            background: #014421;
+            color: #fff;
+        }
+        .hsg-filter-close {
+            position: absolute;
+            right: 1.2rem;
+            top: 1.2rem;
+            font-size: 1.3rem;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .hsg-searchbar {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .hsg-searchbar input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #222;
+            background: #fff;
+            outline: none;
+            transition: border 0.18s;
+        }
+        .hsg-searchbar input:focus {
+            border-color: #009B4C;
+        }
+        .hsg-searchbar .hsg-filter-btn {
+            background: none;
+            border: none;
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: #014421;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            height: 1.8rem;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
@@ -135,8 +299,26 @@
             </div>
         </div>
     </div>
+    <!-- Filter Modal -->
+    <div id="filterModal" class="hsg-filter-modal">
+        <div class="hsg-filter-content">
+            <button class="hsg-filter-close" onclick="toggleFilterModal()">&times;</button>
+            <h3>Filter</h3>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Freie Plätze</div><div id="filter-kostens"></div></div>
+            <button onclick="applyFilters()" class="w-full bg-hsg-green text-white font-semibold rounded-lg px-4 py-2 mt-4 hover:bg-green-700 transition">Bestätigen</button>
+        </div>
+    </div>
     <main class="max-w-lg sm:max-w-2xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
         <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Heute & Morgen</h1>
+        <div class="hsg-searchbar mb-6">
+            <input id="searchInput" type="search" placeholder="Suche nach Kursen...">
+            <button class="hsg-filter-btn" onclick="toggleFilterModal()">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-.293.707l-6.414 6.414A1 1 0 0 0 14 13.414V19a1 1 0 0 1-1.447.894l-4-2A1 1 0 0 1 8 17V13.414a1 1 0 0 0-.293-.707L1.293 6.707A1 1 0 0 1 1 6V4z"/></svg>
+            </button>
+        </div>
         <div class="space-y-6">
             <!-- Heute Section -->
             <div class="hsg-section">
@@ -144,20 +326,40 @@
                     <span>Heute</span>
                     <span id="icon-heute" class="ml-2">&#9660;</span>
                 </div>
-                <div class="hsg-section-content hidden" id="content-heute">
-                    <div class="hsg-course-box">
+                <div class="hsg-section-content" id="content-heute">
+                    <div class="hsg-course-box" id="yoga-flow-heute">
                         <div class="hsg-course-info">
-                            <div class="hsg-course-title">Yoga Flow</div>
+                            <div class="hsg-course-title">
+                                Yoga Flow
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">Ein entspannter Flow für alle Levels. Bitte Matte mitbringen.</span>
+                                </span>
+                            </div>
                             <div class="hsg-course-meta">14:15–15:45 Halle 2</div>
-                            <div class="hsg-course-status hsg-status-frei">Plätze frei</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (20/20)</div>
                         </div>
                         <button class="hsg-btn" onclick="openBookingModal('Yoga Flow', '14:15–15:45 Halle 2', 'Plätze frei', false)">Buchen</button>
                     </div>
-                    <div class="hsg-course-box">
+                    <div class="hsg-course-box" id="pilates-heute">
                         <div class="hsg-course-info">
-                            <div class="hsg-course-title">Pilates</div>
+                            <div class="hsg-course-title">
+                                Pilates
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">Kräftigung der Körpermitte, geeignet für Einsteiger und Fortgeschrittene.</span>
+                                </span>
+                            </div>
                             <div class="hsg-course-meta">16:00–17:00 Studio 1</div>
-                            <div class="hsg-course-status hsg-status-warteliste">Nur noch 2 Plätze</div>
+                            <div class="hsg-course-status hsg-status-warteliste">Nur noch 2 Plätze (2/12)</div>
                         </div>
                         <button class="hsg-btn" onclick="openBookingModal('Pilates', '16:00–17:00 Studio 1', 'Nur noch 2 Plätze', false)">Buchen</button>
                     </div>
@@ -170,19 +372,39 @@
                     <span id="icon-morgen" class="ml-2">&#9660;</span>
                 </div>
                 <div class="hsg-section-content hidden" id="content-morgen">
-                    <div class="hsg-course-box">
+                    <div class="hsg-course-box" id="hiit-morgen">
                         <div class="hsg-course-info">
-                            <div class="hsg-course-title">HIIT</div>
+                            <div class="hsg-course-title">
+                                HIIT
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">High Intensity Intervall Training – bring bitte ein Handtuch und Wasser mit!</span>
+                                </span>
+                            </div>
                             <div class="hsg-course-meta">9:00–10:00 Outdoor Gym</div>
-                            <div class="hsg-course-status hsg-status-frei">Plätze frei</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (16/16)</div>
                         </div>
                         <button class="hsg-btn" onclick="openBookingModal('HIIT', '9:00–10:00 Outdoor Gym', 'Plätze frei', false)">Buchen</button>
                     </div>
-                    <div class="hsg-course-box">
+                    <div class="hsg-course-box" id="bouldern-morgen">
                         <div class="hsg-course-info">
-                            <div class="hsg-course-title">Bouldern</div>
+                            <div class="hsg-course-title">
+                                Bouldern
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">Klettern ohne Seil in Absprunghöhe. Kletterschuhe können vor Ort geliehen werden.</span>
+                                </span>
+                            </div>
                             <div class="hsg-course-meta">18:00–20:00 Boulderhalle</div>
-                            <div class="hsg-course-status hsg-status-warteliste">Warteliste</div>
+                            <div class="hsg-course-status hsg-status-warteliste">Warteliste (0/10)</div>
                         </div>
                         <button class="hsg-btn warteliste" onclick="openBookingModal('Bouldern', '18:00–20:00 Boulderhalle', 'Warteliste', true)">Warteliste</button>
                     </div>
@@ -219,6 +441,85 @@
         document.getElementById('bookingModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
+
+        // Filterdaten für heute-morgen
+        const filterData = {
+            orts: ['Halle 2', 'Studio 1', 'Outdoor Gym', 'Boulderhalle'],
+            sportarts: ['Yoga', 'Pilates', 'HIIT', 'Bouldern'],
+            niveaus: ['Alle Levels', 'Einsteiger', 'Fortgeschrittene'],
+            kostens: ['Freie Plätze']
+        };
+        let activeFilters = { orts: [], sportarts: [], niveaus: [], kostens: [] };
+        let tempFilters = { orts: [], sportarts: [], niveaus: [], kostens: [] };
+        let searchQuery = '';
+        const kurse = [
+            { tag: 'heute', titel: 'Yoga Flow', ort: 'Halle 2', sportart: 'Yoga', niveau: 'Alle Levels', kosten: 'kostenlos', elementId: 'yoga-flow-heute' },
+            { tag: 'heute', titel: 'Pilates', ort: 'Studio 1', sportart: 'Pilates', niveau: 'Einsteiger', kosten: 'gebührenpflichtig', elementId: 'pilates-heute' },
+            { tag: 'morgen', titel: 'HIIT', ort: 'Outdoor Gym', sportart: 'HIIT', niveau: 'Alle Levels', kosten: 'kostenlos', elementId: 'hiit-morgen' },
+            { tag: 'morgen', titel: 'Bouldern', ort: 'Boulderhalle', sportart: 'Bouldern', niveau: 'Fortgeschrittene', kosten: 'gebührenpflichtig', elementId: 'bouldern-morgen' }
+        ];
+        function renderFilterGroup(id, arr) {
+            const el = document.getElementById('filter-' + id);
+            el.innerHTML = arr.map(val => `<button class="hsg-filter-btn-round" data-group="${id}" data-value="${val}" onclick="toggleFilter('${id}','${val}',this)">${val}</button>`).join('');
+        }
+        function toggleFilter(group, value, btn) {
+            const idx = tempFilters[group].indexOf(value);
+            if (idx === -1) {
+                tempFilters[group].push(value);
+                btn.classList.add('selected');
+            } else {
+                tempFilters[group].splice(idx, 1);
+                btn.classList.remove('selected');
+            }
+        }
+        function applyFilters() {
+            activeFilters = JSON.parse(JSON.stringify(tempFilters));
+            filterKurse();
+            toggleFilterModal();
+        }
+        function toggleFilterModal() {
+            const modal = document.getElementById('filterModal');
+            if (!modal.classList.contains('active')) {
+                tempFilters = JSON.parse(JSON.stringify(activeFilters));
+                // Update button states
+                ['orts','sportarts','niveaus','kostens'].forEach(group => {
+                    const btns = document.querySelectorAll(`[data-group="${group}"]`);
+                    btns.forEach(btn => btn.classList.remove('selected'));
+                    tempFilters[group].forEach(value => {
+                        const btn = document.querySelector(`[data-group="${group}"][data-value="${value}"]`);
+                        if (btn) btn.classList.add('selected');
+                    });
+                });
+            }
+            modal.classList.toggle('active');
+        }
+        document.getElementById('searchInput').addEventListener('input', function() {
+            searchQuery = this.value.toLowerCase();
+            filterKurse();
+        });
+        function filterKurse() {
+            kurse.forEach(kurs => {
+                const el = document.getElementById(kurs.elementId);
+                if (!el) return;
+                let visible = true;
+                if (searchQuery && !kurs.titel.toLowerCase().includes(searchQuery)) visible = false;
+                if (activeFilters.orts.length && !activeFilters.orts.includes(kurs.ort)) visible = false;
+                if (activeFilters.sportarts.length && !activeFilters.sportarts.includes(kurs.sportart)) visible = false;
+                if (activeFilters.niveaus.length && !activeFilters.niveaus.includes(kurs.niveau)) visible = false;
+                // Filter für freie Plätze
+                if (activeFilters.kostens.includes('Freie Plätze')) {
+                    // Prüfe, ob Kurs freie Plätze hat (Status nicht Warteliste und freie Plätze > 0)
+                    const status = el.querySelector('.hsg-course-status');
+                    if (status && status.classList.contains('hsg-status-warteliste')) visible = false;
+                    else if (status && status.textContent.match(/\(0\//)) visible = false;
+                }
+                el.style.display = visible ? '' : 'none';
+            });
+        }
+        renderFilterGroup('orts', filterData.orts);
+        renderFilterGroup('sportarts', filterData.sportarts);
+        renderFilterGroup('niveaus', filterData.niveaus);
+        renderFilterGroup('kostens', filterData.kostens);
     </script>
 </body>
 </html> 
