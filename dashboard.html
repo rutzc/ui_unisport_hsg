@@ -315,12 +315,16 @@
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-hsg-gray mb-2">Kurs anmelden</h3>
                         <p class="text-sm text-gray-600 mb-4">Möchtest du dich für <span id='anmeldeKurs'></span> anmelden?</p>
-                        <div class="flex items-center mb-4">
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="shareWithFriends" class="sr-only peer">
-                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-green-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-hsg-green"></div>
-                                <span class="ml-3 text-sm font-medium text-gray-600">Teile Einschreibung mit Freunden</span>
-                            </label>
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-600 mb-2">
+                                <span class='font-semibold'>Bereits eingeschrieben:</span>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-3">
+                                <ul class="text-sm text-gray-600 space-y-1" id="enrolledPeopleList"></ul>
+                                <div class="text-sm text-gray-500 cursor-pointer mt-1 hidden" id="showMoreEnrolled" onclick="toggleShowMoreEnrolled()">
+                                    Mehr anzeigen...
+                                </div>
+                            </div>
                         </div>
                         <div class="flex space-x-3">
                             <button id="confirmAnmelden" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Ja, anmelden</button>
@@ -474,7 +478,6 @@
                 // Finde den Kurs in den Vorschlägen
                 const suggestions = getSuggestedCourses();
                 const selectedCourse = suggestions.find(s => s.title === anmeldeKurs);
-                const shareWithFriends = document.getElementById('shareWithFriends').checked;
                 
                 if (selectedCourse) {
                     // Füge den Kurs zu den Anmeldungen hinzu
@@ -482,12 +485,8 @@
                     // Füge den Kurs zu den Favoriten hinzu
                     addToFavoriten(selectedCourse.title);
                     
-                    // Falls mit Freunden geteilt werden soll, zeige eine Nachricht an
-                    if (shareWithFriends) {
-                        alert(`Deine Anmeldung für ${selectedCourse.title} wurde mit deinen Freunden geteilt!`);
-                    }
+                    closeAnmeldeModal();
                 }
-                closeAnmeldeModal();
             }
         };
 
@@ -557,13 +556,86 @@
     function openAnmeldeModal(kursTitle) {
         anmeldeKurs = kursTitle;
         document.getElementById('anmeldeKurs').textContent = kursTitle;
-        document.getElementById('shareWithFriends').checked = false;
+        
+        // Find the enrolledPeopleList container section
+        const enrolledSection = document.getElementById('enrolledPeopleList').closest('.mb-4');
+        
+        // Statische Teilnehmerlisten für jeden Kurs
+        const courseEnrollments = {
+            // Kurse mit vordefinierten Teilnehmern
+            'Yoga': ['Laura Mayer', 'Chiara Mercurio', 'Santiago Kuster', 'Thomas Weber'],
+            'Schwimmen': ['Samuel Brunner', 'Janis Locher'],
+            'HIIT': ['Julia Schmidt', 'Thomas Weber', 'Santiago Kuster'],
+            'Tennis': [], // Keine Teilnehmer (alle Plätze frei)
+            'Crossfit': ['Samuel Brunner', 'Janis Locher', 'Santiago Kuster', 'Laura Mayer', 'Chiara Mercurio'],
+            'Basketball': ['Thomas Weber', 'Julia Schmidt', 'Samuel Brunner'],
+            'Fussball': ['Laura Mayer', 'Santiago Kuster'],
+            'Volleyball': ['Chiara Mercurio', 'Thomas Weber', 'Samuel Brunner', 'Julia Schmidt']
+        };
+        
+        // Teilnehmerliste für den aktuellen Kurs abrufen
+        const enrolledPeople = courseEnrollments[kursTitle] || [];
+        
+        if (enrolledPeople.length > 0) {
+            // Erste 3 Namen immer anzeigen, oder alle wenn weniger als 3
+            const visibleNames = enrolledPeople.slice(0, 3);
+            const hiddenNames = enrolledPeople.slice(3);
+            
+            // Alle sichtbaren Namen als Liste anzeigen
+            document.getElementById('enrolledPeopleList').innerHTML = visibleNames.map(name => `<li>• ${name}</li>`).join('');
+            
+            // "Mehr anzeigen" Button nur einblenden, wenn es mehr als 3 Namen gibt
+            const showMoreButton = document.getElementById('showMoreEnrolled');
+            if (hiddenNames.length > 0) {
+                showMoreButton.classList.remove('hidden');
+                // Speichern der versteckten Namen als Datenelement am Button
+                showMoreButton.dataset.hiddenNames = JSON.stringify(hiddenNames);
+                showMoreButton.dataset.expanded = 'false';
+            } else {
+                showMoreButton.classList.add('hidden');
+            }
+            
+            // Eingeschriebene Personen Sektion anzeigen
+            enrolledSection.style.display = 'block';
+        } else {
+            // Keine Teilnehmer anzeigen für Kurse mit allen freien Plätzen
+            document.getElementById('enrolledPeopleList').innerHTML = '';
+            document.getElementById('showMoreEnrolled').classList.add('hidden');
+            
+            // Eingeschriebene Personen Sektion ausblenden
+            enrolledSection.style.display = 'none';
+        }
+        
         document.getElementById('anmeldeModal').classList.remove('hidden');
     }
 
     function closeAnmeldeModal() {
         document.getElementById('anmeldeModal').classList.add('hidden');
         anmeldeKurs = null;
+    }
+    
+    // Funktion zum Aus-/Einklappen der weiteren Namen
+    function toggleShowMoreEnrolled() {
+        const button = document.getElementById('showMoreEnrolled');
+        const list = document.getElementById('enrolledPeopleList');
+        const isExpanded = button.dataset.expanded === 'true';
+        
+        if (isExpanded) {
+            // Liste einklappen - nur die ersten 3 Namen behalten
+            const allItems = list.querySelectorAll('li');
+            const visibleItems = Array.from(allItems).slice(0, 3);
+            list.innerHTML = '';
+            visibleItems.forEach(item => list.appendChild(item));
+            button.textContent = 'Mehr anzeigen...';
+            button.dataset.expanded = 'false';
+        } else {
+            // Liste ausklappen - alle versteckten Namen hinzufügen
+            const hiddenNames = JSON.parse(button.dataset.hiddenNames);
+            const additionalItems = hiddenNames.map(name => `<li>• ${name}</li>`).join('');
+            list.innerHTML += additionalItems;
+            button.textContent = 'Weniger anzeigen';
+            button.dataset.expanded = 'true';
+        }
     }
 
     function renderSuggestedCourses() {

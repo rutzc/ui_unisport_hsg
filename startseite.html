@@ -37,16 +37,6 @@
                 if (pic) pic.src = 'img/profile-photo.jpeg';
                 if (name) name.textContent = 'Schnellzugriff';
             }
-            // Dashboard-Absprung-Link dynamisch setzen
-            const dashLink = document.querySelector('.dashboard-card');
-            if (dashLink) {
-                dashLink.setAttribute('href', user ? 'dashboard.html' : 'login.html');
-                // Text im Overlay dynamisch setzen
-                const overlayText = dashLink.querySelector('.dashboard-link .dynamic-text');
-                if (overlayText) {
-                    overlayText.textContent = user ? 'Zum Dashboard' : 'Zum Login';
-                }
-            }
             // Begrüßung Name und Datum
             document.getElementById('welcomeName').textContent = 'Hallo ' + (window.header.getUser && window.header.getUser()?.name || 'Claudia');
             // Datum
