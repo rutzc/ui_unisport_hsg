@@ -65,6 +65,13 @@
         .hsg-btn:hover {
             background: #b6f2d6;
         }
+        .hsg-btn-danger {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .hsg-btn-danger:hover {
+            background: #fecaca;
+        }
         .hsg-star {
             color: #facc15;
             width: 1.5rem;
@@ -392,7 +399,7 @@
                     <p class='text-sm text-white/80'>${a.time}</p>
                 </div>
                 <div class="course-actions">
-                    ${a.status === 'confirmed' ? `<button class='hsg-btn' onclick='openAbmeldeModal(${idx})'>Abmelden</button>` : `<span class='hsg-badge hsg-badge-waitlist'>Warteliste</span>`}
+                    ${a.status === 'confirmed' ? `<button class='hsg-btn hsg-btn-danger' onclick='openAbmeldeModal(${idx})'>Abmelden</button>` : `<span class='hsg-badge hsg-badge-waitlist'>Warteliste</span>`}
                 </div>
             `;
             list.appendChild(row);

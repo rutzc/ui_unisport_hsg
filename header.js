@@ -150,7 +150,10 @@ window.header = (function() {
                     wrapper.innerHTML = `<img id='header-profile-pic' src='img/profile-photo.jpeg' alt='Profil' class='w-8 h-8 rounded-full object-cover'>`;
                 }
             } else {
-                wrapper.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' class='w-8 h-8 text-hsg-gray'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z'/><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/></svg>`;
+                wrapper.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-hsg-gray border-2 border-current rounded-full p-1">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M12 12c-5 0-8 2.5-8 5v1c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-1c0-2.5-3-5-8-5z"></path>
+                </svg>`;
             }
         }
     }
