@@ -60,6 +60,29 @@
             font-size: 1.3em;
             margin-left: 0.5em;
         }
+        .toggle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .toggle-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: #fff;
+            stroke-width: 3;
+            transition: transform 0.3s ease;
+        }
+        .toggle-icon.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .toggle-icon.active svg {
+            transform: rotate(180deg);
+        }
         .hsg-course-detail {
             background: #fff;
             border-radius: 0 0 12px 12px;
@@ -445,7 +468,12 @@
             grouped[letter].forEach(course => {
                 const item = document.createElement('div');
                 item.className = 'hsg-list-item' + (openCourse === course.title ? ' active' : '');
-                item.innerHTML = `<span>${course.title}</span><span class='hsg-list-arrow ${openCourse === course.title ? 'rotate-180' : ''}'>&#9660;</span>`;
+                item.innerHTML = `<span>${course.title}</span>
+                    <div class='toggle-icon ${openCourse === course.title ? 'active' : ''}'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>`;
                 item.onclick = () => {
                     openCourse = openCourse === course.title ? null : course.title;
                     renderCourseList();

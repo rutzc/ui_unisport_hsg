@@ -45,6 +45,29 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .toggle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .toggle-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: #fff;
+            stroke-width: 3;
+            transition: transform 0.3s ease;
+        }
+        .toggle-icon.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .toggle-icon.active svg {
+            transform: rotate(180deg);
+        }
         .hsg-section-content {
             padding: 1rem 1.5rem 1.5rem 1.5rem;
         }
@@ -352,7 +375,11 @@
             <div class="hsg-section">
                 <div class="hsg-section-header" onclick="toggleDay('heute')">
                     <span>Heute</span>
-                    <span id="icon-heute" class="ml-2">&#9660;</span>
+                    <div id="icon-heute" class="toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
                 </div>
                 <div class="hsg-section-content" id="content-heute">
                     <div class="hsg-course-box" id="yoga-flow-heute">
@@ -403,7 +430,11 @@
             <div class="hsg-section">
                 <div class="hsg-section-header" onclick="toggleDay('morgen')">
                     <span>Morgen</span>
-                    <span id="icon-morgen" class="ml-2">&#9660;</span>
+                    <div id="icon-morgen" class="toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
                 </div>
                 <div class="hsg-section-content hidden" id="content-morgen">
                     <div class="hsg-course-box" id="hiit-morgen">
@@ -457,7 +488,7 @@
             const content = document.getElementById('content-' + day);
             const icon = document.getElementById('icon-' + day);
             content.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
+            icon.classList.toggle('active');
         }
 
         // Info-Tooltip Funktionalität
