@@ -297,6 +297,14 @@
                 </div>
             </div>
 
+            <!-- Vergangene Buchungen Section -->
+            <div class="hsg-box p-4 sm:p-6">
+                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Vergangene Buchungen</h3>
+                <div id="vergangeneKurse" class="space-y-3 sm:space-y-4">
+                    <!-- Dynamisch generiert -->
+                </div>
+            </div>
+
             <!-- Anmelde-Popup -->
             <div id="anmeldeModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
                 <div class="bg-white rounded-xl shadow-lg max-w-md w-full mx-4 overflow-hidden">
@@ -334,6 +342,28 @@
         { title: 'Yoga Flow', time: 'Montag, 14:15 - 15:45', status: 'confirmed' },
         { title: 'HIIT', time: 'Mittwoch, 17:30 - 18:30', status: 'waitlist' }
     ];
+
+    // Dummy-Daten für vergangene Buchungen
+    let vergangeneBuchungen = [
+        { title: 'Stretching', time: '01.05.2024, 08:00 - 09:00' },
+        { title: 'Zumba', time: '29.04.2024, 19:00 - 20:00' }
+    ];
+
+    function renderVergangeneBuchungen() {
+        const list = document.getElementById('vergangeneKurse');
+        list.innerHTML = '';
+        vergangeneBuchungen.forEach(kurs => {
+            const row = document.createElement('div');
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.innerHTML = `
+                <div class="course-info">
+                    <h4 class='font-medium'>${kurs.title}</h4>
+                    <p class='text-sm text-white/80'>${kurs.time}</p>
+                </div>
+            `;
+            list.appendChild(row);
+        });
+    }
     // Render-Funktion für Anmeldungen
     function renderAnmeldungen() {
         const list = document.getElementById('anmeldungenList');
@@ -398,6 +428,7 @@
             }
         };
         renderAnmeldungen();
+        renderVergangeneBuchungen();
     });
 
     // Favoriten-Funktionalität
