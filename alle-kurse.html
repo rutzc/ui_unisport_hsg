@@ -150,6 +150,7 @@
             align-items: flex-start;
             justify-content: center;
             padding-top: 4rem;
+            overflow-y: auto;
         }
         .hsg-filter-modal.active {
             display: flex;
@@ -162,6 +163,9 @@
             width: 350px;
             box-shadow: 0 2px 16px rgba(0,0,0,0.10);
             position: relative;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+            margin-bottom: 2rem;
         }
         .hsg-filter-content h3 {
             font-size: 1.1rem;
@@ -314,12 +318,6 @@
             btn.classList.remove('selected');
         }
     }
-    function applyFilters() {
-        // Copy temporary filters to active filters
-        activeFilters = JSON.parse(JSON.stringify(tempFilters));
-        renderCourseList();
-        toggleFilterModal();
-    }
     function toggleFilterModal() {
         const modal = document.getElementById('filterModal');
         if (!modal.classList.contains('active')) {
@@ -332,8 +330,19 @@
                     if (btn) btn.classList.add('selected');
                 });
             });
+            // Disable body scrolling
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Re-enable body scrolling
+            document.body.style.overflow = '';
         }
         modal.classList.toggle('active');
+    }
+    function applyFilters() {
+        // Copy temporary filters to active filters
+        activeFilters = JSON.parse(JSON.stringify(tempFilters));
+        renderCourseList();
+        toggleFilterModal();
     }
     // --- Suche ---
     document.getElementById('searchInput').addEventListener('input', function() {
