@@ -217,6 +217,7 @@
             <button class="hsg-filter-close" onclick="toggleFilterModal()">&times;</button>
             <h3>Filter</h3>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Tag</div><div id="filter-tags"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Tageszeit</div><div id="filter-tageszeitens"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
@@ -309,10 +310,11 @@
         orts: ['Uni', 'Stadt', 'Outdoor'],
         sportarts: ['Gruppensport', 'Ballsport', 'Einzelsport', 'Ausdauer', 'Kraft'],
         niveaus: ['Beginner', 'Erfahren', 'Profi'],
+        tageszeitens: ['Morgen (8-12)', 'Mittag (12-14)', 'Nachmittag (14-18)', 'Abend (18-22)'],
         kostens: ['Gratis', 'mit Gebühren']
     };
-    let activeFilters = { tags: [], orts: [], sportarts: [], niveaus: [], kostens: [] };
-    let tempFilters = { tags: [], orts: [], sportarts: [], niveaus: [], kostens: [] };
+    let activeFilters = { tags: [], orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
+    let tempFilters = { tags: [], orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
     let searchQuery = '';
     let openCourse = null;
     // --- Tages-Navigation Logik ---
@@ -443,6 +445,27 @@
         if (activeFilters.niveaus.length) {
             filtered = filtered.filter(c => activeFilters.niveaus.includes(c.niveau));
         }
+        if (activeFilters.tageszeitens.length) {
+            // Filter courses by time of day based on meta info (e.g., "MO 18:00 - 19:30")
+            filtered = filtered.filter(c => {
+                if (!c.meta) return false;
+                
+                // Extract time from meta info
+                const timeMatch = c.meta.match(/\d{2}:\d{2}/);
+                if (!timeMatch) return false;
+                
+                const hour = parseInt(timeMatch[0].split(':')[0]);
+                
+                // Check which time of day category this falls into
+                let timeCategory = '';
+                if (hour >= 8 && hour < 12) timeCategory = 'Morgen (8-12)';
+                else if (hour >= 12 && hour < 14) timeCategory = 'Mittag (12-14)';
+                else if (hour >= 14 && hour < 18) timeCategory = 'Nachmittag (14-18)';
+                else if (hour >= 18 && hour < 22) timeCategory = 'Abend (18-22)';
+                
+                return activeFilters.tageszeitens.includes(timeCategory);
+            });
+        }
         if (activeFilters.kostens.length) {
             filtered = filtered.filter(c => activeFilters.kostens.includes(c.kosten));
         }
@@ -495,6 +518,7 @@
     renderFilterGroup('orts', 'Ort', filterData.orts);
     renderFilterGroup('sportarts', 'Sportart', filterData.sportarts);
     renderFilterGroup('niveaus', 'Niveau', filterData.niveaus);
+    renderFilterGroup('tageszeitens', 'Tageszeit', filterData.tageszeitens);
     renderFilterGroup('kostens', 'Kosten', filterData.kostens);
     renderCourseList();
     // --- Modal für Buchung (wie heute-morgen) ---

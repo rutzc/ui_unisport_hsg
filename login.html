@@ -26,7 +26,7 @@
         .login-banner {
             width: 100vw !important;
             max-width: 100vw !important;
-            height: 220px;
+            height: 300px;
             object-fit: cover;
             display: block;
             margin: 0 !important;
@@ -47,7 +47,7 @@
         }
         @media (max-width: 640px) {
             .login-banner {
-                height: 120px !important;
+                height: 180px !important;
             }
             .login-main {
                 max-width: 98vw;
@@ -64,9 +64,9 @@
     <main class="login-main">
         <h2 class="mb-6 text-center font-extrabold text-2xl sm:text-3xl uppercase text-white">ANMELDEN</h2>
         <form id="loginForm" class="w-full flex flex-col space-y-4">
-            <input type="email" id="email" required placeholder="E-Mail" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition text-base">
+            <input type="email" id="email" placeholder="E-Mail" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition text-base">
             <div class="relative">
-                <input type="password" id="password" required placeholder="Passwort" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition pr-12 text-base">
+                <input type="password" id="password" placeholder="Passwort" class="w-full px-4 py-3 bg-white text-black placeholder:text-gray-500 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-[#009B4C] transition pr-12 text-base">
                 <button id="togglePassword" type="button" tabindex="-1" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 focus:outline-none">
                     <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
@@ -92,41 +92,45 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             window.header.renderHeader();
+            
+            // Passwort Sichtbarkeit toggeln
+            const passwordInput = document.getElementById('password');
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            // Setze initial das "unsichtbar"-Icon
+            eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+            `;
+            
+            togglePasswordBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    // Auge offen (sichtbar)
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                    `;
+                } else {
+                    passwordInput.type = 'password';
+                    // Auge durchgestrichen (unsichtbar)
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+                        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+                    `;
+                }
+            });
+
+            // Login-Formular: Weiterleitung zu dashboard.html beim Absenden
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+              e.preventDefault();
+              window.location.href = 'dashboard.html';
+            });
         });
-        // Passwort Sichtbarkeit toggeln
-        const passwordInput = document.getElementById('password');
-        const togglePasswordBtn = document.getElementById('togglePassword');
-        const eyeIcon = document.getElementById('eyeIcon');
-        // Setze initial das "unsichtbar"-Icon
-        eyeIcon.innerHTML = `
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
-            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
-        `;
-        togglePasswordBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                // Auge offen (sichtbar)
-                eyeIcon.innerHTML = `
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
-                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
-                `;
-            } else {
-                passwordInput.type = 'password';
-                // Auge durchgestrichen (unsichtbar)
-                eyeIcon.innerHTML = `
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12C2.73 7.943 7.523 5 12 5c4.477 0 9.27 2.943 11 7-1.73 4.057-6.523 7-11 7-4.477 0-9.27-2.943-11-7z" />
-                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
-                    <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
-                `;
-            }
-        });
-        document.getElementById('loginForm').onsubmit = function(e) {
-            e.preventDefault();
-            // Dummy login
-            window.location.href = 'dashboard.html';
-        };
     </script>
 </body>
 </html>

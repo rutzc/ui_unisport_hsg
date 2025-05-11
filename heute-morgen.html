@@ -304,6 +304,7 @@
         <div class="hsg-filter-content">
             <button class="hsg-filter-close" onclick="toggleFilterModal()">&times;</button>
             <h3>Filter</h3>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Tageszeit</div><div id="filter-tageszeitens"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
@@ -447,16 +448,17 @@
             orts: ['Halle 2', 'Studio 1', 'Outdoor Gym', 'Boulderhalle'],
             sportarts: ['Yoga', 'Pilates', 'HIIT', 'Bouldern'],
             niveaus: ['Alle Levels', 'Einsteiger', 'Fortgeschrittene'],
+            tageszeitens: ['Morgen (8-12)', 'Mittag (12-14)', 'Nachmittag (14-18)', 'Abend (18-22)'],
             kostens: ['Freie Plätze']
         };
-        let activeFilters = { orts: [], sportarts: [], niveaus: [], kostens: [] };
-        let tempFilters = { orts: [], sportarts: [], niveaus: [], kostens: [] };
+        let activeFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
+        let tempFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
         let searchQuery = '';
         const kurse = [
-            { tag: 'heute', titel: 'Yoga Flow', ort: 'Halle 2', sportart: 'Yoga', niveau: 'Alle Levels', kosten: 'kostenlos', elementId: 'yoga-flow-heute' },
-            { tag: 'heute', titel: 'Pilates', ort: 'Studio 1', sportart: 'Pilates', niveau: 'Einsteiger', kosten: 'gebührenpflichtig', elementId: 'pilates-heute' },
-            { tag: 'morgen', titel: 'HIIT', ort: 'Outdoor Gym', sportart: 'HIIT', niveau: 'Alle Levels', kosten: 'kostenlos', elementId: 'hiit-morgen' },
-            { tag: 'morgen', titel: 'Bouldern', ort: 'Boulderhalle', sportart: 'Bouldern', niveau: 'Fortgeschrittene', kosten: 'gebührenpflichtig', elementId: 'bouldern-morgen' }
+            { tag: 'heute', titel: 'Yoga Flow', ort: 'Halle 2', sportart: 'Yoga', niveau: 'Alle Levels', tageszeit: 'Nachmittag (14-18)', kosten: 'kostenlos', elementId: 'yoga-flow-heute' },
+            { tag: 'heute', titel: 'Pilates', ort: 'Studio 1', sportart: 'Pilates', niveau: 'Einsteiger', tageszeit: 'Nachmittag (14-18)', kosten: 'gebührenpflichtig', elementId: 'pilates-heute' },
+            { tag: 'morgen', titel: 'HIIT', ort: 'Outdoor Gym', sportart: 'HIIT', niveau: 'Alle Levels', tageszeit: 'Morgen (8-12)', kosten: 'kostenlos', elementId: 'hiit-morgen' },
+            { tag: 'morgen', titel: 'Bouldern', ort: 'Boulderhalle', sportart: 'Bouldern', niveau: 'Fortgeschrittene', tageszeit: 'Abend (18-22)', kosten: 'gebührenpflichtig', elementId: 'bouldern-morgen' }
         ];
         function renderFilterGroup(id, arr) {
             const el = document.getElementById('filter-' + id);
@@ -482,7 +484,7 @@
             if (!modal.classList.contains('active')) {
                 tempFilters = JSON.parse(JSON.stringify(activeFilters));
                 // Update button states
-                ['orts','sportarts','niveaus','kostens'].forEach(group => {
+                ['orts','sportarts','niveaus','tageszeitens','kostens'].forEach(group => {
                     const btns = document.querySelectorAll(`[data-group="${group}"]`);
                     btns.forEach(btn => btn.classList.remove('selected'));
                     tempFilters[group].forEach(value => {
@@ -506,6 +508,7 @@
                 if (activeFilters.orts.length && !activeFilters.orts.includes(kurs.ort)) visible = false;
                 if (activeFilters.sportarts.length && !activeFilters.sportarts.includes(kurs.sportart)) visible = false;
                 if (activeFilters.niveaus.length && !activeFilters.niveaus.includes(kurs.niveau)) visible = false;
+                if (activeFilters.tageszeitens.length && !activeFilters.tageszeitens.includes(kurs.tageszeit)) visible = false;
                 // Filter für freie Plätze
                 if (activeFilters.kostens.includes('Freie Plätze')) {
                     // Prüfe, ob Kurs freie Plätze hat (Status nicht Warteliste und freie Plätze > 0)
@@ -519,6 +522,7 @@
         renderFilterGroup('orts', filterData.orts);
         renderFilterGroup('sportarts', filterData.sportarts);
         renderFilterGroup('niveaus', filterData.niveaus);
+        renderFilterGroup('tageszeitens', filterData.tageszeitens);
         renderFilterGroup('kostens', filterData.kostens);
     </script>
 </body>
