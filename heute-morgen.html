@@ -280,6 +280,13 @@
                         <div class="text-sm text-gray-600 space-y-2 mb-4">
                             <div id="modalMeta"></div>
                         </div>
+                        <div class="flex items-center mb-4">
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="shareWithFriends" class="sr-only peer">
+                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-green-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-hsg-green"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-600">Teile Einschreibung mit Freunden</span>
+                            </label>
+                        </div>
                         <div class="flex space-x-3">
                             <button id="confirmBooking" class="flex-1 bg-hsg-green text-white px-4 py-2 rounded font-medium hover:bg-green-700 transition">Bestätigen</button>
                             <button onclick="closeModal()" class="flex-1 border border-gray-300 px-4 py-2 rounded font-medium hover:bg-gray-50 transition">Abbrechen</button>
@@ -429,10 +436,16 @@
             document.getElementById('successView').classList.add('hidden');
             document.getElementById('bookingView').classList.remove('hidden');
             document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('shareWithFriends').checked = false;
             document.getElementById('confirmBooking').onclick = function() {
+                const shareWithFriends = document.getElementById('shareWithFriends').checked;
                 document.getElementById('bookingView').classList.add('hidden');
                 document.getElementById('successView').classList.remove('hidden');
-                document.getElementById('successMsg').textContent = isWaitlist ? 'Du wurdest erfolgreich auf die Warteliste gesetzt.' : 'Der Kurs wurde erfolgreich gebucht.';
+                let successMessage = isWaitlist ? 'Du wurdest erfolgreich auf die Warteliste gesetzt.' : 'Der Kurs wurde erfolgreich gebucht.';
+                if (shareWithFriends) {
+                    successMessage += ' Deine Freunde wurden benachrichtigt.';
+                }
+                document.getElementById('successMsg').textContent = successMessage;
             };
         }
         function closeModal() {
