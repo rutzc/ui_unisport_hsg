@@ -43,11 +43,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-width: 24px;
             width: 24px;
             height: 24px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease, background-color 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 8px;
         }
         .toggle-icon svg {
             width: 14px;
@@ -84,11 +87,28 @@
             font-weight: 600;
             cursor: pointer;
         }
+        .hsg-section-header span {
+            flex: 1;
+            padding-right: 12px;
+        }
+        @media (max-width: 640px) {
+            .toggle-icon {
+                min-width: 20px;
+                width: 20px;
+                height: 20px;
+            }
+            .toggle-icon svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
-    <main class="max-w-xl mx-auto px-4 py-8">
-        <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-6 sm:mb-8">Fragen und Antworten</h1>
+    <main class="max-w-xl mx-auto px-4 py-6">
+        <div class="pt-2 pb-1">
+            <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-3">Fragen und Antworten</h1>
+        </div>
         
         <!-- Einführung -->
         <div class="bg-hsg-light p-4 rounded-lg mb-6">
