@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Einstellungen | Unisport</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="dark-mode.css">
   <style>
     .toggle {
       position: relative;
@@ -90,27 +89,13 @@
     </div>
   </main>
 
-  <script src="dark-mode.js"></script>
   <script>
-    // Apply dark mode function
-    function applyDarkMode(isDarkMode) {
-      if (isDarkMode) {
-        document.documentElement.classList.add('dark-mode');
-      } else {
-        document.documentElement.classList.remove('dark-mode');
-      }
-    }
-    
     document.addEventListener('DOMContentLoaded', function() {
       // Load saved settings if available
       try {
         const savedSettings = JSON.parse(localStorage.getItem('settings')) || {};
         if (savedSettings.push !== undefined) document.getElementById('pushToggle').checked = savedSettings.push;
-        if (savedSettings.dark !== undefined) {
-          document.getElementById('darkModeToggle').checked = savedSettings.dark;
-          // Apply dark mode on page load
-          applyDarkMode(savedSettings.dark);
-        }
+        if (savedSettings.dark !== undefined) document.getElementById('darkModeToggle').checked = savedSettings.dark;
         if (savedSettings.share !== undefined) document.getElementById('shareToggle').checked = savedSettings.share;
       } catch (e) {
         console.error('Error loading settings:', e);
@@ -141,11 +126,6 @@
           profileImg.src = imgData;
         }
       }
-      
-      // Add dark mode toggle event listener
-      document.getElementById('darkModeToggle').addEventListener('change', function() {
-        applyDarkMode(this.checked);
-      });
     });
 
     function saveSettings() {
@@ -153,7 +133,6 @@
       const dark = document.getElementById('darkModeToggle').checked;
       const share = document.getElementById('shareToggle').checked;
       localStorage.setItem('settings', JSON.stringify({ push, dark, share }));
-      applyDarkMode(dark); // Apply dark mode immediately
       window.location.href = 'dashboard.html';
     }
   </script>
