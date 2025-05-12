@@ -90,6 +90,45 @@
             width: 1.5rem;
             height: 1.5rem;
         }
+        .section-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 1000px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        .toggle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .toggle-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: #fff;
+            stroke-width: 3;
+            transition: transform 0.3s ease;
+        }
+        .toggle-icon.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .toggle-icon.active svg {
+            transform: rotate(180deg);
+        }
         @media (max-width: 640px) {
             .hsg-box {
                 border-radius: 12px;
@@ -152,9 +191,18 @@
 
             <!-- Meine Anmeldungen Section -->
             <div class="hsg-box p-4 sm:p-6">
-                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Meine Anmeldungen</h3>
-                <div id="anmeldungenList" class="space-y-3 sm:space-y-4">
-                    <!-- Dynamisch generiert -->
+                <div class="section-header" onclick="toggleSection('anmeldungenSection')">
+                    <h3 class="text-base sm:text-lg font-semibold">Meine Anmeldungen</h3>
+                    <div class="toggle-icon" id="anmeldungenSectionIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div id="anmeldungenSection" class="section-content mt-3 sm:mt-4">
+                    <div id="anmeldungenList" class="space-y-3 sm:space-y-4">
+                        <!-- Dynamisch generiert -->
+                    </div>
                 </div>
             </div>
 
@@ -174,16 +222,26 @@
 
             <!-- Favoriten Section -->
             <div class="hsg-box p-4 sm:p-6">
-                <div class="flex justify-between items-center mb-4">
+                <div class="section-header" onclick="toggleSection('favoritenSection')">
                     <h3 class="text-base sm:text-lg font-semibold">Favoriten</h3>
-                    <button onclick="openFavoritenModal()" class="bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    <div class="toggle-icon" id="favoritenSectionIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
-                    </button>
+                    </div>
                 </div>
-                <div id="favoritenList" class="space-y-4">
-                    <!-- Dynamisch generiert -->
+                <div id="favoritenSection" class="section-content mt-3 sm:mt-4">
+                    <div id="favoritenList" class="space-y-4">
+                        <!-- Dynamisch generiert -->
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button onclick="openFavoritenModal()" class="text-sm font-medium rounded px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white flex items-center gap-1 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Favoriten hinzufügen
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -209,33 +267,60 @@
 
             <!-- Vorgeschlagene Kurse Section -->
             <div class="hsg-box p-4 sm:p-6">
-                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Vorgeschlagene Kurse</h3>
-                <div id="suggestedCourses" class="space-y-3 sm:space-y-4">
-                    <!-- Dynamisch generiert -->
+                <div class="section-header" onclick="toggleSection('suggestedSection')">
+                    <h3 class="text-base sm:text-lg font-semibold">Vorgeschlagene Kurse</h3>
+                    <div class="toggle-icon" id="suggestedSectionIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div id="suggestedSection" class="section-content mt-3 sm:mt-4">
+                    <div id="suggestedCourses" class="space-y-3 sm:space-y-4">
+                        <!-- Dynamisch generiert -->
+                    </div>
                 </div>
             </div>
 
             <!-- Letzte Plätze Section -->
             <div class="hsg-box p-4 sm:p-6">
-                <div class="flex justify-between items-center mb-3 sm:mb-4">
+                <div class="section-header" onclick="toggleSection('lastPlacesSection')">
                     <h3 class="text-base sm:text-lg font-semibold">Letzte Plätze</h3>
-                    <a href="heute-morgen.html" class="text-white/80 hover:text-white text-sm flex items-center gap-1">
-                        Alle anzeigen
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    <div class="toggle-icon" id="lastPlacesSectionIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
-                    </a>
+                    </div>
                 </div>
-                <div id="lastPlaces" class="space-y-3 sm:space-y-4">
-                    <!-- Dynamisch generiert -->
+                <div id="lastPlacesSection" class="section-content mt-3 sm:mt-4">
+                    <div class="flex justify-between items-center mb-3 sm:mb-4">
+                        <a href="heute-morgen.html" class="text-white/80 hover:text-white text-sm flex items-center gap-1">
+                            Alle anzeigen
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div id="lastPlaces" class="space-y-3 sm:space-y-4">
+                        <!-- Dynamisch generiert -->
+                    </div>
                 </div>
             </div>
 
             <!-- Vergangene Buchungen Section -->
             <div class="hsg-box p-4 sm:p-6">
-                <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Vergangene Buchungen</h3>
-                <div id="vergangeneKurse" class="space-y-3 sm:space-y-4">
-                    <!-- Dynamisch generiert -->
+                <div class="section-header" onclick="toggleSection('vergangeneSection')">
+                    <h3 class="text-base sm:text-lg font-semibold">Vergangene Buchungen</h3>
+                    <div class="toggle-icon" id="vergangeneSectionIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div id="vergangeneSection" class="section-content mt-3 sm:mt-4">
+                    <div id="vergangeneKurse" class="space-y-3 sm:space-y-4">
+                        <!-- Dynamisch generiert -->
+                    </div>
                 </div>
             </div>
 
@@ -286,6 +371,45 @@
     // Login-Prüfung: Wenn nicht eingeloggt, weiterleiten
     if (!localStorage.getItem('user')) {
         window.location.href = 'login.html';
+    }
+    
+    // Toggle-Funktion für ausklappbare Abschnitte
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const icon = document.getElementById(sectionId + 'Icon');
+        
+        section.classList.toggle('collapsed');
+        icon.classList.toggle('active');
+        
+        // Speichere den Zustand im localStorage
+        const collapsedSections = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
+        collapsedSections[sectionId] = section.classList.contains('collapsed');
+        localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
+    }
+    
+    // Funktion zum Wiederherstellen des Zustands der Abschnitte
+    function restoreSectionStates() {
+        const collapsedSections = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
+        
+        // Liste aller Abschnitte
+        const sections = [
+            'anmeldungenSection',
+            'favoritenSection',
+            'suggestedSection',
+            'lastPlacesSection',
+            'vergangeneSection'
+        ];
+        
+        // Stelle den Zustand jedes Abschnitts wieder her
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(sectionId + 'Icon');
+            
+            if (collapsedSections[sectionId]) {
+                section.classList.add('collapsed');
+                icon.classList.add('active');
+            }
+        });
     }
     // Profilbild anzeigen
     function updateProfilePic() {
@@ -385,6 +509,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Profilbild anzeigen
         updateProfilePic();
+        
+        // Stelle den Zustand der Abschnitte wieder her
+        restoreSectionStates();
         
         document.getElementById('confirmAbmelden').onclick = function() {
             if (abmeldeIndex !== null) {
