@@ -6,6 +6,8 @@
     <title>Profil | Unisport St.Gallen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="header.js"></script>
+    <link rel="stylesheet" href="dark-mode.css">
+    <script src="dark-mode.js"></script>
     <style>
         @font-face {
             font-family: 'Theinhardt';
@@ -49,7 +51,7 @@
             </div>
         </div>
 
-        <h2 class="text-gray-400 font-semibold text-xs mb-5 mt-2">Edit profile</h2>
+        <h2 class="text-gray-400 font-semibold text-xs mb-5 mt-2">Profil bearbeiten</h2>
 
         <!-- Profile Edit Form -->
         <form id="profileForm" class="space-y-5">
@@ -67,13 +69,13 @@
             
             <!-- Password Field -->
             <div>
-                <label for="password" class="block text-lg font-bold mb-1.5">Password</label>
+                <label for="password" class="block text-lg font-bold mb-1.5">Passwort</label>
                 <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base" value="************">
             </div>
             
             <!-- Date of Birth Field -->
             <div>
-                <label for="dob" class="block text-lg font-bold mb-1.5">Date of Birth</label>
+                <label for="dob" class="block text-lg font-bold mb-1.5">Geburtsdatum</label>
                 <div class="relative">
                     <input type="text" id="dob" name="dob" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-base" value="23/05/2001">
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
