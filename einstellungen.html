@@ -91,7 +91,6 @@
       try {
         const savedSettings = JSON.parse(localStorage.getItem('settings')) || {};
         if (savedSettings.push !== undefined) document.getElementById('pushToggle').checked = savedSettings.push;
-        if (savedSettings.dark !== undefined) document.getElementById('darkModeToggle').checked = savedSettings.dark;
         if (savedSettings.share !== undefined) document.getElementById('shareToggle').checked = savedSettings.share;
       } catch (e) {
         console.error('Error loading settings:', e);
@@ -126,9 +125,8 @@
 
     function saveSettings() {
       const push = document.getElementById('pushToggle').checked;
-      const dark = document.getElementById('darkModeToggle').checked;
       const share = document.getElementById('shareToggle').checked;
-      localStorage.setItem('settings', JSON.stringify({ push, dark, share }));
+      localStorage.setItem('settings', JSON.stringify({ push, share }));
       window.location.href = 'dashboard.html';
     }
   </script>
