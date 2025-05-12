@@ -139,12 +139,35 @@
             </div>
         </div>
         <!-- News-Bereich -->
-        <div class="rounded-lg bg-hsg-green text-white px-4 sm:px-6 py-3 sm:py-4 mb-6 sm:mb-8">
-            <div class="text-base sm:text-lg font-semibold mb-2">Neuigkeiten</div>
-            <div class="flex flex-col sm:flex-row text-xs sm:text-sm font-medium divide-y divide-white/20 sm:divide-y-0 sm:divide-x sm:gap-0">
-                <div class="py-2 sm:py-0 sm:px-6 flex-1">Neue Kurse für das Sommersemester <span class="font-bold text-white">jetzt buchbar!</span></div>
-                <div class="py-2 sm:py-0 sm:px-6 flex-1">Sporthalle 2 wegen Renovierung bis <span class="font-bold text-white">15.07 geschlossen</span></div>
-                <div class="py-2 sm:py-0 sm:px-6 flex-1">Jetzt für das Sommerfest <span class="font-bold text-white">anmelden!</span></div>
+        <div class="mb-6 sm:mb-8 bg-hsg-green rounded-lg p-4 sm:p-5">
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">Neuigkeiten</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <!-- Kurs News -->
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 px-4 py-4 transition-all duration-300 hover:-translate-y-1 cursor-pointer news-card" data-title="Neue Kurse im Sommersemester" data-content="Die Kurse für das neue Semester sind jetzt verfügbar. Melde dich frühzeitig an, um deinen Platz zu sichern! Das Angebot umfasst über 50 verschiedene Kurse aus den Bereichen Fitness, Entspannung, Teamsport und mehr.">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">NEU</span>
+                    </div>
+                    <h3 class="font-semibold text-hsg-gray mb-1">Neue Kurse im Sommersemester</h3>
+                    <p class="text-gray-600 text-sm">Die Kurse für das neue Semester sind <span class="font-bold text-hsg-green">jetzt buchbar!</span></p>
+                </div>
+                
+                <!-- Sporthalle News -->
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 px-4 py-4 transition-all duration-300 hover:-translate-y-1 cursor-pointer news-card" data-title="Sporthalle 2 geschlossen" data-content="Die Sporthalle 2 bleibt aufgrund von Renovierungsarbeiten bis zum 15.07 geschlossen. Alle betroffenen Kurse wurden in alternative Räumlichkeiten verlegt. Bitte beachte die aktualisierten Raumangaben in deinem Kursplan.">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded">INFO</span>
+                    </div>
+                    <h3 class="font-semibold text-hsg-gray mb-1">Sporthalle 2 geschlossen</h3>
+                    <p class="text-gray-600 text-sm">Wegen Renovierung bis zum <span class="font-bold text-red-600">15.07 geschlossen</span></p>
+                </div>
+                
+                <!-- Sommerfest News -->
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 px-4 py-4 transition-all duration-300 hover:-translate-y-1 cursor-pointer news-card" data-title="Sommerfest 2024" data-content="Unser jährliches Sommerfest findet am 20. Juli statt. Es erwarten dich sportliche Aktivitäten, Musik, Essen und Getränke. Die Teilnahme ist kostenlos für alle Unisport-Mitglieder. Melde dich jetzt an und bring deine Freunde mit!">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2 py-0.5 rounded">EVENT</span>
+                    </div>
+                    <h3 class="font-semibold text-hsg-gray mb-1">Sommerfest 2024</h3>
+                    <p class="text-gray-600 text-sm">Sei dabei und <span class="font-bold text-amber-600">melde dich jetzt an!</span></p>
+                </div>
             </div>
         </div>
         <!-- Anstehende Kurse -->
@@ -168,5 +191,58 @@
             </div>
         </section>
     </main>
+
+    <!-- Modal/Popup für News -->
+    <div id="newsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+            <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 id="modalTitle" class="text-xl font-bold text-hsg-gray mb-2"></h3>
+            <p id="modalContent" class="text-gray-600"></p>
+            <button class="mt-4 bg-hsg-green text-white px-4 py-2 rounded hover:bg-green-700 transition">Verstanden</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // News card popup functionality
+            const newsCards = document.querySelectorAll('.news-card');
+            const modal = document.getElementById('newsModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+            
+            newsCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    modalTitle.textContent = card.getAttribute('data-title');
+                    modalContent.textContent = card.getAttribute('data-content');
+                    modal.classList.remove('hidden');
+                });
+            });
+            
+            // Close modal with X button
+            closeModal.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            
+            // Close modal with "Verstanden" button
+            modal.querySelector('button').addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Begrüßung Name und Datum
+            // ... existing code ...
+        });
+    </script>
 </body>
 </html> 
