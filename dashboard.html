@@ -389,9 +389,7 @@
     
     // Funktion zum Wiederherstellen des Zustands der Abschnitte
     function restoreSectionStates() {
-        const collapsedSections = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
-        
-        // Liste aller Abschnitte
+        // Alle Abschnitte standardmäßig ausgeklappt anzeigen (keine 'collapsed' Klasse)
         const sections = [
             'anmeldungenSection',
             'favoritenSection',
@@ -400,16 +398,23 @@
             'vergangeneSection'
         ];
         
-        // Stelle den Zustand jedes Abschnitts wieder her
+        // Stelle sicher, dass kein Abschnitt die 'collapsed' Klasse hat
         sections.forEach(sectionId => {
             const section = document.getElementById(sectionId);
             const icon = document.getElementById(sectionId + 'Icon');
             
-            if (collapsedSections[sectionId]) {
-                section.classList.add('collapsed');
-                icon.classList.add('active');
-            }
+            // Entferne 'collapsed' Klasse falls vorhanden
+            section.classList.remove('collapsed');
+            // Stelle sicher, dass das Icon nicht 'active' ist
+            icon.classList.remove('active');
         });
+        
+        // Setze im localStorage, dass keine Abschnitte eingeklappt sind
+        const collapsedSections = {};
+        sections.forEach(sectionId => {
+            collapsedSections[sectionId] = false;
+        });
+        localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
     }
     // Profilbild anzeigen
     function updateProfilePic() {

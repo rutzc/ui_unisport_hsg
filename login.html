@@ -143,6 +143,22 @@
                     if (window.header && typeof window.header.setLoggedIn === 'function') {
                         window.header.setLoggedIn(user);
                     }
+                    
+                    // Clear any existing data
+                    localStorage.removeItem('favorites');
+                    localStorage.removeItem('anmeldungen');
+                    
+                    // Set default favorites
+                    const defaultFavorites = ['Power Yoga', 'Bachata', 'Tennis'];
+                    localStorage.setItem('favorites', JSON.stringify(defaultFavorites));
+                    
+                    // Set default registrations
+                    const defaultRegistrations = [
+                        { title: 'Yoga Flow', time: 'Montag, 14:15 - 15:45', status: 'confirmed' },
+                        { title: 'HIIT', time: 'Mittwoch, 17:30 - 18:30', status: 'confirmed' }
+                    ];
+                    localStorage.setItem('anmeldungen', JSON.stringify(defaultRegistrations));
+                    
                     window.location.href = 'dashboard.html';
                 } else {
                     alert('Bitte E-Mail und Passwort eingeben.');
