@@ -388,8 +388,20 @@
     }
     // Render-Funktion für Anmeldungen
     function renderAnmeldungen() {
+        // Anmeldungen aus localStorage laden
+        const savedAnmeldungen = localStorage.getItem('anmeldungen');
+        if (savedAnmeldungen) {
+            anmeldungen = JSON.parse(savedAnmeldungen);
+        }
+        
         const list = document.getElementById('anmeldungenList');
         list.innerHTML = '';
+        
+        if (anmeldungen.length === 0) {
+            list.innerHTML = '<p class="text-white/80 text-sm py-2">Keine aktuellen Anmeldungen.</p>';
+            return;
+        }
+        
         anmeldungen.forEach((a, idx) => {
             const row = document.createElement('div');
             row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
@@ -422,6 +434,10 @@
         document.getElementById('confirmAbmelden').onclick = function() {
             if (abmeldeIndex !== null) {
                 anmeldungen.splice(abmeldeIndex, 1);
+                
+                // Aktualisierte Anmeldungen im localStorage speichern
+                localStorage.setItem('anmeldungen', JSON.stringify(anmeldungen));
+                
                 renderAnmeldungen();
                 closeAbmeldeModal();
             }

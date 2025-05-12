@@ -770,6 +770,29 @@
                 document.getElementById('successView').classList.remove('hidden');
                 let successMessage = 'Der Kurs wurde erfolgreich gebucht.';
                 document.getElementById('successMsg').textContent = successMessage;
+                
+                // Kurs zum Dashboard hinzufügen
+                const kursInfo = {
+                    title: title,
+                    time: time,
+                    status: isWaitlist ? 'waitlist' : 'confirmed'
+                };
+                
+                // Bestehende Anmeldungen aus localStorage holen oder neues Array erstellen
+                let anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
+                
+                // Prüfen, ob der Kurs bereits gebucht ist
+                const existingIndex = anmeldungen.findIndex(a => a.title === title);
+                if (existingIndex >= 0) {
+                    // Kurs aktualisieren falls er bereits existiert
+                    anmeldungen[existingIndex] = kursInfo;
+                } else {
+                    // Neuen Kurs hinzufügen
+                    anmeldungen.push(kursInfo);
+                }
+                
+                // Anmeldungen im localStorage speichern
+                localStorage.setItem('anmeldungen', JSON.stringify(anmeldungen));
             };
         } else {
             document.getElementById('modalTitle').textContent = title;

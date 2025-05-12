@@ -723,6 +723,30 @@
                 document.getElementById('successView').classList.remove('hidden');
                 let successMessage = isWaitlist ? 'Du wurdest erfolgreich auf die Warteliste gesetzt.' : 'Der Kurs wurde erfolgreich gebucht.';
                 document.getElementById('successMsg').textContent = successMessage;
+                
+                // Kurs zum Dashboard hinzufügen
+                const kursStatus = isWaitlist ? 'waitlist' : 'confirmed';
+                const kursInfo = {
+                    title: title,
+                    time: time,
+                    status: kursStatus
+                };
+                
+                // Bestehende Anmeldungen aus localStorage holen oder neues Array erstellen
+                let anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
+                
+                // Prüfen, ob der Kurs bereits gebucht ist
+                const existingIndex = anmeldungen.findIndex(a => a.title === title);
+                if (existingIndex >= 0) {
+                    // Kurs aktualisieren falls er bereits existiert
+                    anmeldungen[existingIndex] = kursInfo;
+                } else {
+                    // Neuen Kurs hinzufügen
+                    anmeldungen.push(kursInfo);
+                }
+                
+                // Anmeldungen im localStorage speichern
+                localStorage.setItem('anmeldungen', JSON.stringify(anmeldungen));
             };
         }
         
