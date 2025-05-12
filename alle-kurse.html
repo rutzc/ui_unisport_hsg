@@ -364,7 +364,7 @@
     </div>
     <main class="max-w-xl mx-auto px-4 py-6">
         <div class="pt-2 pb-1">
-            <h1 class="text-2xl font-semibold text-hsg-gray mb-3">Alle Kurse</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-hsg-gray mb-3">Alle Kurse</h1>
         </div>
         <div class="hsg-searchbar mb-6">
             <input id="searchInput" type="search" placeholder="Suche nach Kursen...">
@@ -642,7 +642,16 @@
                         </svg>
                     </div>`;
                 item.onclick = () => {
-                    openCourse = openCourse === course.title ? null : course.title;
+                    // If clicking an open course, close it
+                    const wasOpen = (openCourse === course.title);
+                    // Always reset openCourse
+                    openCourse = null;
+                    
+                    // If the course wasn't already open, set it as open
+                    if (!wasOpen) {
+                        openCourse = course.title;
+                    }
+                    
                     renderCourseList();
                 };
                 list.appendChild(item);
@@ -685,7 +694,7 @@
                             </div>
                             <!-- Accordion Sections -->
                             <div class="hsg-accordion" data-accordion="info-${course.title}">
-                                <div class="hsg-accordion-header" onclick="toggleAccordion('info-${course.title}')">
+                                <div class="hsg-accordion-header" onclick="toggleAccordion('info-${course.title}', event)">
                                     <span>Allgemeine Informationen</span>
                                     <div class="toggle-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -700,7 +709,7 @@
                             </div>
                             
                             <div class="hsg-accordion" data-accordion="contact-${course.title}">
-                                <div class="hsg-accordion-header" onclick="toggleAccordion('contact-${course.title}')">
+                                <div class="hsg-accordion-header" onclick="toggleAccordion('contact-${course.title}', event)">
                                     <span>Kontakt</span>
                                     <div class="toggle-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -716,7 +725,7 @@
                             </div>
                             
                             <div class="hsg-accordion" data-accordion="faq-${course.title}">
-                                <div class="hsg-accordion-header" onclick="toggleAccordion('faq-${course.title}')">
+                                <div class="hsg-accordion-header" onclick="toggleAccordion('faq-${course.title}', event)">
                                     <span>FAQs</span>
                                     <div class="toggle-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -892,7 +901,10 @@
     }
     
     // Funktion zum Umschalten der Accordion-Sektionen
-    function toggleAccordion(id) {
+    function toggleAccordion(id, event) {
+        if (event) {
+            event.stopPropagation();
+        }
         const content = document.getElementById('accordion-' + id);
         const header = document.querySelector(`[data-accordion="${id}"] .hsg-accordion-header`);
         const icon = header.querySelector('.toggle-icon');
