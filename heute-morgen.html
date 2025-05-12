@@ -358,7 +358,8 @@
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Niveau</div><div id="filter-niveaus"></div></div>
-            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Freie Plätze</div><div id="filter-kostens"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Kosten</div><div id="filter-kostens"></div></div>
+            <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Status</div><div id="filter-status"></div></div>
             <button onclick="applyFilters()" class="w-full bg-hsg-green text-white font-semibold rounded-lg px-4 py-2 mt-4 hover:bg-green-700 transition">Bestätigen</button>
         </div>
     </div>
@@ -394,7 +395,7 @@
                                     </svg>
                                     <span class="hsg-tooltip">
                                         <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
-                                        Ein entspannter Flow für alle Levels. Bitte Matte mitbringen.
+                                        Finde deine innere Balance mit fließenden Bewegungen und bewusster Atmung.
                                     </span>
                                 </span>
                             </div>
@@ -415,14 +416,77 @@
                                     </svg>
                                     <span class="hsg-tooltip">
                                         <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
-                                        Kräftigung der Körpermitte, geeignet für Einsteiger und Fortgeschrittene.
+                                        Kräftigung und Dehnung für den ganzen Körper.
                                     </span>
                                 </span>
                             </div>
-                            <div class="hsg-course-meta">16:00–17:00 Studio 1</div>
-                            <div class="hsg-course-status hsg-status-warteliste">Nur noch 2 Plätze (2/12)</div>
+                            <div class="hsg-course-meta">12:15–13:15 Raum 2</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (11/20)</div>
                         </div>
-                        <button class="hsg-btn" onclick="openBookingModal('Pilates', '16:00–17:00 Studio 1', 'Nur noch 2 Plätze', false)">Buchen</button>
+                        <button class="hsg-btn" onclick="openBookingModal('Pilates', '12:15–13:15 Raum 2', 'Plätze frei (11/20)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="bachata-heute">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Bachata
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Tanzkurs für Einsteiger und Fortgeschrittene.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">19:00–20:30 Tanzsaal</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (6/12)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Bachata', '19:00–20:30 Tanzsaal', 'Plätze frei (6/12)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="fussball-heute">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Fussball
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Kicken im Team, Spaß garantiert.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">18:00–19:30 Sportplatz</div>
+                            <div class="hsg-course-status hsg-status-warteliste">Warteliste (0/20)</div>
+                        </div>
+                        <button class="hsg-btn warteliste" onclick="openBookingModal('Fussball', '18:00–19:30 Sportplatz', 'Warteliste', true)">Warteliste</button>
+                    </div>
+                    <div class="hsg-course-box" id="boxen-heute">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Boxen
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Fitness und Technik im Ring.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">17:00–18:30 Boxraum</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (7/12)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Boxen', '17:00–18:30 Boxraum', 'Plätze frei (7/12)', false)">Buchen</button>
                     </div>
                 </div>
             </div>
@@ -456,7 +520,91 @@
                             <div class="hsg-course-meta">9:00–10:00 Outdoor Gym</div>
                             <div class="hsg-course-status hsg-status-frei">Plätze frei (16/16)</div>
                         </div>
-                        <button class="hsg-btn" onclick="openBookingModal('HIIT', '9:00–10:00 Outdoor Gym', 'Plätze frei', false)">Buchen</button>
+                        <button class="hsg-btn" onclick="openBookingModal('HIIT', '9:00–10:00 Outdoor Gym', 'Plätze frei (16/16)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="rudern-morgen">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Rudern
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Kraft und Technik auf dem Wasser.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">06:30–08:00 Bootshaus</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (5/10)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Rudern', '06:30–08:00 Bootshaus', 'Plätze frei (5/10)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="tischtennis-morgen">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Tischtennis
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Schnelle Ballwechsel und Spaß.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">16:00–17:30 Halle 3</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (8/12)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Tischtennis', '16:00–17:30 Halle 3', 'Plätze frei (8/12)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="beachvolleyball-morgen">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Beachvolleyball
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Sand, Sonne, Sport!
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">17:00–19:00 Beachfeld</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (3/12)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Beachvolleyball', '17:00–19:00 Beachfeld', 'Plätze frei (3/12)', false)">Buchen</button>
+                    </div>
+                    <div class="hsg-course-box" id="badminton-morgen">
+                        <div class="hsg-course-info">
+                            <div class="hsg-course-title">
+                                Badminton
+                                <span class="hsg-info-icon" tabindex="0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+                                        <circle cx="12" cy="8" r="1" />
+                                    </svg>
+                                    <span class="hsg-tooltip">
+                                        <button class="hsg-tooltip-close" onclick="closeTooltip(event)">&times;</button>
+                                        Schnelles Rückschlagspiel für alle Levels.
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="hsg-course-meta">16:00–18:00 Halle 3</div>
+                            <div class="hsg-course-status hsg-status-frei">Plätze frei (4/10)</div>
+                        </div>
+                        <button class="hsg-btn" onclick="openBookingModal('Badminton', '16:00–18:00 Halle 3', 'Plätze frei (4/10)', false)">Buchen</button>
                     </div>
                     <div class="hsg-course-box" id="bouldern-morgen">
                         <div class="hsg-course-info">
@@ -522,9 +670,16 @@
             // Statische Teilnehmerlisten für jeden Kurs
             const courseEnrollments = {
                 'Yoga Flow': ['Laura Mayer', 'Chiara Mercurio', 'Santiago Kuster', 'Thomas Weber', 'Janis Locher'],
-                'Pilates': ['Samuel Brunner', 'Chiara Mercurio'],
+                'Pilates': ['Samuel Brunner', 'Chiara Mercurio', 'Miriam Schäfer', 'Leonie Keller', 'David Müller', 'Nina Huber', 'Felix Schneider', 'Sophia Becker', 'Jonas Weber'],
+                'Bachata': ['Lara Schmid', 'Marco Berger', 'Sophia Becker', 'David Müller', 'Nina Huber', 'Felix Schneider'],
+                'Fussball': ['Santiago Kuster', 'Thomas Weber', 'Marco Berger', 'Felix Schneider', 'David Müller', 'Jonas Weber'],
+                'Boxen': ['Janis Locher', 'Laura Mayer', 'Miriam Schäfer', 'Marco Berger', 'Leonie Keller'],
                 'HIIT': [], // Keine Teilnehmer (alle Plätze frei)
-                'Bouldern': ['Santiago Kuster', 'Laura Mayer', 'Thomas Weber', 'Janis Locher', 'Samuel Brunner', 'Julia Schmidt']
+                'Rudern': ['Santiago Kuster', 'Thomas Weber', 'Janis Locher', 'Laura Mayer', 'Miriam Schäfer'],
+                'Tischtennis': ['Felix Schneider', 'David Müller', 'Nina Huber', 'Sophia Becker'],
+                'Beachvolleyball': ['Santiago Kuster', 'Thomas Weber', 'Janis Locher', 'Laura Mayer', 'Miriam Schäfer', 'Marco Berger', 'Leonie Keller', 'David Müller', 'Nina Huber'],
+                'Badminton': ['Felix Schneider', 'David Müller', 'Nina Huber', 'Sophia Becker', 'Jonas Weber', 'Marco Berger'],
+                'Bouldern': ['Santiago Kuster', 'Laura Mayer', 'Thomas Weber', 'Janis Locher', 'Samuel Brunner', 'Julia Schmidt', 'Miriam Schäfer', 'Marco Berger', 'Leonie Keller', 'David Müller']
             };
             
             // Teilnehmerliste für den aktuellen Kurs abrufen
@@ -606,20 +761,31 @@
 
         // Filterdaten für heute-morgen
         const filterData = {
-            orts: ['Halle 2', 'Studio 1', 'Outdoor Gym', 'Boulderhalle'],
-            sportarts: ['Yoga', 'Pilates', 'HIIT', 'Bouldern'],
-            niveaus: ['Alle Levels', 'Einsteiger', 'Fortgeschrittene'],
+            orts: ['Uni', 'Stadt', 'Outdoor'],
+            sportarts: ['Gruppensport', 'Ballsport', 'Einzelsport', 'Ausdauer', 'Kraft'],
+            niveaus: ['Beginner', 'Erfahren', 'Profi'],
             tageszeitens: ['Morgen (8-12)', 'Mittag (12-14)', 'Nachmittag (14-18)', 'Abend (18-22)'],
-            kostens: ['Freie Plätze']
+            kostens: ['Gratis', 'mit Gebühren'],
+            status: ['Freie Plätze', 'Warteliste']
         };
-        let activeFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
-        let tempFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [] };
+        let activeFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [], status: [] };
+        let tempFilters = { orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [], status: [] };
         let searchQuery = '';
         const kurse = [
-            { tag: 'heute', titel: 'Yoga Flow', ort: 'Halle 2', sportart: 'Yoga', niveau: 'Alle Levels', tageszeit: 'Nachmittag (14-18)', kosten: 'kostenlos', elementId: 'yoga-flow-heute' },
-            { tag: 'heute', titel: 'Pilates', ort: 'Studio 1', sportart: 'Pilates', niveau: 'Einsteiger', tageszeit: 'Nachmittag (14-18)', kosten: 'gebührenpflichtig', elementId: 'pilates-heute' },
-            { tag: 'morgen', titel: 'HIIT', ort: 'Outdoor Gym', sportart: 'HIIT', niveau: 'Alle Levels', tageszeit: 'Morgen (8-12)', kosten: 'kostenlos', elementId: 'hiit-morgen' },
-            { tag: 'morgen', titel: 'Bouldern', ort: 'Boulderhalle', sportart: 'Bouldern', niveau: 'Fortgeschrittene', tageszeit: 'Abend (18-22)', kosten: 'gebührenpflichtig', elementId: 'bouldern-morgen' }
+            // Heute (Mittwoch)
+            { tag: 'heute', titel: 'Yoga Flow', ort: 'Halle 2', sportart: 'Gruppensport', niveau: 'Beginner', tageszeit: 'Nachmittag (14-18)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'yoga-flow-heute' },
+            { tag: 'heute', titel: 'Pilates', ort: 'Studio 1', sportart: 'Kraft', niveau: 'Beginner', tageszeit: 'Nachmittag (14-18)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'pilates-heute' },
+            { tag: 'heute', titel: 'Bachata', ort: 'Tanzsaal', sportart: 'Gruppensport', niveau: 'Beginner', tageszeit: 'Abend (18-22)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'bachata-heute' },
+            { tag: 'heute', titel: 'Fussball', ort: 'Sportplatz', sportart: 'Ballsport', niveau: 'Erfahren', tageszeit: 'Abend (18-22)', kosten: 'Gratis', status: 'Warteliste', elementId: 'fussball-heute' },
+            { tag: 'heute', titel: 'Boxen', ort: 'Boxraum', sportart: 'Kraft', niveau: 'Erfahren', tageszeit: 'Abend (18-22)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'boxen-heute' },
+            
+            // Morgen (Donnerstag)
+            { tag: 'morgen', titel: 'HIIT', ort: 'Outdoor Gym', sportart: 'Ausdauer', niveau: 'Erfahren', tageszeit: 'Morgen (8-12)', kosten: 'Gratis', status: 'Freie Plätze', elementId: 'hiit-morgen' },
+            { tag: 'morgen', titel: 'Bouldern', ort: 'Boulderhalle', sportart: 'Einzelsport', niveau: 'Beginner', tageszeit: 'Abend (18-22)', kosten: 'mit Gebühren', status: 'Warteliste', elementId: 'bouldern-morgen' },
+            { tag: 'morgen', titel: 'Rudern', ort: 'Bootshaus', sportart: 'Ausdauer', niveau: 'Profi', tageszeit: 'Morgen (8-12)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'rudern-morgen' },
+            { tag: 'morgen', titel: 'Tischtennis', ort: 'Halle 3', sportart: 'Ballsport', niveau: 'Erfahren', tageszeit: 'Nachmittag (14-18)', kosten: 'Gratis', status: 'Freie Plätze', elementId: 'tischtennis-morgen' },
+            { tag: 'morgen', titel: 'Beachvolleyball', ort: 'Beachfeld', sportart: 'Ballsport', niveau: 'Profi', tageszeit: 'Nachmittag (14-18)', kosten: 'Gratis', status: 'Freie Plätze', elementId: 'beachvolleyball-morgen' },
+            { tag: 'morgen', titel: 'Badminton', ort: 'Halle 3', sportart: 'Ballsport', niveau: 'Erfahren', tageszeit: 'Nachmittag (14-18)', kosten: 'mit Gebühren', status: 'Freie Plätze', elementId: 'badminton-morgen' }
         ];
         function renderFilterGroup(id, arr) {
             const el = document.getElementById('filter-' + id);
@@ -645,7 +811,7 @@
             if (!modal.classList.contains('active')) {
                 tempFilters = JSON.parse(JSON.stringify(activeFilters));
                 // Update button states
-                ['orts','sportarts','niveaus','tageszeitens','kostens'].forEach(group => {
+                ['orts','sportarts','niveaus','tageszeitens','kostens','status'].forEach(group => {
                     const btns = document.querySelectorAll(`[data-group="${group}"]`);
                     btns.forEach(btn => btn.classList.remove('selected'));
                     tempFilters[group].forEach(value => {
@@ -675,13 +841,9 @@
                 if (activeFilters.sportarts.length && !activeFilters.sportarts.includes(kurs.sportart)) visible = false;
                 if (activeFilters.niveaus.length && !activeFilters.niveaus.includes(kurs.niveau)) visible = false;
                 if (activeFilters.tageszeitens.length && !activeFilters.tageszeitens.includes(kurs.tageszeit)) visible = false;
-                // Filter für freie Plätze
-                if (activeFilters.kostens.includes('Freie Plätze')) {
-                    // Prüfe, ob Kurs freie Plätze hat (Status nicht Warteliste und freie Plätze > 0)
-                    const status = el.querySelector('.hsg-course-status');
-                    if (status && status.classList.contains('hsg-status-warteliste')) visible = false;
-                    else if (status && status.textContent.match(/\(0\//)) visible = false;
-                }
+                if (activeFilters.kostens.length && !activeFilters.kostens.includes(kurs.kosten)) visible = false;
+                if (activeFilters.status.length && !activeFilters.status.includes(kurs.status)) visible = false;
+                
                 el.style.display = visible ? '' : 'none';
             });
         }
@@ -690,6 +852,7 @@
         renderFilterGroup('niveaus', filterData.niveaus);
         renderFilterGroup('tageszeitens', filterData.tageszeitens);
         renderFilterGroup('kostens', filterData.kostens);
+        renderFilterGroup('status', filterData.status);
     </script>
 </body>
 </html> 
