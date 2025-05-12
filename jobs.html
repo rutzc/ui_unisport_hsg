@@ -190,7 +190,7 @@
 
     <!-- Info-Modal für "Mehr erfahren" -->
     <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative max-h-[90vh] overflow-y-auto">
             <button id="closeInfoModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -245,16 +245,19 @@
             
             openModalBtn.addEventListener('click', () => {
                 modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
             });
             
             closeModal.addEventListener('click', () => {
                 modal.classList.add('hidden');
+                document.body.style.overflow = '';
             });
             
             // Close modal when clicking outside
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.add('hidden');
+                    document.body.style.overflow = '';
                 }
             });
             
@@ -264,6 +267,7 @@
                 e.preventDefault();
                 alert('Vielen Dank für deine Bewerbung! Wir werden uns in Kürze bei dir melden.');
                 modal.classList.add('hidden');
+                document.body.style.overflow = '';
             });
 
             // Info-Modal functionality
@@ -273,16 +277,19 @@
             
             openInfoModalBtn.addEventListener('click', () => {
                 infoModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
             });
             
             closeInfoModal.addEventListener('click', () => {
                 infoModal.classList.add('hidden');
+                document.body.style.overflow = '';
             });
             
             // Close info modal when clicking outside
             infoModal.addEventListener('click', (e) => {
                 if (e.target === infoModal) {
                     infoModal.classList.add('hidden');
+                    document.body.style.overflow = '';
                 }
             });
         });
