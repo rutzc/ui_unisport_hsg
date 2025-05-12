@@ -539,7 +539,27 @@
         
         // Apply all active filters
         if (activeFilters.tags.length) {
-            filtered = filtered.filter(c => activeFilters.tags.some(tag => c.meta && c.meta.includes(tag)));
+            filtered = filtered.filter(c => {
+                if (!c.meta) return false;
+                // Extract the day abbreviation from meta info (e.g., "MO" from "MO 18:00 - 19:30")
+                const dayMatch = c.meta.match(/^([A-Z]{2})/);
+                if (!dayMatch) return false;
+                
+                const courseDayAbbr = dayMatch[1];
+                // Map course day abbreviations to filter day abbreviations
+                const dayMapping = {
+                    'MO': 'Mo',
+                    'DI': 'Di',
+                    'MI': 'Mi',
+                    'DO': 'Do',
+                    'FR': 'Fr',
+                    'SA': 'Sa',
+                    'SO': 'So'
+                };
+                
+                // Check if any of the selected day filters match this course's day
+                return activeFilters.tags.some(tag => tag === dayMapping[courseDayAbbr]);
+            });
         }
         if (activeFilters.orts.length) {
             filtered = filtered.filter(c => activeFilters.orts.includes(c.ort));
