@@ -545,9 +545,6 @@
                         status: 'confirmed'
                     };
                     
-                    // Bestehende Anmeldungen aus localStorage holen oder neues Array erstellen
-                    let anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
-                    
                     // Prüfen, ob der Kurs bereits gebucht ist
                     const existingIndex = anmeldungen.findIndex(a => a.title === selectedCourse.title);
                     if (existingIndex >= 0) {
