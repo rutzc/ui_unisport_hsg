@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs | Unisport St.Gallen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="header.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hsg-green': '#009B4C',
+                        'hsg-gray': '#222222',
+                        'hsg-light': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'theinhardt': ['Theinhardt', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => window.header.renderHeader());
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Theinhardt';
+            src: url('https://www.unisg.ch/-/media/93b40b33e7394d96a0e3a8e4e9d241b6.woff2') format('woff2');
+            font-weight: normal;
+        }
+        .bg-hsg-green { background: #014421 !important; }
+        button, .hsg-btn {
+            transition: box-shadow 0.18s, background 0.18s, color 0.18s, transform 0.18s;
+        }
+        button:hover, .hsg-btn:hover {
+            box-shadow: 0 2px 8px 0 rgba(1,68,33,0.10);
+            filter: brightness(1.07);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .job-card {
+            transition: all 0.3s ease;
+        }
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(1,68,33,0.15);
+        }
+    </style>
+</head>
+<body class="bg-white font-theinhardt">
+    <main class="max-w-xl mx-auto px-4 py-6">
+        <!-- Hauptüberschrift -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-hsg-gray mb-2">Jobs beim Unisport St.Gallen</h1>
+            <p class="text-gray-600">Werde Teil unseres Teams und gestalte das Sportprogramm an der HSG aktiv mit!</p>
+        </div>
+
+        <!-- Einführungstext -->
+        <div class="mb-8 bg-hsg-light p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-hsg-gray mb-3">Warum beim Unisport arbeiten?</h2>
+            <p class="mb-4">Der Unisport St.Gallen bietet dir die Möglichkeit, deine Leidenschaft für Sport mit anderen zu teilen und gleichzeitig wertvolle Berufserfahrung zu sammeln. Bei uns erwartet dich:</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Flexible Arbeitszeiten, die sich gut mit deinem Studium vereinbaren lassen</li>
+                <li>Ein motiviertes und dynamisches Team</li>
+                <li>Faire Vergütung und Weiterbildungsmöglichkeiten</li>
+                <li>Die Chance, deine eigenen Ideen einzubringen und umzusetzen</li>
+                <li>Kostenlose Teilnahme an ausgewählten Unisport-Kursen</li>
+            </ul>
+        </div>
+
+        <!-- Aktuelle Stellenangebote -->
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold text-hsg-gray mb-5">Aktuelle Stellenangebote</h2>
+            
+            <!-- Trainingsleiter Stelle -->
+            <div class="job-card bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xl font-bold text-hsg-gray">Trainingsleiter:in Yoga</h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Neu</span>
+                </div>
+                <div class="mb-4">
+                    <div class="flex items-center text-gray-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-hsg-green" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                        </svg>
+                        <span>5-10 Stunden pro Woche</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-hsg-green" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Campus St.Gallen</span>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h4 class="font-semibold text-hsg-gray mb-2">Aufgaben:</h4>
+                    <ul class="list-disc pl-5 space-y-1 mb-4">
+                        <li>Planung und Durchführung von Yoga-Kursen für Studierende und Mitarbeitende</li>
+                        <li>Betreuung und Anleitung der Kursteilnehmer:innen</li>
+                        <li>Sicherstellung einer hohen Kursqualität und eines sicheren Trainingsumfelds</li>
+                    </ul>
+                    
+                    <h4 class="font-semibold text-hsg-gray mb-2">Anforderungen:</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Abgeschlossene oder laufende Yoga-Ausbildung (mind. 200h)</li>
+                        <li>Erste Erfahrung im Unterrichten von Gruppen</li>
+                        <li>Zuverlässigkeit und Verantwortungsbewusstsein</li>
+                        <li>Begeisterung für Sport und die Arbeit mit Menschen</li>
+                    </ul>
+                </div>
+                <div class="flex justify-end">
+                    <button id="openModal" class="bg-hsg-green text-white font-medium px-5 py-2 rounded hover:bg-green-700 transition">Jetzt bewerben</button>
+                </div>
+            </div>
+            
+            <!-- Weitere Stellenangebote könnten hier folgen -->
+            <div class="job-card bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xl font-bold text-hsg-gray">Studentische Aushilfe für Sportevents</h3>
+                </div>
+                <div class="mb-4">
+                    <div class="flex items-center text-gray-600 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-hsg-green" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Flexibel nach Bedarf</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-hsg-green" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Campus St.Gallen</span>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <p class="text-gray-600 mb-4">Wir suchen regelmässig Unterstützung bei der Organisation und Durchführung unserer Sportveranstaltungen. Interesse? Kontaktiere uns für weitere Informationen.</p>
+                </div>
+                <div class="flex justify-end">
+                    <button id="openInfoModal" class="bg-hsg-green text-white font-medium px-5 py-2 rounded hover:bg-green-700 transition">Mehr erfahren</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Initiativbewerbung -->
+        <div class="bg-hsg-light p-6 rounded-lg mb-8">
+            <h2 class="text-xl font-semibold text-hsg-gray mb-3">Initiativbewerbung</h2>
+            <p class="mb-4">Du findest keine passende Stelle, möchtest aber trotzdem Teil des Unisport-Teams werden? Wir freuen uns über deine Initiativbewerbung!</p>
+            <div class="flex justify-end">
+                <a href="mailto:unisport@unisg.ch" class="inline-block bg-hsg-green text-white font-medium px-5 py-2 rounded hover:bg-green-700 transition">Kontakt aufnehmen</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bewerbungs-Modal -->
+    <div id="bewerbungsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+            <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-xl font-bold text-hsg-gray mb-4">Bewerbung als Trainingsleiter:in Yoga</h3>
+            <form>
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+                    <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                </div>
+                <div class="mb-4">
+                    <label for="telefon" class="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
+                    <input type="tel" id="telefon" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hsg-green">
+                </div>
+                <div class="mb-4">
+                    <label for="nachricht" class="block text-sm font-medium text-gray-700 mb-1">Nachricht</label>
+                    <textarea id="nachricht" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-hsg-green"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lebenslauf hochladen</label>
+                    <input type="file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-hsg-green file:text-white hover:file:bg-green-700">
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-hsg-green text-white font-medium px-5 py-2 rounded hover:bg-green-700 transition w-36 text-center">Bewerbung absenden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Info-Modal für "Mehr erfahren" -->
+    <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+            <button id="closeInfoModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-xl font-bold text-hsg-gray mb-4">Studentische Aushilfe für Sportevents</h3>
+            <div class="space-y-4">
+                <p class="text-gray-600">Wir suchen regelmässig motivierte Studierende, die uns bei der Durchführung verschiedener Sportveranstaltungen unterstützen.</p>
+                
+                <div>
+                    <h4 class="font-semibold text-hsg-gray mb-2">Deine Aufgaben:</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Unterstützung bei der Organisation und Durchführung von Sportevents</li>
+                        <li>Betreuung von Teilnehmenden und Gästen</li>
+                        <li>Auf- und Abbau von Equipment</li>
+                        <li>Mithilfe bei der Dokumentation von Veranstaltungen</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-hsg-gray mb-2">Was wir bieten:</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Flexible Arbeitszeiten nach Vereinbarung</li>
+                        <li>Faire Vergütung (CHF 25-30/Stunde)</li>
+                        <li>Einblicke in die Organisation von Sportveranstaltungen</li>
+                        <li>Ein dynamisches und motiviertes Team</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-hsg-gray mb-2">Anforderungen:</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Immatrikulation an der HSG oder einer anderen Hochschule</li>
+                        <li>Zuverlässigkeit und Teamfähigkeit</li>
+                        <li>Interesse am Sport</li>
+                        <li>Flexibilität (vor allem abends und am Wochenende)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <a href="mailto:unisport@unisg.ch?subject=Bewerbung%20als%20Aushilfe%20für%20Sportevents" class="bg-hsg-green text-white font-medium px-5 py-2 rounded hover:bg-green-700 transition w-36 text-center">Bewerben</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bewerbungs-Modal functionality
+            const openModalBtn = document.getElementById('openModal');
+            const modal = document.getElementById('bewerbungsModal');
+            const closeModal = document.getElementById('closeModal');
+            
+            openModalBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+            
+            closeModal.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Form submission (prevent default for demo)
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Vielen Dank für deine Bewerbung! Wir werden uns in Kürze bei dir melden.');
+                modal.classList.add('hidden');
+            });
+
+            // Info-Modal functionality
+            const openInfoModalBtn = document.getElementById('openInfoModal');
+            const infoModal = document.getElementById('infoModal');
+            const closeInfoModal = document.getElementById('closeInfoModal');
+            
+            openInfoModalBtn.addEventListener('click', () => {
+                infoModal.classList.remove('hidden');
+            });
+            
+            closeInfoModal.addEventListener('click', () => {
+                infoModal.classList.add('hidden');
+            });
+            
+            // Close info modal when clicking outside
+            infoModal.addEventListener('click', (e) => {
+                if (e.target === infoModal) {
+                    infoModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

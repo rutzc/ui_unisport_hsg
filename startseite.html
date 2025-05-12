@@ -37,7 +37,7 @@
                 if (pic) pic.src = 'img/profile-photo.jpeg';
                 if (name) name.textContent = 'Schnellzugriff';
             }
-            // Begrüßung Name und Datum
+            // Begrüssung Name und Datum
             document.getElementById('welcomeName').textContent = 'Hallo ' + (window.header.getUser && window.header.getUser()?.name || 'Claudia');
             // Datum
             const d = new Date();
@@ -127,7 +127,7 @@
 </head>
 <body class="bg-white font-theinhardt">
     <main class="max-w-xl mx-auto px-4 py-6">
-        <!-- Begrüßung und Profil -->
+        <!-- Begrüssung und Profil -->
         <div class="flex items-center mb-4 sm:mb-6">
             <img id="profilePic" src="https://placehold.co/100x100" alt="Profilbild" class="rounded-full w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-hsg-green mr-3 sm:mr-4">
             <div class="flex-1">
@@ -188,6 +188,10 @@
                     <span class="text-sm sm:text-base font-semibold text-white leading-tight mb-1">FAQs</span>
                     <span class="text-xs text-gray-100">Antworten zu häufigen Fragen</span>
                 </a>
+                <a href="jobs.html" class="dashboard-card">
+                    <span class="text-sm sm:text-base font-semibold text-white leading-tight mb-1">Jobs</span>
+                    <span class="text-xs text-gray-100">Werde Teil von unserem Team</span>
+                </a>
             </div>
         </section>
     </main>
@@ -240,7 +244,7 @@
                 }
             });
             
-            // Begrüßung Name und Datum
+            // Begrüssung Name und Datum
             // ... existing code ...
         });
     </script>

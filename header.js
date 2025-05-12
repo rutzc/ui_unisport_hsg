@@ -3,7 +3,8 @@ window.header = (function() {
         { href: 'startseite.html', label: 'Startseite' },
         { href: 'heute-morgen.html', label: 'Heute & Morgen' },
         { href: 'alle-kurse.html', label: 'Alle Kurse' },
-        { href: 'faqs.html', label: 'FAQs' }
+        { href: 'faqs.html', label: 'FAQs' },
+        { href: 'jobs.html', label: 'Jobs' }
     ];
     const PROFILE_ICON = `<span id='header-profile-pic-wrapper'></span>`;
 
@@ -82,7 +83,7 @@ window.header = (function() {
             document.getElementById('mobile-menu').classList.add('hidden');
             document.body.style.overflow = '';
         };
-        // Schließen bei Klick auf den dunklen Hintergrund
+        // Schliessen bei Klick auf den dunklen Hintergrund
         document.getElementById('mobile-menu').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.add('hidden');
@@ -124,7 +125,7 @@ window.header = (function() {
                     window.header.setLoggedOut();
                     window.location.href = 'login.html';
                 };
-                // Schließen bei Klick außerhalb
+                // Schliessen bei Klick ausserhalb
                 document.addEventListener('click', function handler(ev) {
                     if (!dropdown.contains(ev.target) && ev.target !== btn) {
                         dropdown.remove();
