@@ -142,6 +142,14 @@
         .hsg-btn:hover {
             background: #088232;
         }
+        .hsg-btn.booked {
+            background: #e5e5e5;
+            color: #666;
+            cursor: default;
+        }
+        .hsg-btn.booked:hover {
+            background: #e5e5e5;
+        }
         .hsg-searchbar {
             margin-bottom: 1.5rem;
             position: relative;
@@ -325,6 +333,14 @@
                 flex: 1;
             }
         }
+        
+        /* Styling für Accordion Toggle Icons */
+        .hsg-accordion-header .toggle-icon {
+            background-color: rgba(0, 155, 76, 0.2);
+        }
+        .hsg-accordion-header .toggle-icon svg {
+            stroke: #009B4C;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
@@ -411,6 +427,36 @@
     let tempFilters = { tags: [], orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [], status: [] };
     let searchQuery = '';
     let openCourse = null;
+    
+    // Teilnehmerdaten für Kurse
+    const courseEnrollments = {
+        'Aikido': ['Santiago Kuster', 'Chiara Mercurio', 'Thomas Weber'],
+        'Bachata': ['Laura Mayer', 'Samuel Brunner'],
+        'Zumba': ['Janis Locher', 'Chiara Mercurio', 'Laura Mayer', 'Thomas Weber'],
+        'HIIT': ['Marco Reus', 'Sarah Müller', 'David Chen'],
+        'Badminton': ['Jan Suter', 'Leonie Becker'],
+        'Ballet': ['Emma Schmidt', 'Sophia Keller', 'Nina Huber'],
+        'Tennis': ['Michael Weber', 'Andreas Schmid'],
+        'Schwimmen': ['Lisa Maier', 'Felix Berger', 'Tina Schulz'],
+        'Functional Training': ['Tim Meier', 'Julia Fischer', 'Daniel Wagner', 'Lena Hoffmann'],
+        'Klettern': ['Markus Huber', 'Carolin Bauer'],
+        'Barre Workout': ['Sophia Keller', 'Nina Huber'],
+        'Pilates': ['Emma Schmidt', 'Lara Schneider', 'Sophia Keller'],
+        'Fussball': ['Marco Reus', 'Thomas Müller', 'Leroy Sané', 'Joshua Kimmich'],
+        'Stretching': ['Lara Schneider', 'Nina Huber', 'Emma Schmidt'],
+        'Basketball': ['Daniel Wagner', 'Tim Meier', 'Jan Suter', 'David Chen'],
+        'Beachvolleyball': ['Laura Mayer', 'Samuel Brunner', 'Lisa Maier'],
+        'Rudern': ['Felix Berger', 'Andreas Schmid', 'Michael Weber'],
+        'Tischtennis': ['Jan Suter', 'David Chen'],
+        'Bodyattack': ['Sarah Müller', 'Julia Fischer', 'Lena Hoffmann'],
+        'Crossfit': ['Tim Meier', 'Markus Huber'],
+        'Power Yoga': ['Lara Schneider', 'Emma Schmidt', 'Nina Huber'],
+        'Bouldern': ['Carolin Bauer', 'Markus Huber'],
+        'Boxen': ['Daniel Wagner', 'Tim Meier'],
+        'Volleyball': ['Laura Mayer', 'Samuel Brunner', 'Lisa Maier', 'Felix Berger'],
+        'Yoga Flow': ['Lara Schneider', 'Emma Schmidt', 'Nina Huber', 'Sophia Keller'],
+        'Laufen': ['Marco Reus', 'Sarah Müller', 'Julia Fischer', 'Lena Hoffmann']
+    };
     
     document.addEventListener('DOMContentLoaded', () => {
         renderCourseList();
@@ -597,20 +643,24 @@
                                     <div class="hsg-course-info-value">Unisport</div>
                                 </div>
                             </div>
-                            </div>
+
                             <!-- Booking Button and Share Toggle (always visible) -->
                             <div class="hsg-book-section">
-                                <button class='hsg-btn hsg-btn-book' onclick="openBookingModal('${course.title}','${course.meta}','${course.details}',false);event.stopPropagation();">Buchen</button>
+                                <button class='hsg-btn hsg-btn-book ${isAlreadyBooked(course.title) ? "booked" : ""}' onclick="${isAlreadyBooked(course.title) ? 'event.stopPropagation()' : `openBookingModal('${course.title}','${course.meta}','${course.details}',false);event.stopPropagation();`}">${isAlreadyBooked(course.title) ? 'Gebucht' : 'Buchen'}</button>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star w-10 h-10 border-2 border-hsg-green rounded-lg p-1 text-gray-400" onclick="toggleFavorite('${course.title}');event.stopPropagation();" id="favorite-${course.title}">
                                     <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            
+                            </div>
                             <!-- Accordion Sections -->
                             <div class="hsg-accordion" data-accordion="info-${course.title}">
                                 <div class="hsg-accordion-header" onclick="toggleAccordion('info-${course.title}')">
                                     <span>Allgemeine Informationen</span>
-                                    <span class="hsg-accordion-icon">▼</span>
+                                    <div class="toggle-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="hsg-accordion-content" id="accordion-info-${course.title}">
                                     <p>Dieser Kurs wird von Unisport St. Gallen angeboten. Das Niveau ist ${course.niveau}.</p>
@@ -621,7 +671,11 @@
                             <div class="hsg-accordion" data-accordion="contact-${course.title}">
                                 <div class="hsg-accordion-header" onclick="toggleAccordion('contact-${course.title}')">
                                     <span>Kontakt</span>
-                                    <span class="hsg-accordion-icon">▼</span>
+                                    <div class="toggle-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="hsg-accordion-content" id="accordion-contact-${course.title}">
                                     <p><strong>Kursleitung:</strong> Max Mustermann</p>
@@ -633,7 +687,11 @@
                             <div class="hsg-accordion" data-accordion="faq-${course.title}">
                                 <div class="hsg-accordion-header" onclick="toggleAccordion('faq-${course.title}')">
                                     <span>FAQs</span>
-                                    <span class="hsg-accordion-icon">▼</span>
+                                    <div class="toggle-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <div class="hsg-accordion-content" id="accordion-faq-${course.title}">
                                     <p><strong>Kann ich auch als Anfänger teilnehmen?</strong><br>
@@ -641,19 +699,6 @@
                                     
                                     <p><strong>Was passiert bei Krankheit?</strong><br>
                                     Bei Krankheit können Sie sich bis 24 Stunden vor Kursbeginn abmelden.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="hsg-accordion" data-accordion="participants-${course.title}">
-                                <div class="hsg-accordion-header" onclick="toggleAccordion('participants-${course.title}')">
-                                    <span>Teilnehmende</span>
-                                    <span class="hsg-accordion-icon">▼</span>
-                                </div>
-                                <div class="hsg-accordion-content" id="accordion-participants-${course.title}">
-                                    <div id="participants-list-${course.title}">
-                                        <!-- Wird dynamisch befüllt -->
-                                        <p class="text-sm text-gray-500">Die Teilnehmerliste wird geladen...</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -665,13 +710,6 @@
                     setTimeout(() => {
                         const participantsList = document.getElementById(`participants-list-${course.title}`);
                         if (participantsList) {
-                            const courseEnrollments = {
-                                'Aikido': ['Santiago Kuster', 'Chiara Mercurio', 'Thomas Weber'],
-                                'Bachata': ['Laura Mayer', 'Samuel Brunner'],
-                                'Zumba': ['Janis Locher', 'Chiara Mercurio', 'Laura Mayer', 'Thomas Weber'],
-                                // ... andere Kurse
-                            };
-                            
                             const enrolledPeople = courseEnrollments[course.title] || [];
                             if (enrolledPeople.length > 0) {
                                 participantsList.innerHTML = `
@@ -696,9 +734,21 @@
     renderFilterGroup('tageszeitens', 'Tageszeit', filterData.tageszeitens);
     renderFilterGroup('kostens', 'Kosten', filterData.kostens);
     renderFilterGroup('status', 'Status', filterData.status);
+    
+    // Check if a course is already booked
+    function isAlreadyBooked(courseTitle) {
+        const anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
+        return anmeldungen.some(anmeldung => anmeldung.title === courseTitle);
+    }
+    
     renderCourseList();
     // --- Modal für Buchung (wie heute-morgen) ---
     function openBookingModal(title, time, status, isWaitlist) {
+        // Check if already booked
+        if (isAlreadyBooked(title)) {
+            return; // Don't open modal if already booked
+        }
+        
         if (!document.getElementById('bookingModal')) {
             const modal = document.createElement('div');
             modal.id = 'bookingModal';
@@ -774,6 +824,9 @@
                 
                 // Anmeldungen im localStorage speichern
                 localStorage.setItem('anmeldungen', JSON.stringify(anmeldungen));
+                
+                // Re-render the course list to update the button
+                renderCourseList();
             };
         } else {
             document.getElementById('modalTitle').textContent = title;
@@ -796,6 +849,29 @@
                 // Alle sichtbaren Namen als Liste anzeigen
                 document.getElementById('enrolledPeopleList').innerHTML = visibleNames.map(name => `<li>• ${name}</li>`).join('');
             }
+        }
+    }
+    
+    // Funktion zum Schließen des Modals
+    function closeModal() {
+        const modal = document.getElementById('bookingModal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+    }
+    
+    // Funktion zum Umschalten der Accordion-Sektionen
+    function toggleAccordion(id) {
+        const content = document.getElementById('accordion-' + id);
+        const header = document.querySelector(`[data-accordion="${id}"] .hsg-accordion-header`);
+        const icon = header.querySelector('.toggle-icon');
+        
+        if (content.classList.contains('active')) {
+            content.classList.remove('active');
+            icon.classList.remove('active');
+        } else {
+            content.classList.add('active');
+            icon.classList.add('active');
         }
     }
     </script>

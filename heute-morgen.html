@@ -125,6 +125,14 @@
         .hsg-btn.warteliste:hover {
             background: #fef3c7;
         }
+        .hsg-btn.booked {
+            background: #e5e5e5;
+            color: #666;
+            cursor: default;
+        }
+        .hsg-btn.booked:hover {
+            background: #e5e5e5;
+        }
         .hsg-info-icon {
             position: relative;
             display: inline-block;
@@ -639,6 +647,29 @@
             icon.classList.toggle('active');
         }
 
+        // Check if a course is already booked
+        function isAlreadyBooked(courseTitle) {
+            const anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
+            return anmeldungen.some(anmeldung => anmeldung.title === courseTitle);
+        }
+
+        // Update all booking buttons based on booking status
+        function updateBookingButtons() {
+            const courses = document.querySelectorAll('.hsg-course-box');
+            courses.forEach(course => {
+                const title = course.querySelector('.hsg-course-title').textContent.trim().split('\n')[0];
+                const button = course.querySelector('.hsg-btn');
+                
+                if (isAlreadyBooked(title)) {
+                    button.textContent = 'Gebucht';
+                    button.classList.add('booked');
+                    button.onclick = function(e) {
+                        e.stopPropagation();
+                    };
+                }
+            });
+        }
+
         // Info-Tooltip Funktionalität
         function closeTooltip(event) {
             event.stopPropagation();
@@ -656,10 +687,18 @@
                     tooltip.classList.toggle('active');
                 });
             });
+            
+            // Update booking buttons when page loads
+            updateBookingButtons();
         });
 
         // Modal-Logik
         function openBookingModal(title, time, status, isWaitlist) {
+            // Check if already booked
+            if (isAlreadyBooked(title)) {
+                return; // Don't open modal if already booked
+            }
+            
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalMeta').innerHTML = `<span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Status:</span> ${status}`;
             document.getElementById('modalText').textContent = isWaitlist ? 'Möchtest du dich auf die Warteliste setzen lassen?' : 'Möchtest du diesen Kurs verbindlich buchen?';
@@ -747,6 +786,17 @@
                 
                 // Anmeldungen im localStorage speichern
                 localStorage.setItem('anmeldungen', JSON.stringify(anmeldungen));
+                
+                // Update the button to show "Gebucht"
+                const courseElement = document.querySelector(`[id^="${title.toLowerCase().replace(/\s+/g, '-')}"]`);
+                if (courseElement) {
+                    const button = courseElement.querySelector('.hsg-btn');
+                    button.textContent = 'Gebucht';
+                    button.classList.add('booked');
+                    button.onclick = function(e) {
+                        e.stopPropagation();
+                    };
+                }
             };
         }
         
