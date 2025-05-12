@@ -356,7 +356,10 @@
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Ort</div><div id="filter-orts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Sportart</div><div id="filter-sportarts"></div></div>
             <div class="hsg-filter-group"><div class="text-xs font-semibold text-hsg-gray mb-1">Status</div><div id="filter-status"></div></div>
-            <button onclick="applyFilters()" class="w-full bg-hsg-green text-white font-semibold rounded-lg px-4 py-2 mt-4 hover:bg-green-700 transition">Bestätigen</button>
+            <div class="flex gap-3 mt-4">
+                <button onclick="resetFilters()" class="flex-1 border border-gray-300 text-gray-700 font-semibold rounded-lg px-4 py-2 hover:bg-gray-100 transition">Filter zurücksetzen</button>
+                <button onclick="applyFilters()" class="flex-1 bg-hsg-green text-white font-semibold rounded-lg px-4 py-2 hover:bg-green-700 transition">Bestätigen</button>
+            </div>
         </div>
     </div>
     <main class="max-w-xl mx-auto px-4 py-6">
@@ -502,6 +505,14 @@
         activeFilters = JSON.parse(JSON.stringify(tempFilters));
         renderCourseList();
         toggleFilterModal();
+    }
+    function resetFilters() {
+        // Clear all temporary filters
+        tempFilters = { tags: [], orts: [], sportarts: [], niveaus: [], tageszeitens: [], kostens: [], status: [] };
+        
+        // Remove selected class from all filter buttons
+        const filterButtons = document.querySelectorAll('.hsg-filter-btn-round');
+        filterButtons.forEach(btn => btn.classList.remove('selected'));
     }
     // --- Suche ---
     document.getElementById('searchInput').addEventListener('input', function() {
