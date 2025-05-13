@@ -695,7 +695,38 @@
             
             // Update booking buttons when page loads
             updateBookingButtons();
+            
+            // Kurse nach Uhrzeit sortieren
+            sortCoursesByTime('heute');
+            sortCoursesByTime('morgen');
         });
+
+        // Funktion zum Sortieren der Kurse nach Uhrzeit
+        function sortCoursesByTime(day) {
+            const container = document.getElementById('content-' + day);
+            const courses = Array.from(container.querySelectorAll('.hsg-course-box'));
+            
+            // Sortiere Kurse nach Uhrzeit
+            courses.sort((a, b) => {
+                const timeA = a.querySelector('.hsg-course-meta').textContent.split('–')[0].trim();
+                const timeB = b.querySelector('.hsg-course-meta').textContent.split('–')[0].trim();
+                
+                // Konvertiere Uhrzeiten in Minuten seit Mitternacht für einfachen Vergleich
+                const [hoursA, minutesA] = timeA.split(':').map(Number);
+                const [hoursB, minutesB] = timeB.split(':').map(Number);
+                
+                const minutesA_total = hoursA * 60 + minutesA;
+                const minutesB_total = hoursB * 60 + minutesB;
+                
+                return minutesA_total - minutesB_total;
+            });
+            
+            // Entferne alle Kurse aus dem Container
+            courses.forEach(course => container.removeChild(course));
+            
+            // Füge die sortierten Kurse wieder ein
+            courses.forEach(course => container.appendChild(course));
+        }
 
         // Modal-Logik
         function openBookingModal(title, time, status, isWaitlist) {

@@ -667,6 +667,10 @@
                             <!-- Important Course Info Grid (always visible) -->
                             <div class="hsg-course-info-grid">
                                 <div class="hsg-course-info-item">
+                                    <div class="hsg-course-info-label">Tag</div>
+                                    <div class="hsg-course-info-value">${getWeekdayFromMeta(course.meta)}</div>
+                                </div>
+                                <div class="hsg-course-info-item">
                                     <div class="hsg-course-info-label">Zeit</div>
                                     <div class="hsg-course-info-value">${course.meta ? course.meta.replace(/^[A-Z]{2} /, '') : 'N/A'}</div>
                                 </div>
@@ -677,10 +681,6 @@
                                 <div class="hsg-course-info-item">
                                     <div class="hsg-course-info-label">Kosten</div>
                                     <div class="hsg-course-info-value">${course.kosten || 'N/A'}</div>
-                                </div>
-                                <div class="hsg-course-info-item">
-                                    <div class="hsg-course-info-label">Anbieter</div>
-                                    <div class="hsg-course-info-value">Unisport</div>
                                 </div>
                             </div>
 
@@ -775,6 +775,26 @@
     renderFilterGroup('kostens', 'Kosten', filterData.kostens);
     renderFilterGroup('status', 'Status', filterData.status);
     
+    // Funktion zum Umwandeln der Wochentags-Abkürzung in den vollen Namen
+    function getWeekdayFromMeta(meta) {
+        if (!meta) return 'N/A';
+        
+        const dayMatch = meta.match(/^([A-Z]{2})/);
+        if (!dayMatch) return 'N/A';
+        
+        const dayMapping = {
+            'MO': 'Montag',
+            'DI': 'Dienstag',
+            'MI': 'Mittwoch',
+            'DO': 'Donnerstag',
+            'FR': 'Freitag',
+            'SA': 'Samstag',
+            'SO': 'Sonntag'
+        };
+        
+        return dayMapping[dayMatch[1]] || 'N/A';
+    }
+    
     // Check if a course is already booked
     function isAlreadyBooked(courseTitle) {
         const anmeldungen = JSON.parse(localStorage.getItem('anmeldungen') || '[]');
@@ -801,7 +821,7 @@
                             <div id="bookingView">
                                 <p class="text-sm text-gray-600 mb-4" id="modalText">Möchtest du diesen Kurs verbindlich buchen?</p>
                                 <div class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <div id="modalMeta"><span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Ort:</span> ${status}</div>
+                                    <div id="modalMeta"><span class='font-semibold'>Tag:</span> ${getWeekdayFromMeta(time)}<br><span class='font-semibold'>Zeit:</span> ${time ? time.replace(/^[A-Z]{2} /, '') : 'N/A'}<br><span class='font-semibold'>Ort:</span> ${status}</div>
                                 </div>
                                 
                                 <div class="mb-4">
@@ -870,7 +890,7 @@
             };
         } else {
             document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalMeta').innerHTML = `<span class='font-semibold'>Zeit:</span> ${time}<br><span class='font-semibold'>Ort:</span> ${status}`;
+            document.getElementById('modalMeta').innerHTML = `<span class='font-semibold'>Tag:</span> ${getWeekdayFromMeta(time)}<br><span class='font-semibold'>Zeit:</span> ${time ? time.replace(/^[A-Z]{2} /, '') : 'N/A'}<br><span class='font-semibold'>Ort:</span> ${status}`;
             document.getElementById('successView').classList.add('hidden');
             document.getElementById('bookingView').classList.remove('hidden');
             document.getElementById('bookingModal').classList.remove('hidden');
@@ -917,6 +937,6 @@
             icon.classList.add('active');
         }
     }
-    </script>
+</script>
 </body>
 </html>

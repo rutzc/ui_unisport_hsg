@@ -7,6 +7,14 @@ window.header = (function() {
         { href: 'jobs.html', label: 'Jobs' }
     ];
     const PROFILE_ICON = `<span id='header-profile-pic-wrapper'></span>`;
+    const NOTIFICATION_ICON = `
+        <div class="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 rounded-full w-3 h-3"></span>
+        </div>
+    `;
 
     function getUser() {
         try {
@@ -23,6 +31,19 @@ window.header = (function() {
     }
     function isLoggedIn() {
         return !!getUser();
+    }
+
+    function getNotifications() {
+        try {
+            return JSON.parse(localStorage.getItem('notifications')) || [];
+        } catch {
+            return [];
+        }
+    }
+
+    function hasUnreadNotifications() {
+        const notifications = getNotifications();
+        return notifications.some(notification => !notification.read);
     }
 
     function renderHeader() {
@@ -47,8 +68,11 @@ window.header = (function() {
                     <img src="img/hsg-logo.png" alt="HSG Logo" class="h-8 w-auto" style="cursor:pointer">
                 </a>
             </div>
-            <!-- Profil-Icon immer rechts -->
-            <div class="flex-1 flex justify-end">
+            <!-- Profil-Icon und Notification-Icon rechts -->
+            <div class="flex-1 flex justify-end items-center">
+                <button id="notification-btn" class="ml-2 p-2 rounded-full hover:bg-gray-100 focus:outline-none flex items-center justify-center">
+                    ${NOTIFICATION_ICON}
+                </button>
                 <button id="profile-btn" class="ml-2 p-2 rounded-full hover:bg-gray-100 focus:outline-none flex items-center justify-center">
                     ${PROFILE_ICON}
                 </button>
@@ -140,6 +164,19 @@ window.header = (function() {
                 }
             }
         };
+
+        // Notification logic
+        document.getElementById('notification-btn').onclick = function() {
+            if (window.header.isLoggedIn()) {
+                window.location.href = 'notifications.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        };
+
+        // Update notification badge
+        updateNotificationBadge();
+
         // Profilbild im Header setzen
         const wrapper = document.getElementById('header-profile-pic-wrapper');
         if (wrapper) {
@@ -158,6 +195,18 @@ window.header = (function() {
             }
         }
     }
+
+    function updateNotificationBadge() {
+        const badge = document.getElementById('notification-badge');
+        if (badge) {
+            if (hasUnreadNotifications()) {
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+
     function setLoggedIn(user) {
         setUser(user);
     }
@@ -166,11 +215,52 @@ window.header = (function() {
         localStorage.removeItem('profilePic');
         localStorage.removeItem('bookings');
     }
+
+    // Add demo notifications if none exist
+    function addDemoNotifications() {
+        if (!localStorage.getItem('notifications')) {
+            const demoNotifications = [
+                {
+                    id: 1,
+                    title: 'Kursabsage: Yoga Flow',
+                    message: 'Der Yoga Flow Kurs am Montag, 14:15 - 15:45 wurde leider abgesagt. Wir bitten um Verständnis.',
+                    date: new Date().toISOString(),
+                    type: 'cancellation',
+                    read: false
+                },
+                {
+                    id: 2,
+                    title: 'Ortsänderung: HIIT',
+                    message: 'Der HIIT Kurs am Mittwoch findet in Halle 3 statt (statt Fitnessraum).',
+                    date: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+                    type: 'location_change',
+                    read: false
+                }
+            ];
+            localStorage.setItem('notifications', JSON.stringify(demoNotifications));
+        }
+    }
+
+    // Initialize notifications when header is loaded
+    function initNotifications() {
+        addDemoNotifications();
+        updateNotificationBadge();
+    }
+
     return {
         renderHeader,
         setLoggedIn,
         setLoggedOut,
         isLoggedIn,
-        getUser
+        getUser,
+        getNotifications,
+        hasUnreadNotifications,
+        updateNotificationBadge,
+        initNotifications
     };
 })();
+
+// Initialize notifications when the script loads
+document.addEventListener('DOMContentLoaded', function() {
+    window.header.initNotifications();
+});
