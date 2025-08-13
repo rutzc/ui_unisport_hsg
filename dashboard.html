@@ -33,8 +33,9 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         }
         .hsg-box {
-            background: #014421;
-            color: #fff;
+            background: #ffffff;
+            color: #014421;
+            border: 2px solid #014421;
             border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
@@ -113,18 +114,18 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(1, 68, 33, 0.2);
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
         .toggle-icon svg {
             width: 14px;
             height: 14px;
-            stroke: #fff;
+            stroke: #014421;
             stroke-width: 3;
             transition: transform 0.3s ease;
         }
         .toggle-icon.active {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(1, 68, 33, 0.3);
         }
         .toggle-icon.active svg {
             transform: rotate(180deg);
@@ -152,6 +153,27 @@
                 align-items: center;
             }
         }
+        .mini-chart {
+            width: 100%;
+            height: 40px;
+            margin-top: 8px;
+        }
+        .chart-bar {
+            fill: #009B4C;
+            opacity: 0.8;
+        }
+        .chart-line {
+            stroke: #009B4C;
+            stroke-width: 2;
+            fill: none;
+        }
+        .chart-area {
+            fill: url(#greenGradient);
+            opacity: 0.3;
+        }
+        .chart-dot {
+            fill: #009B4C;
+        }
     </style>
 </head>
 <body class="bg-white font-theinhardt">
@@ -173,18 +195,56 @@
                             <span class="absolute text-xs text-green-600 font-medium ml-1">+20%</span>
                         </div>
                         <div class="text-xs sm:text-sm text-gray-500">Stunden</div>
+                        <svg class="mini-chart" viewBox="0 0 60 40">
+                            <defs>
+                                <linearGradient id="greenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#009B4C;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#009B4C;stop-opacity:0.1" />
+                                </linearGradient>
+                            </defs>
+                            <path class="chart-line" d="M5,30 L15,25 L25,20 L35,15 L45,10 L55,5"></path>
+                            <circle class="chart-dot" cx="5" cy="30" r="2"></circle>
+                            <circle class="chart-dot" cx="15" cy="25" r="2"></circle>
+                            <circle class="chart-dot" cx="25" cy="20" r="2"></circle>
+                            <circle class="chart-dot" cx="35" cy="15" r="2"></circle>
+                            <circle class="chart-dot" cx="45" cy="10" r="2"></circle>
+                            <circle class="chart-dot" cx="55" cy="5" r="2"></circle>
+                        </svg>
                     </div>
                     <div class="text-center">
                         <div class="text-xl sm:text-2xl font-semibold text-hsg-gray relative">6
                             <span class="absolute text-xs text-green-600 font-medium ml-1">+15%</span>
                         </div>
                         <div class="text-xs sm:text-sm text-gray-500">Kurse</div>
+                        <svg class="mini-chart" viewBox="0 0 60 40">
+                            <rect class="chart-bar" x="5" y="25" width="8" height="15"></rect>
+                            <rect class="chart-bar" x="15" y="20" width="8" height="20"></rect>
+                            <rect class="chart-bar" x="25" y="15" width="8" height="25"></rect>
+                            <rect class="chart-bar" x="35" y="10" width="8" height="30"></rect>
+                            <rect class="chart-bar" x="45" y="5" width="8" height="35"></rect>
+                            <rect class="chart-bar" x="55" y="8" width="8" height="32"></rect>
+                        </svg>
                     </div>
                     <div class="text-center">
                         <div class="text-xl sm:text-2xl font-semibold text-hsg-gray relative">4
                             <span class="absolute text-xs text-red-600 font-medium ml-1">-10%</span>
                         </div>
                         <div class="text-xs sm:text-sm text-gray-500">Sportarten</div>
+                        <svg class="mini-chart" viewBox="0 0 60 40">
+                            <defs>
+                                <linearGradient id="redGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#dc2626;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#dc2626;stop-opacity:0.1" />
+                                </linearGradient>
+                            </defs>
+                            <path class="chart-line" style="stroke: #dc2626;" d="M5,10 L15,15 L25,20 L35,25 L45,30 L55,35"></path>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="5" cy="10" r="2"></circle>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="15" cy="15" r="2"></circle>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="25" cy="20" r="2"></circle>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="35" cy="25" r="2"></circle>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="45" cy="30" r="2"></circle>
+                            <circle class="chart-dot" style="fill: #dc2626;" cx="55" cy="35" r="2"></circle>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -445,11 +505,11 @@
         list.innerHTML = '';
         vergangeneBuchungen.forEach(kurs => {
             const row = document.createElement('div');
-            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-hsg-gray/20';
             row.innerHTML = `
                 <div class="course-info">
-                    <h4 class='font-medium'>${kurs.title}</h4>
-                    <p class='text-sm text-white/80'>${kurs.time}</p>
+                    <h4 class='font-medium text-hsg-gray'>${kurs.title}</h4>
+                    <p class='text-sm text-hsg-gray/80'>${kurs.time}</p>
                 </div>
             `;
             list.appendChild(row);
@@ -467,17 +527,17 @@
         list.innerHTML = '';
         
         if (anmeldungen.length === 0) {
-            list.innerHTML = '<p class="text-white/80 text-sm py-2">Keine aktuellen Anmeldungen.</p>';
+            list.innerHTML = '<p class="text-hsg-gray/80 text-sm py-2">Keine aktuellen Anmeldungen.</p>';
             return;
         }
         
         anmeldungen.forEach((a, idx) => {
             const row = document.createElement('div');
-            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-hsg-gray/20';
             row.innerHTML = `
                 <div class="course-info">
-                    <h4 class='font-medium'>${a.title}</h4>
-                    <p class='text-sm text-white/80'>${a.time}</p>
+                    <h4 class='font-medium text-hsg-gray'>${a.title}</h4>
+                    <p class='text-sm text-hsg-gray/80'>${a.time}</p>
                 </div>
                 <div class="course-actions">
                     ${a.status === 'confirmed' ? 
@@ -618,18 +678,18 @@
         
         // Wenn keine Favoriten vorhanden sind
         if (combinedFavorites.length === 0) {
-            list.innerHTML = '<p class="text-white/80 text-sm py-2">Keine Favoriten vorhanden.</p>';
+            list.innerHTML = '<p class="text-hsg-gray/80 text-sm py-2">Keine Favoriten vorhanden.</p>';
             return;
         }
         
         // Zeige alle Favoriten an
         combinedFavorites.forEach((f, idx) => {
             const row = document.createElement('div');
-            row.className = 'flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'flex items-center justify-between py-3 border-b border-hsg-gray/20';
             row.innerHTML = `
                 <div>
-                    <h4 class='font-medium'>${f.title}</h4>
-                    <p class='text-sm text-white/80'>${f.time}</p>
+                    <h4 class='font-medium text-hsg-gray'>${f.title}</h4>
+                    <p class='text-sm text-hsg-gray/80'>${f.time}</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hsg-star cursor-pointer" onclick="removeFromFavoriten('${f.title}')">
                     <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
@@ -933,7 +993,7 @@
         container.innerHTML = '';
         
         if (suggestions.length === 0) {
-            container.innerHTML = '<p class="text-white/80 text-sm py-2">Keine Kursvorschläge verfügbar.</p>';
+            container.innerHTML = '<p class="text-hsg-gray/80 text-sm py-2">Keine Kursvorschläge verfügbar.</p>';
             return;
         }
 
@@ -944,12 +1004,12 @@
             const courseTime = courseDetails ? courseDetails.meta : suggestion.time;
             
             const row = document.createElement('div');
-            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-hsg-gray/20';
             row.innerHTML = `
                 <div class="course-info">
-                    <h4 class='font-medium'>${suggestion.title}</h4>
-                    <p class='text-sm text-white/80'>${courseTime}</p>
-                    <p class='text-xs text-white/60'>${suggestion.reason}</p>
+                    <h4 class='font-medium text-hsg-gray'>${suggestion.title}</h4>
+                    <p class='text-sm text-hsg-gray/80'>${courseTime}</p>
+                    <p class='text-xs text-hsg-gray/60'>${suggestion.reason}</p>
                 </div>
                 <div class="course-actions">
                     <button class='hsg-btn' onclick="openAnmeldeModal('${suggestion.title}')">Anmelden</button>
@@ -979,19 +1039,19 @@
         container.innerHTML = '';
         
         if (availableCourses.length === 0) {
-            container.innerHTML = '<p class="text-white/80 text-sm py-2">Keine Kurse mit letzten Plätzen verfügbar.</p>';
+            container.innerHTML = '<p class="text-hsg-gray/80 text-sm py-2">Keine Kurse mit letzten Plätzen verfügbar.</p>';
             return;
         }
         
         // Zeige maximal 2 Kurse an
         availableCourses.slice(0, 2).forEach(course => {
             const row = document.createElement('div');
-            row.className = 'course-row flex items-center justify-between py-3 border-b border-white/20';
+            row.className = 'course-row flex items-center justify-between py-3 border-b border-hsg-gray/20';
             row.innerHTML = `
                 <div class="course-info">
-                    <h4 class="font-medium">${course.title}</h4>
-                    <p class="text-sm text-white/80">${course.time}</p>
-                    <p class="text-xs text-white/60">Noch ${course.freePlaces} Plätze frei</p>
+                    <h4 class="font-medium text-hsg-gray">${course.title}</h4>
+                    <p class="text-sm text-hsg-gray/80">${course.time}</p>
+                    <p class="text-xs text-hsg-gray/60">Noch ${course.freePlaces} Plätze frei</p>
                 </div>
                 <div class="course-actions">
                     <button class="hsg-btn" onclick="openAnmeldeModal('${course.title}')">Anmelden</button>
